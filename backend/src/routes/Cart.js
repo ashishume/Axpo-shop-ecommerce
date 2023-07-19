@@ -14,12 +14,13 @@ router.post("/cart", async (req, res) => {
   }
 });
 
+
 router.get("/cart", async (req, res) => {
   try {
     const { user } = req.query;
     const cartData = await Cart.find({ user }).populate({
-      path: "items.product",    //fetches the whole data from product table 
-      select: "-__v -_id",  //excludes these values while fetching from product table
+      path: "items.product", //fetches the whole data from product table
+      select: "-__v -_id", //excludes these values while fetching from product table
     });
     res.status(200).json(cartData);
   } catch (error) {
