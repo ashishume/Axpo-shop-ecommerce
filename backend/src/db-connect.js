@@ -1,6 +1,9 @@
 const mongoose = require("mongoose");
+const dotenv = require('dotenv'); 
+dotenv.config(); // Load environment variables from .env file
 
-const databaseUrl = "mongodb+srv://ashishume:TvokYVoe3Cn1PV2E@cluster0.dytqsnd.mongodb.net/ecommerce";
+const databaseUrl = process.env.DB_CONNECTION_STR;
+
 
 // Establish the database connection
 mongoose.connect(databaseUrl, {
