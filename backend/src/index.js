@@ -4,6 +4,7 @@ const port = 3000;
 const userRoutes = require("./routes/Users");
 const productRoutes = require("./routes/Products");
 const categoryRoutes = require("./routes/Category");
+const cartRoutes = require("./routes/Cart");
 
 const cors = require("cors");
 require("./db-connect");
@@ -16,6 +17,7 @@ app.use(cors());
 app.use("/api/v1", userRoutes);
 app.use("/api/v1", productRoutes);
 app.use("/api/v1", categoryRoutes);
+app.use("/api/v1", cartRoutes);
 
 // Start the server
 app.listen(port, () => {
