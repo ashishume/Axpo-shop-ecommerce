@@ -1,4 +1,3 @@
-// src/db.js
 const mongoose = require("mongoose");
 
 const databaseUrl = "mongodb+srv://ashishume:TvokYVoe3Cn1PV2E@cluster0.dytqsnd.mongodb.net/ecommerce";

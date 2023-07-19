@@ -1,0 +1,17 @@
+const express = require("express");
+const router = express.Router();
+const Category = require("../models/Category");
+
+// Create and save a new Category
+router.post("/category", async (req, res) => {
+  try {
+    const { name } = req.body;
+    const newCategory = new Category({ name });
+    await newCategory.save();
+    res.status(201).json({ message: "category added", category: req.body });
+  } catch (error) {
+    res.status(500).json({ message: "Failed to add category." });
+  }
+});
+
+module.exports = router;

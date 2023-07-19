@@ -14,6 +14,7 @@ router.post("/signup", async (req, res) => {
     res.status(500).json({ message: "Failed to create a user." });
   }
 });
+
 router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
