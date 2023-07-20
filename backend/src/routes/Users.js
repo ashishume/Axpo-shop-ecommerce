@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/Users");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 // Create and save a new user
 router.post("/signup", async (req, res) => {
@@ -26,7 +27,9 @@ router.post("/login", async (req, res) => {
     if (!isMatch) {
       throw new Error("Invalid password");
     }
-    res.status(200).json({ message: "login succeeded" });
+    const token = jwt.sign({ userId: user._id }, "deathking123@@", { expiresIn: "1h" });
+
+    res.status(200).json({ jwtToken: token });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
