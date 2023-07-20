@@ -14,10 +14,10 @@ router.post("/cart", async (req, res) => {
   }
 });
 
-router.get("/cart", async (req, res) => {
+router.get("/cart/:id", async (req, res) => {
   try {
-    const { user } = req.query;
-    const cartData = await Cart.find({ user }).populate({
+    const { id } = req.params;
+    const cartData = await Cart.find({ user: id }).populate({
       path: "items.product", //fetches the whole data from product table
       select: "-__v -_id", //excludes these values while fetching from product table
     });
@@ -27,18 +27,17 @@ router.get("/cart", async (req, res) => {
   }
 });
 
-
 router.patch("/cart/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const updates = req.body; 
+    const updates = req.body;
     const updatedCart = await Cart.findByIdAndUpdate(
       id,
       updates,
       { new: true, runValidators: true } // Return the updated cart and run validators
     );
     if (!updatedCart) {
-      return res.status(404).json({ message: 'cart not found' });
+      return res.status(404).json({ message: "cart not found" });
     }
     res.status(200).json(updatedCart);
   } catch (error) {
