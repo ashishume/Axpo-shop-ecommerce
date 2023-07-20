@@ -11,7 +11,7 @@ router.post("/signup", async (req, res) => {
     await newUser.save();
     res.status(201).json({ message: "user created", name, email });
   } catch (error) {
-    res.status(500).json({ message: "Failed to create a user." });
+    res.status(500).json({ message: error.message });
   }
 });
 
@@ -28,7 +28,7 @@ router.post("/login", async (req, res) => {
     }
     res.status(200).json({ message: "login succeeded" });
   } catch (error) {
-    res.status(500).json({ message: "Failed to login" });
+    res.status(500).json({ message: error.message });
   }
 });
 

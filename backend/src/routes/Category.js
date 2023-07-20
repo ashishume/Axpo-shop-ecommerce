@@ -10,7 +10,7 @@ router.post("/category", async (req, res) => {
     await newCategory.save();
     res.status(201).json({ message: "category added", category: req.body });
   } catch (error) {
-    res.status(500).json({ message: "Failed to add category." });
+    res.status(500).json({ message: error.message });
   }
 });
 

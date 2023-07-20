@@ -10,10 +10,9 @@ router.post("/cart", async (req, res) => {
     await newCart.save();
     res.status(201).json({ message: "cart updated", cart: req.body });
   } catch (error) {
-    res.status(500).json({ message: "Failed to add to cart." });
+    res.status(500).json({ message: error.message });
   }
 });
-
 
 router.get("/cart", async (req, res) => {
   try {
@@ -24,7 +23,26 @@ router.get("/cart", async (req, res) => {
     });
     res.status(200).json(cartData);
   } catch (error) {
-    res.status(500).json({ message: "Failed to fetch cart data." });
+    res.status(500).json({ message: error.message });
+  }
+});
+
+
+router.patch("/cart/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updates = req.body; 
+    const updatedCart = await Cart.findByIdAndUpdate(
+      id,
+      updates,
+      { new: true, runValidators: true } // Return the updated cart and run validators
+    );
+    if (!updatedCart) {
+      return res.status(404).json({ message: 'cart not found' });
+    }
+    res.status(200).json(updatedCart);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 });
 

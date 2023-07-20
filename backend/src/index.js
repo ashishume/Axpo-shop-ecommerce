@@ -5,7 +5,7 @@ const userRoutes = require("./routes/Users");
 const productRoutes = require("./routes/Products");
 const categoryRoutes = require("./routes/Category");
 const cartRoutes = require("./routes/Cart");
-const swaggerDoc = require('./swagger'); 
+const swaggerDoc = require("./swagger");
 
 const cors = require("cors");
 require("./db-connect");
