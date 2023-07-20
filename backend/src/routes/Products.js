@@ -1,9 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const Product = require("../models/Products");
+const authenticateToken = require("../authMiddleware");
 
 // Create and save a new product
-router.post("/product", async (req, res) => {
+router.post("/product", authenticateToken, async (req, res) => {
   try {
     const { name, category, brand, quantity, price, image, description } = req.body;
     const newProduct = new Product({ name, category, brand, quantity, price, image, description });
@@ -15,7 +16,7 @@ router.post("/product", async (req, res) => {
 });
 
 /** insert multple products */
-router.post("/products", async (req, res) => {
+router.post("/products", authenticateToken, async (req, res) => {
   try {
     const validatedProducts = [];
     for (const product of req.body) {
@@ -42,7 +43,7 @@ router.post("/products", async (req, res) => {
 });
 
 /** fetch multple products */
-router.get("/products", async (req, res) => {
+router.get("/products", authenticateToken, async (req, res) => {
   try {
     const products = await Product.find().select("-__v");
     res.status(200).json(products);
@@ -51,10 +52,10 @@ router.get("/products", async (req, res) => {
   }
 });
 /** fetch one products */
-router.get("/product/:id", async (req, res) => {
+router.get("/product/:id", authenticateToken, async (req, res) => {
   try {
     const { id } = req.params;
-    const product =await Product.findById(id).select("-__v");
+    const product = await Product.findById(id).select("-__v");
     res.status(200).json(product);
   } catch (error) {
     res.status(500).json({ message: error.message });

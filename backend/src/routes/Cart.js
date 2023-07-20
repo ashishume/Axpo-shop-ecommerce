@@ -1,9 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const Cart = require("../models/Cart");
+const authenticateToken = require("../authMiddleware");
 
 // Create and save a new cart
-router.post("/cart", async (req, res) => {
+router.post("/cart", authenticateToken, async (req, res) => {
   try {
     const { items, user } = req.body;
     const newCart = new Cart({ items, user });
@@ -14,7 +15,7 @@ router.post("/cart", async (req, res) => {
   }
 });
 
-router.get("/cart/:id", async (req, res) => {
+router.get("/cart/:id", authenticateToken, async (req, res) => {
   try {
     const { id } = req.params;
     const cartData = await Cart.find({ user: id }).populate({
@@ -27,7 +28,7 @@ router.get("/cart/:id", async (req, res) => {
   }
 });
 
-router.patch("/cart/:id", async (req, res) => {
+router.patch("/cart/:id", authenticateToken, async (req, res) => {
   try {
     const { id } = req.params;
     const updates = req.body;
