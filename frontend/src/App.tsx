@@ -1,16 +1,16 @@
-import { useAppDispatch, useAppSelector } from "./store/hooks";
-import { decrement, fetchProducts, increment, incrementByAmount } from "./store/slices/counterSlice";
+import CategoryCard from "./components/category-card";
+import Navbar from "./components/header/navbar";
+import Layout from "./components/layout";
+import Thumbnail from "./components/thumbnail";
 function App() {
-  const counter = useAppSelector((state) => state.counterSlice.value);
-  const dispatch = useAppDispatch();
-  console.log(counter);
   return (
-    <div className="App">
-      {/* <h1>Counter: {counter.map((v) => (v as any).name as any)}</h1> */}
-      <button onClick={() => dispatch(increment())}>Increment</button>
-      <button onClick={() => dispatch(decrement())}>Decrement</button>
-      <button onClick={() => dispatch(fetchProducts())}>Update</button>
-    </div>
+    <Layout>
+      <Navbar />
+      <Thumbnail />
+      <CategoryCard imageSource="assets/headphone.jpg" title="Beauty picks" />
+      <CategoryCard imageSource="https://rukminim2.flixcart.com/image/200/200/kokdci80/dslr-camera/v/e/x/z-24-200mm-z5-nikon-original-imag2zuekuxgxsgg.jpeg?q=70" title="Beauty picks" />
+      <CategoryCard imageSource="https://rukminim2.flixcart.com/image/200/200/l4x2rgw0/monitor/n/y/y/q24i-20-full-hd-23-8-66eegac3in-lenovo-original-imagfpgxzsk8ef26.jpeg?q=70" title="Beauty picks" />
+    </Layout>
   );
 }
 

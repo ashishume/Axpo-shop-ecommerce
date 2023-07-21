@@ -1,0 +1,28 @@
+.category-card-container {
+  padding: 5px;
+  margin: 10px 20px;
+  border-radius: 4px;
+  display: inline-block;
+  position: relative;
+  box-shadow: 1px 0px 5px 1px rgba(128, 128, 128, 0.29);
+  width: 150px;
+  height: 220px;
+  overflow: hidden;
+  .thumbnail-image {
+    float: right;
+    position: absolute;
+    right: -60px;
+    top: 25px;
+    mix-blend-mode: multiply;
+    overflow: hidden;
+  }
+  .title {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    height: 95%;
+    padding-left: 10px;
+    font-weight: 600;
+    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  }
+}
