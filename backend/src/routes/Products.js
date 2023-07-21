@@ -43,7 +43,7 @@ router.post("/products", authenticateToken, async (req, res) => {
 });
 
 /** fetch multple products */
-router.get("/products", authenticateToken, async (req, res) => {
+router.get("/products", async (req, res) => {
   try {
     const products = await Product.find().select("-__v");
     res.status(200).json(products);

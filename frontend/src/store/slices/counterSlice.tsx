@@ -7,10 +7,10 @@ const initialState: RootState = {
   value: [],
 };
 
-export const fetchProducts = createAsyncThunk("products/fetchProducts", async () => {
-  const response = await axios.get("http://localhost:4000/api/v1/products");
-  return response.data;
-});
+// export const fetchProducts = createAsyncThunk("products/fetchProducts", async () => {
+//   const response = await axios.get("http://localhost:4000/api/v1/products");
+//   return response.data;
+// });
 export const counterSlice = createSlice({
   name: "counter",
   initialState,
@@ -25,16 +25,16 @@ export const counterSlice = createSlice({
       // state.value += action.payload;
     },
   },
-  extraReducers: (builder) => {
-    builder.addCase(fetchProducts.fulfilled, (state: RootState, action: PayloadAction<any>) => {
-      state.value = action.payload;
-    });
-    builder.addCase(fetchProducts.pending, (state: RootState, action: PayloadAction<any>) => {
-    });
-    builder.addCase(fetchProducts.rejected, (state: RootState, action: PayloadAction<any>) => {
-      console.log(state);
-    });
-  },
+//   extraReducers: (builder) => {
+//     builder.addCase(fetchProducts.fulfilled, (state: RootState, action: PayloadAction<any>) => {
+//       state.value = action.payload;
+//     });
+//     builder.addCase(fetchProducts.pending, (state: RootState, action: PayloadAction<any>) => {
+//     });
+//     builder.addCase(fetchProducts.rejected, (state: RootState, action: PayloadAction<any>) => {
+//       console.log(state);
+//     });
+//   },
 });
 
 export const { increment, decrement, incrementByAmount } = counterSlice.actions;
