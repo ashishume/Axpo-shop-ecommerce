@@ -28,8 +28,8 @@ router.post("/login", async (req, res) => {
       throw new Error("Invalid password");
     }
     const token = jwt.sign({ userId: user._id }, process.env.SECRET_KEY, { expiresIn: "1h" });
-    res.cookie('authToken', token, { httpOnly: true });
-    res.status(200).json({ jwtToken: token });
+    res.cookie("jwt", token, { httpOnly: true });
+    res.json({ message: "Logged in successfully" });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

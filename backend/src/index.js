@@ -1,14 +1,16 @@
 const express = require("express");
 const app = express();
 const port = 4000;
-const userRoutes = require("./routes/Users");
+const userRoutes = require("./routes/Auth");
 const productRoutes = require("./routes/Products");
 const categoryRoutes = require("./routes/Category");
 const cartRoutes = require("./routes/Cart");
 const swaggerDoc = require("./swagger");
+const cookieParser = require('cookie-parser');
 
 const cors = require("cors");
 require("./db-connect");
+app.use(cookieParser());
 
 // Middleware for parsing JSON and URL-encoded data
 app.use(express.json());

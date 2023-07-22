@@ -1,13 +1,24 @@
-import { useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
 import Layout from "../layout";
+import Axios from "../../services/http-service";
+import { API_PATHS } from "../../constants/api-path";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data: any) => console.log(data);
+  const onSubmit = async (data: FieldValues) => {
+    const response = (await Axios.post(API_PATHS.LOGIN, data));
+
+    if(response.status===200){
+      navigate('/dashboard')
+    }
+  };
 
   return (
     <>

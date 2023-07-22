@@ -10,12 +10,11 @@ function App() {
   const products = useAppSelector((state) => state.productsSlice.products);
   const isLoading = useAppSelector((state) => state.productsSlice.isLoading);
 
-  // useEffect(() => {
-    // dispatch(fetchProducts());
-  // }, []);
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, []);
   return (
     <Layout>
-      <Navbar />
       {!isLoading &&
         products.map((value) => {
           return <div>{value.brand}</div>;
