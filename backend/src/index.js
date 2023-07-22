@@ -6,8 +6,7 @@ const productRoutes = require("./routes/Products");
 const categoryRoutes = require("./routes/Category");
 const cartRoutes = require("./routes/Cart");
 const swaggerDoc = require("./swagger");
-const cookieParser = require('cookie-parser');
-
+const cookieParser = require("cookie-parser");
 const cors = require("cors");
 require("./db-connect");
 app.use(cookieParser());
@@ -15,7 +14,14 @@ app.use(cookieParser());
 // Middleware for parsing JSON and URL-encoded data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+app.use(
+  "*",
+  cors({
+    origin: true,
+    credentials: true,
+  })
+);
+
 
 app.use("/api/v1", userRoutes);
 app.use("/api/v1", productRoutes);

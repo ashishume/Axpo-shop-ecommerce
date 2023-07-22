@@ -8,7 +8,7 @@ const initialState: RootState = {
 };
 
 export const fetchProducts = createAsyncThunk("products/fetchProducts", async () => {
-  const response = await axios.get("http://localhost:4000/api/v1/products");
+  const response = await axios.get("http://localhost:4000/api/v1/products", { withCredentials: true });
   return response.data;
 });
 export const productsSlice = createSlice({
