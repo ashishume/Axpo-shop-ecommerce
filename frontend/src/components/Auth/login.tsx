@@ -16,7 +16,7 @@ const Login = () => {
     const response = await Axios.post(API_PATHS.LOGIN, data);
 
     if (response.status === 200) {
-      navigate("/dashboard");
+      navigate("/products");
     }
   };
 

@@ -1,18 +1,13 @@
-import { useEffect } from "react";
 import CategoryCard from "./components/category-card";
 import Navbar from "./components/header/navbar";
 import Layout from "./components/layout";
 import Thumbnail from "./components/thumbnail";
 import { useAppDispatch, useAppSelector } from "./store/hooks";
-import { fetchProducts } from "./store/slices/productSlice";
 function App() {
   const dispatch = useAppDispatch();
   const products = useAppSelector((state) => state.productsSlice.products);
   const isLoading = useAppSelector((state) => state.productsSlice.isLoading);
 
-  useEffect(() => {
-    dispatch(fetchProducts());
-  }, []);
   return (
     <Layout>
       {!isLoading &&

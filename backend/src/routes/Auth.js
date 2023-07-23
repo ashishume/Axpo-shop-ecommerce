@@ -27,11 +27,20 @@ router.post("/login", async (req, res) => {
     if (!isMatch) {
       throw new Error("Invalid password");
     }
-    const token = jwt.sign({ userId: user._id }, process.env.SECRET_KEY, { expiresIn: "1h" });
+    const token = jwt.sign({ userId: user._id }, process.env.SECRET_KEY, { expiresIn: "5s" });
     res.cookie("jwt", token, { httpOnly: true });
     res.json({ message: "Logged in successfully" });
   } catch (error) {
     res.status(500).json({ message: error.message });
+  }
+});
+router.get("/validate", async (req, res) => {
+  try {
+    const token = req.cookies.jwt;
+    const authTokenExp = jwt.verify(token, process.env.SECRET_KEY);
+    res.status(200).json(authTokenExp);
+  } catch (error) {
+    res.status(403).json({ message: "Invalid or expired token" });
   }
 });
 
