@@ -12,15 +12,19 @@ const Products = () => {
   useEffect(() => {
     dispatch(fetchProducts());
   }, []);
+
+  function handleProduct(product: any) {
+    console.log(product);
+  }
+
   return (
     <Layout>
       <div className="text-lg">Products</div>
       {!productsResponse?.isLoading
         ? productsResponse.products.map((product) => {
-            return <ProductCard key={product._id} product={product} />;
+            return <ProductCard key={product._id} product={product} handleProduct={() => handleProduct(product)} />;
           })
         : null}
-      <button onClick={() => dispatch(fetchProducts())}>Update</button>
     </Layout>
   );
 };

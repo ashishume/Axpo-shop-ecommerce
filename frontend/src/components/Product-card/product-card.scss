@@ -1,0 +1,33 @@
+.product-container {
+  display: inline-block;
+  box-shadow: 1px 1px 6px 0px lightgray;
+  margin: 10px;
+  max-width: 190px;
+  border-radius: 7px;
+  overflow: hidden;
+  position: relative;
+  .sale-tag {
+    background-color: #ffb10087;
+    display: inline-block;
+    position: absolute;
+    right: 6px;
+    top: 4px;
+    border-radius: 4px;
+    width: 50x;
+    padding: 0 6px;
+  }
+  .product-image-container {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+  }
+  .brand {
+    margin: 8px 0;
+    font-weight: 400;
+    text-transform: uppercase;
+  }
+  &:hover {
+    background-color: rgba(196, 196, 196, 0.433);
+    cursor: pointer;
+  }
+}
