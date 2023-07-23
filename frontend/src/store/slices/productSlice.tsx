@@ -1,6 +1,6 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
 import { RootState } from "../../models";
+import { Axios } from "../../services/http-service";
 
 const initialState: RootState = {
   products: [],
@@ -8,7 +8,7 @@ const initialState: RootState = {
 };
 
 export const fetchProducts = createAsyncThunk("products/fetchProducts", async () => {
-  const response = await axios.get("http://localhost:4000/api/v1/products", { withCredentials: true });
+  const response = await Axios.get("/products", { withCredentials: true });
   return response.data;
 });
 export const productsSlice = createSlice({

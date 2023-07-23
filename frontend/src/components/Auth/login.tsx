@@ -1,8 +1,8 @@
 import { FieldValues, useForm } from "react-hook-form";
 import Layout from "../layout";
-import Axios from "../../services/http-service";
 import { API_PATHS } from "../../constants/api-path";
 import { useNavigate } from "react-router-dom";
+import { Axios } from "../../services/http-service";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -13,10 +13,10 @@ const Login = () => {
     formState: { errors },
   } = useForm();
   const onSubmit = async (data: FieldValues) => {
-    const response = (await Axios.post(API_PATHS.LOGIN, data));
+    const response = await Axios.post(API_PATHS.LOGIN, data);
 
-    if(response.status===200){
-      navigate('/dashboard')
+    if (response.status === 200) {
+      navigate("/dashboard");
     }
   };
 

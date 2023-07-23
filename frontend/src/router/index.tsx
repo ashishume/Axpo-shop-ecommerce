@@ -2,7 +2,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "../components/Auth/login";
 import App from "../App";
 import Signup from "../components/Auth/signup";
-import PrivateRoute from "./private-route";
+// import PrivateRoute from "./private-route";
+import Products from "../pages/Products";
 
 const RoutePaths = () => {
   return (
@@ -10,14 +11,8 @@ const RoutePaths = () => {
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/login" element={<Login />} />
-        <Route
-          path="/dashboard"
-          element={
-            <PrivateRoute>
-              <App />
-            </PrivateRoute>
-          }
-        />
+        <Route path="/dashboard" element={<App />} />
+        <Route path="/products" element={<Products />} />
       </Routes>
     </BrowserRouter>
   );

@@ -1,10 +1,22 @@
 import axios from "axios";
 import { BASE_URL } from "../constants/api-path";
 
-const Axios = axios.create({
+export const Axios = axios.create({
   baseURL: BASE_URL,
   withCredentials: true,
   headers: { "Content-Type": "application/json" },
 });
 
-export default Axios;
+Axios.interceptors.response.use(
+  (response) => {
+    return response},
+  (error) => {
+    if (
+      (error.response?.status === 403 && error.response?.data?.message === "Invalid or expired token") ||
+      error.response?.data?.message === "Authorization token not provided"
+    ) {
+      window.location.href = "/login";
+    }
+    return Promise.reject(error);
+  }
+);
