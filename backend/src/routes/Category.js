@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Category = require("../models/Category");
-const authenticateToken = require("../authMiddleware");
+const authenticateToken = require("../controllers/authMiddleware");
 
 // Create and save a new Category
 router.post("/category", authenticateToken, async (req, res) => {

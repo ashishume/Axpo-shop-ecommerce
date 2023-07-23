@@ -5,10 +5,10 @@ const userRoutes = require("./routes/Auth");
 const productRoutes = require("./routes/Products");
 const categoryRoutes = require("./routes/Category");
 const cartRoutes = require("./routes/Cart");
-const swaggerDoc = require("./swagger");
+const swaggerDoc = require("./controllers/swagger");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
-require("./db-connect");
+require("./controllers/db-connect");
 app.use(cookieParser());
 
 // Middleware for parsing JSON and URL-encoded data

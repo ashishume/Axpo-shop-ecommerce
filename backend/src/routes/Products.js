@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Product = require("../models/Products");
-const authenticateToken = require("../authMiddleware");
+const authenticateToken = require("../controllers/authMiddleware");
 
 // Create and save a new product
 router.post("/product", authenticateToken, async (req, res) => {
