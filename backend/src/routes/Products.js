@@ -4,7 +4,7 @@ const Product = require("../models/Products");
 const authenticateToken = require("../controllers/authMiddleware");
 
 // Create and save a new product
-router.post("/product", authenticateToken, async (req, res) => {
+router.post("/product", async (req, res) => {
   try {
     const { name, category, brand, quantity, price, image, description } = req.body;
     const newProduct = new Product({ name, category, brand, quantity, price, image, description });
@@ -16,7 +16,7 @@ router.post("/product", authenticateToken, async (req, res) => {
 });
 
 /** insert multple products */
-router.post("/products", authenticateToken, async (req, res) => {
+router.post("/products", async (req, res) => {
   try {
     const validatedProducts = [];
     for (const product of req.body) {
@@ -55,7 +55,11 @@ router.get("/products", authenticateToken, async (req, res) => {
 router.get("/product/:id", authenticateToken, async (req, res) => {
   try {
     const { id } = req.params;
-    const product = await Product.findById(id).select("-__v");
+    const product = await Product.findById(id)
+      .populate({
+        path: "category",
+      })
+      .select("-__v");
     res.status(200).json(product);
   } catch (error) {
     res.status(500).json({ message: error.message });

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { fetchProducts } from "../../store/slices/productSlice";
 import Layout from "../../components/layout";
@@ -6,14 +6,17 @@ import ProductCard from "../../components/Product-card";
 import { Axios } from "../../services/http-service";
 import { useNavigate } from "react-router-dom";
 import { IProduct } from "../../models/product";
+import useDidMount from "../../services/didMount";
 
 const Products = () => {
   const dispatch = useAppDispatch();
   const productsResponse = useAppSelector((state) => state.productsSlice);
   const navigate = useNavigate();
-
+  const didMount = useDidMount(true);
   useEffect(() => {
-    dispatch(fetchProducts());
+    if (didMount) {
+      dispatch(fetchProducts());
+    }
   }, []);
 
   function handleProduct(product: IProduct) {

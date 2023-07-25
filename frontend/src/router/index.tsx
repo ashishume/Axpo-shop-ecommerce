@@ -11,11 +11,11 @@ const RoutePaths = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/" element={<App />} />
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={<App />} />
         <Route path="/products" element={<Products />} />
-        <Route path="/product/:title/:id" element={<Product />} />
+        <Route path="/product/:title/:productId" element={<Product />} />
         {/* <Route
           path="/products"
           element={

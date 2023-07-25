@@ -8,8 +8,8 @@ import RoutePaths from "./router";
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 root.render(
   <Provider store={store}>
-    <React.StrictMode>
+    {/* <React.StrictMode> */}
       <RoutePaths />
-    </React.StrictMode>
+    {/* </React.StrictMode> */}
   </Provider>
 );

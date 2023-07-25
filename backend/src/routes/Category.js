@@ -4,7 +4,7 @@ const Category = require("../models/Category");
 const authenticateToken = require("../controllers/authMiddleware");
 
 // Create and save a new Category
-router.post("/category", authenticateToken, async (req, res) => {
+router.post("/category", async (req, res) => {
   try {
     const { name } = req.body;
     const newCategory = new Category({ name });
