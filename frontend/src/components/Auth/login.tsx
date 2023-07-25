@@ -3,6 +3,7 @@ import Layout from "../layout";
 import { API_PATHS } from "../../constants/api-path";
 import { useNavigate } from "react-router-dom";
 import { Axios } from "../../services/http-service";
+import { useEffect } from "react";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -17,12 +18,24 @@ const Login = () => {
 
     if (response.status === 200) {
       await Axios.post(API_PATHS.CART, {
-        items:[],
-        user: response.data.user
-      })
+        items: [],
+        user: response.data.user,
+      });
       navigate("/products");
     }
   };
+
+  useEffect(() => {
+    const checkLogin = async () => {
+      try {
+        const response = await Axios.get("/validate");
+        if (response) {
+          navigate("/products");
+        }
+      } catch (e: any) {}
+    };
+    checkLogin();
+  }, []);
 
   return (
     <>

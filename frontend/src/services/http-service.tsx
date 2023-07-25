@@ -9,7 +9,8 @@ export const Axios = axios.create({
 
 Axios.interceptors.response.use(
   (response) => {
-    return response},
+    return response;
+  },
   (error) => {
     if (
       (error.response?.status === 403 && error.response?.data?.message === "Invalid or expired token") ||

@@ -6,9 +6,15 @@ import CategoryOutlinedIcon from "@mui/icons-material/CategoryOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import Person2OutlinedIcon from "@mui/icons-material/Person2Outlined";
 import { useNavigate } from "react-router-dom";
+import { Axios } from "../../services/http-service";
 const Navbar = () => {
   const navigate = useNavigate();
-
+  async function logOutUser() {
+    const response = await Axios.post("/logout");
+    if (response.status === 200) {
+      navigate("/login");
+    }
+  }
   return (
     <div className="navbar-container">
       <div className="menu-items">
@@ -38,7 +44,8 @@ const Navbar = () => {
             <ShoppingCartOutlinedIcon />
           </li>
           <li>
-            <Person2OutlinedIcon />
+            {/* TODO: to be removed in future */}
+            <Person2OutlinedIcon onClick={() => logOutUser()} />
           </li>
         </ul>
       </div>
