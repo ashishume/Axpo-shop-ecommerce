@@ -66,12 +66,15 @@
         width: 100%;
         font-weight: 700;
         margin: 0 10px;
+        cursor: pointer;
       }
+     
       .wishlist {
         @extend .addToCart;
         background-color: #fff;
         color: #000;
         border: solid 1px black;
+        cursor: pointer;
       }
     }
     .description {

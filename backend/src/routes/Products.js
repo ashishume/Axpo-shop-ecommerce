@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Product = require("../models/Products");
+const Cart = require("../models/Cart");
 const authenticateToken = require("../controllers/authMiddleware");
 
 // Create and save a new product
@@ -61,6 +62,31 @@ router.get("/product/:id", authenticateToken, async (req, res) => {
       })
       .select("-__v");
     res.status(200).json(product);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+/** check if product is already to cart or not */
+router.get("/product/added-to-cart/:userId/:productId", authenticateToken, async (req, res) => {
+  try {
+    const { userId, productId } = req.params;
+    const cartData = await Cart.findOne({ user: userId })
+      .select("-__v")
+      .populate({
+        path: "items.product",
+        select: "-__v",
+      })
+      .lean()
+      .exec();
+    if (cartData) {
+      if (cartData.items?.length) {
+        const isAdded = cartData.items.some((item) => item.product._id == productId);
+        res.status(200).json(isAdded);
+      } else {
+        res.status(200).json(false);
+      }
+    }
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

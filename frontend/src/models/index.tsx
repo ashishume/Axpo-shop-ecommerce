@@ -11,6 +11,10 @@ export interface ProductState {
   products: IProduct[];
   product: IProduct;
   isLoading: boolean;
+  productAddedToCart: {
+    productId: string;
+    isAdded: boolean;
+  };
 }
 
 export interface CartState {

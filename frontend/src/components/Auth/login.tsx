@@ -21,6 +21,8 @@ const Login = () => {
         items: [],
         user: response.data.user,
       });
+
+      localStorage.setItem("userId", response.data.user);
       navigate("/products");
     }
   };

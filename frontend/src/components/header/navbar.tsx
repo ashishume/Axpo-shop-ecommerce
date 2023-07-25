@@ -12,6 +12,7 @@ const Navbar = () => {
   async function logOutUser() {
     const response = await Axios.post("/logout");
     if (response.status === 200) {
+      localStorage.removeItem("userId");
       navigate("/login");
     }
   }

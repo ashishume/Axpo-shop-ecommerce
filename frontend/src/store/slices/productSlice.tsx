@@ -19,6 +19,10 @@ const initialState: ProductState = {
   products: [],
   product: productInitial,
   isLoading: false,
+  productAddedToCart: {
+    productId: "",
+    isAdded: false,
+  },
 };
 
 export const fetchProducts = createAsyncThunk("products/fetchProducts", async () => {
@@ -29,11 +33,20 @@ export const fetchProduct = createAsyncThunk("product/fetchProduct", async (prod
   const response = await Axios.get("/product/" + productId, { withCredentials: true });
   return response.data;
 });
+export const checkIfAddedToCart = createAsyncThunk(
+  "cart/checkIfAddedToCart",
+  async ({ productId, userId }: { productId: string; userId: string }) => {
+    const response = await Axios.get("/product/added-to-cart/" + userId + "/" + productId, { withCredentials: true });
+    return response.data;
+  }
+);
+
 export const productsSlice = createSlice({
   name: "products",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
+    //fetchProducts
     builder.addCase(fetchProducts.pending, (state: ProductState, action: PayloadAction<any>) => {
       state.isLoading = true;
     });
@@ -45,6 +58,8 @@ export const productsSlice = createSlice({
       state.products = [];
       state.isLoading = false;
     });
+
+    //fetchProduct
     builder.addCase(fetchProduct.pending, (state: ProductState, action: PayloadAction<any>) => {
       state.isLoading = true;
     });
@@ -55,6 +70,17 @@ export const productsSlice = createSlice({
     builder.addCase(fetchProduct.rejected, (state: ProductState, action: PayloadAction<any>) => {
       state.product = productInitial;
       state.isLoading = false;
+    });
+
+    //checkIfAddedToCart
+    builder.addCase(checkIfAddedToCart.fulfilled, (state: ProductState, action: PayloadAction<any>) => {
+      state.productAddedToCart = action.payload;
+    });
+    builder.addCase(checkIfAddedToCart.rejected, (state: ProductState, action: PayloadAction<any>) => {
+      state.productAddedToCart = {
+        productId: "",
+        isAdded: false,
+      };
     });
   },
 });

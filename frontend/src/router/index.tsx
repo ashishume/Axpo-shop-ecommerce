@@ -6,6 +6,7 @@ import Signup from "../components/Auth/signup";
 import Products from "../pages/Products";
 import PrivateRoute from "./private-route";
 import Product from "../pages/Product";
+import Cart from "../pages/Cart";
 
 const RoutePaths = () => {
   return (
@@ -15,6 +16,7 @@ const RoutePaths = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={<App />} />
         <Route path="/products" element={<Products />} />
+        <Route path="/cart" element={<Cart />} />
         <Route path="/product/:title/:productId" element={<Product />} />
         {/* <Route
           path="/products"

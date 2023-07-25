@@ -19,15 +19,19 @@ export const fetchCart = createAsyncThunk("products/fetchCart", async (userId: s
   const response = await Axios.get("/cart/" + userId);
   return response.data;
 });
-export const updateCart = createAsyncThunk("product/updateCart", async (userId: string, payload) => {
-  const response = await Axios.patch("/cart/" + userId, payload);
-  return response.data;
-});
+export const updateCart = createAsyncThunk(
+  "product/updateCart",
+  async ({ userId, payload }: { userId: string; payload: any }) => {
+    const response = await Axios.patch("/cart/" + userId, payload);
+    return response.data;
+  }
+);
 export const productsSlice = createSlice({
   name: "products",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
+    // fetchCart
     builder.addCase(fetchCart.pending, (state: CartState, action: PayloadAction<any>) => {
       state.isLoading = true;
     });
@@ -36,7 +40,7 @@ export const productsSlice = createSlice({
       state.isLoading = false;
     });
     builder.addCase(fetchCart.rejected, (state: CartState, action: PayloadAction<any>) => {
-      state.cart =  {
+      state.cart = {
         items: [
           {
             product: {},
@@ -47,6 +51,8 @@ export const productsSlice = createSlice({
       };
       state.isLoading = false;
     });
+
+    //updateCart
     builder.addCase(updateCart.pending, (state: CartState, action: PayloadAction<any>) => {
       state.isLoading = true;
     });
