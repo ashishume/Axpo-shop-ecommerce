@@ -1,0 +1,42 @@
+.cartContainer {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border: solid 1px rgb(171, 171, 171);
+  border-radius: 6px;
+  margin: 10px;
+  .leftContent {
+    .productImage {
+      height: 232px;
+      width: 184px;
+    }
+  }
+  .rightContent {
+    margin-left: 25px;
+    font-size: 16px;
+    .title {
+      font-size: 20px;
+      font-weight: 400;
+    }
+    .brandName {
+      font-size: 25px;
+      text-transform: capitalize;
+      font-weight: 700;
+    }
+    .price {
+      font-weight: 700;
+    }
+    .returnPolicyText {
+      font-size: 12px;
+    }
+    .removeFromCart {
+      border: solid 1px lightgray;
+      text-align: center;
+      padding: 3px 5px;
+      width: fit-content;
+      border-radius: 6px;
+      box-shadow: 1px 1px 4px 0px lightgray;
+      margin-top: 10px;
+    }
+  }
+}

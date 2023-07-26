@@ -1,4 +1,4 @@
-import { ICart } from "./cart";
+import { ICart, ICartResponse } from "./cart";
 import { IProduct } from "./product";
 
 export interface RootState {
@@ -18,6 +18,6 @@ export interface ProductState {
 }
 
 export interface CartState {
-  cart: ICart;
+  cart: ICartResponse[];
   isLoading: boolean;
 }

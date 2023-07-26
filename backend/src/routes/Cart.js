@@ -23,7 +23,7 @@ router.post("/cart", authenticateToken, async (req, res) => {
 router.get("/cart/:userId", authenticateToken, async (req, res) => {
   try {
     const { userId } = req.params;
-    const cartData = await Cart.find({ user: userId }).select("-__v");
+    const cartData = await Cart.find({ user: userId }).populate("product").populate("user").select("-__v -password");
     res.status(200).json(cartData);
   } catch (error) {
     res.status(500).json({ message: error.message });

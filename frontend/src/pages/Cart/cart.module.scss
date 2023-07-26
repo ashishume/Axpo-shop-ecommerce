@@ -1,0 +1,30 @@
+.container {
+  display: flex;
+  justify-content: space-evenly;
+  margin-left: 10px;
+  margin: 0 100px;
+  .leftContainer {
+    width: 100%;
+  }
+  .rightContainer {
+    font-size: 20px;
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+    font-weight: 700;
+    width: 100%;
+    height: fit-content;
+    padding: 20px;
+    border: solid 1px rgba(0, 0, 0, 0.342);
+    border-radius: 6px;
+    margin-right: 10px;
+    margin-top: 10px;
+    .checkoutButton {
+      background-color: rgba(0, 0, 255, 0.134);
+      color: rgb(42, 42, 184);
+      padding: 6px 20px;
+      margin-top: 5px;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 20px;
+    }
+  }
+}

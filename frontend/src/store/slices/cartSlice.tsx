@@ -4,26 +4,21 @@ import { Axios } from "../../services/http-service";
 import { ICart } from "../../models/cart";
 
 const initialState: CartState = {
-  cart: {
-    product: "",
-    user: "",
-    quantity: 0,
-  },
+  cart: [],
   isLoading: false,
 };
 
 export const fetchCart = createAsyncThunk("products/fetchCart", async (userId: string) => {
   const response = await Axios.get("/cart/" + userId);
-  console.log(response.data);
-  
   return response.data;
 });
 export const updateCart = createAsyncThunk("product/updateCart", async ({ payload }: { payload: ICart }) => {
   const response = await Axios.post("/cart", payload);
   return response.data;
 });
-export const productsSlice = createSlice({
-  name: "products",
+  
+export const cartSlice = createSlice({
+  name: "cart",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -36,11 +31,7 @@ export const productsSlice = createSlice({
       state.isLoading = false;
     });
     builder.addCase(fetchCart.rejected, (state: CartState, action: PayloadAction<any>) => {
-      state.cart = {
-        product: "",
-        quantity: 0,
-        user: "",
-      };
+      state.cart = []
       state.isLoading = false;
     });
 
@@ -58,4 +49,4 @@ export const productsSlice = createSlice({
 });
 
 export const selectCount = (state: CartState) => state.cart;
-export default productsSlice.reducer;
+export default cartSlice.reducer;
