@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useAppDispatch } from "../../store/hooks";
 import { fetchCart } from "../../store/slices/cartSlice";
+import Layout from "../../components/layout";
 
 const Cart = () => {
   const dispatch = useAppDispatch();
@@ -8,7 +9,7 @@ const Cart = () => {
     const userId = localStorage.getItem("userId");
     if (userId) dispatch(fetchCart(userId));
   }, []);
-  return <div>Cart</div>;
+  return <Layout></Layout>;
 };
 
 export default Cart;
