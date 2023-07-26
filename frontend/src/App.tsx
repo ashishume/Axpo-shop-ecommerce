@@ -1,18 +1,9 @@
 import CategoryCard from "./components/category-card";
 import Layout from "./components/layout";
 import Thumbnail from "./components/thumbnail";
-import { useAppDispatch, useAppSelector } from "./store/hooks";
 function App() {
-  const dispatch = useAppDispatch();
-  const products = useAppSelector((state) => state.productsSlice.products);
-  const isLoading = useAppSelector((state) => state.productsSlice.isLoading);
-
   return (
     <Layout>
-      {!isLoading &&
-        products.map((value) => {
-          return <div>{value.brand}</div>;
-        })}
       <Thumbnail />
       {/* <CategoryCard imageSource="assets/headphone.jpg" title="Beauty picks" />
       <CategoryCard

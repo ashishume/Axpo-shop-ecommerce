@@ -1,31 +1,27 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { CartState } from "../../models";
 import { Axios } from "../../services/http-service";
+import { ICart } from "../../models/cart";
 
 const initialState: CartState = {
   cart: {
-    items: [
-      {
-        product: {},
-        quantity: 0,
-      },
-    ],
+    product: "",
     user: "",
+    quantity: 0,
   },
   isLoading: false,
 };
 
 export const fetchCart = createAsyncThunk("products/fetchCart", async (userId: string) => {
   const response = await Axios.get("/cart/" + userId);
+  console.log(response.data);
+  
   return response.data;
 });
-export const updateCart = createAsyncThunk(
-  "product/updateCart",
-  async ({ userId, payload }: { userId: string; payload: any }) => {
-    const response = await Axios.patch("/cart/" + userId, payload);
-    return response.data;
-  }
-);
+export const updateCart = createAsyncThunk("product/updateCart", async ({ payload }: { payload: ICart }) => {
+  const response = await Axios.post("/cart", payload);
+  return response.data;
+});
 export const productsSlice = createSlice({
   name: "products",
   initialState,
@@ -41,12 +37,8 @@ export const productsSlice = createSlice({
     });
     builder.addCase(fetchCart.rejected, (state: CartState, action: PayloadAction<any>) => {
       state.cart = {
-        items: [
-          {
-            product: {},
-            quantity: 0,
-          },
-        ],
+        product: "",
+        quantity: 0,
         user: "",
       };
       state.isLoading = false;

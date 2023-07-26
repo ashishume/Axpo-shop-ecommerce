@@ -15,13 +15,7 @@ const Login = () => {
   } = useForm();
   const onSubmit = async (data: FieldValues) => {
     const response = await Axios.post(API_PATHS.LOGIN, data);
-
     if (response.status === 200) {
-      await Axios.post(API_PATHS.CART, {
-        items: [],
-        user: response.data.user,
-      });
-
       localStorage.setItem("userId", response.data.user);
       navigate("/products");
     }

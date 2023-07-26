@@ -1,9 +1,5 @@
 export interface ICart {
-  items: [
-    {
-      product: {};
-      quantity: number;
-    }
-  ];
+  product: string;
+  quantity: number;
   user: string;
 }

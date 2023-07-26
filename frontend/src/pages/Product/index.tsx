@@ -7,6 +7,7 @@ import Layout from "../../components/layout";
 import SpinningLoader from "../../components/SpinningLoader";
 import { updateCart } from "../../store/slices/cartSlice";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import { ICart } from "../../models/cart";
 const Product = () => {
   const dispatch = useAppDispatch();
   const { product, isLoading, productAddedToCart } = useAppSelector((state) => state.productsSlice);
@@ -25,17 +26,13 @@ const Product = () => {
   }
 
   async function addToCart() {
-    const payload = {
-      items: [
-        {
-          product: productId,
-          quantity: 1,
-        },
-      ],
-      user: userId,
-    };
-    if (userId) {
-      await dispatch(updateCart({ userId, payload }));
+    if (productId && userId) {
+      const payload: ICart = {
+        product: productId,
+        quantity: 1,
+        user: userId,
+      };
+      await dispatch(updateCart({ payload }));
       await checkProductAdded();
     }
   }
@@ -46,8 +43,6 @@ const Product = () => {
 
   return (
     <Layout>
-      {console.log(productAddedToCart)}
-
       <div className={styles.category}>{product.category.name}</div>
       {isLoading ? (
         <SpinningLoader />

@@ -71,21 +71,11 @@ router.get("/product/:id", authenticateToken, async (req, res) => {
 router.get("/product/added-to-cart/:userId/:productId", authenticateToken, async (req, res) => {
   try {
     const { userId, productId } = req.params;
-    const cartData = await Cart.findOne({ user: userId })
-      .select("-__v")
-      .populate({
-        path: "items.product",
-        select: "-__v",
-      })
-      .lean()
-      .exec();
+    const cartData = await Cart.findOne({ user: userId, product: productId });
     if (cartData) {
-      if (cartData.items?.length) {
-        const isAdded = cartData.items.some((item) => item.product._id == productId);
-        res.status(200).json(isAdded);
-      } else {
-        res.status(200).json(false);
-      }
+      res.status(200).json(true);
+    } else {
+      res.status(200).json(false);
     }
   } catch (error) {
     res.status(500).json({ message: error.message });

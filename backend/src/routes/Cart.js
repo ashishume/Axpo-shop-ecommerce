@@ -6,27 +6,24 @@ const authenticateToken = require("../controllers/authMiddleware");
 // Create and save a new cart
 router.post("/cart", authenticateToken, async (req, res) => {
   try {
-    const { items, user } = req.body;
-    const addedUserCart = await Cart.findOne({ user });
-    if (!addedUserCart) {
-      const newCart = new Cart({ items, user });
+    const { product, quantity, user } = req.body;
+    const isAlreadyProduct = await Cart.findOne({ user, product });
+    if (!isAlreadyProduct) {
+      const newCart = new Cart({ product, quantity, user });
       await newCart.save();
       res.status(201).json({ message: "cart updated", cart: req.body });
     } else {
-      res.status(200).json({ message: "cart already added", cart: addedUserCart });
+      res.status(200).json({ message: "already added to cart" });
     }
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
 
-router.get("/cart/:id", authenticateToken, async (req, res) => {
+router.get("/cart/:userId", authenticateToken, async (req, res) => {
   try {
-    const { id } = req.params;
-    const cartData = await Cart.find({ user: id }).populate({
-      path: "items.product", //fetches the whole data from product table
-      select: "-__v -_id", //excludes these values while fetching from product table
-    });
+    const { userId } = req.params;
+    const cartData = await Cart.find({ user: userId }).select("-__v");
     res.status(200).json(cartData);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -36,16 +33,29 @@ router.get("/cart/:id", authenticateToken, async (req, res) => {
 router.patch("/cart/:userId", authenticateToken, async (req, res) => {
   try {
     const { userId } = req.params;
-    const updates = req.body;
-    const updatedCart = await Cart.findOneAndUpdate(
-      { user: userId },
-      updates,
-      { new: true, runValidators: true } // Return the updated cart and run validators
-    );
-    if (!updatedCart) {
-      return res.status(404).json({ message: "cart not found" });
+    const { product, quantity } = req.body;
+    const cartData = await Cart.findOneAndUpdate({ user: userId, product }, { quantity }, { new: true, runValidators: true })
+      .lean()
+      .exec();
+
+    res.status(200).json({
+      message: "cart updated",
+      cart: cartData,
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+router.delete("/cart/:userId/:productId", authenticateToken, async (req, res) => {
+  try {
+    const { userId, productId } = req.params;
+    const cartData = await Cart.findOneAndRemove({ user: userId, product: productId });
+    if (cartData) {
+      res.status(200).json({ message: "product removed" });
+    } else {
+      res.status(401).json({ message: "product not found" });
     }
-    res.status(200).json(updatedCart);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
