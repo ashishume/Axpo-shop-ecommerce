@@ -1,6 +1,12 @@
 import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { fetchCart, removeProduct, removeProductFromCart } from "../../store/slices/cartSlice";
+import {
+  fetchCart,
+  removeProduct,
+  removeProductFromCart,
+  updateProductQuantity,
+  updateQuantityCart,
+} from "../../store/slices/cartSlice";
 import Layout from "../../components/layout";
 import styles from "./cart.module.scss";
 import SpinningLoader from "../../components/SpinningLoader";
@@ -12,7 +18,6 @@ const Cart = () => {
   useEffect(() => {
     const userId = localStorage.getItem("userId");
     if (userId) dispatch(fetchCart(userId));
-    console.log(cart);
   }, []);
 
   async function removeFromCart(product: IProduct) {
@@ -22,14 +27,31 @@ const Cart = () => {
       await dispatch(removeProductFromCart({ userId, productId: product._id }));
     }
   }
+  function onQuantitySelect(product: IProduct, qty: number) {
+    dispatch(updateProductQuantity({ productId: product._id, quantity: qty, price: product.price }));
+
+    const userId = localStorage.getItem("userId");
+    if (userId) {
+      dispatch(updateQuantityCart({ product: product._id, quantity: qty, user: userId }));
+    }
+  }
   return (
     <Layout>
       <div className="text-2xl font-bold ml-10">Cart</div>
       <div className={styles.container}>
         <div className={styles.leftContainer}>
           {!isLoading ? (
-            cart.map(({ product, user }) => {
-              return <CartProduct product={product} key={product._id} removeFromCart={() => removeFromCart(product)} />;
+            cart.map(({ product, user,...productDetails }) => {
+                
+              return (
+                <CartProduct
+                  product={product}
+                  key={product._id}
+                  productDetails={productDetails}
+                  removeFromCart={() => removeFromCart(product)}
+                  onQuantitySelect={(qty: number) => onQuantitySelect(product, qty)}
+                />
+              );
             })
           ) : (
             <SpinningLoader />

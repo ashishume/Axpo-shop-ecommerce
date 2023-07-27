@@ -9,5 +9,6 @@ export interface ICart {
 export interface ICartResponse {
   product: IProduct;
   quantity: number;
+  price: number;
   user: IUser;
 }

@@ -16,6 +16,14 @@ export const updateCart = createAsyncThunk("product/updateCart", async ({ payloa
   const response = await Axios.post("/cart", payload);
   return response.data;
 });
+export const updateQuantityCart = createAsyncThunk("product/updateQuantityCart", async ({ product, quantity, user }: ICart) => {
+  const response = await Axios.patch("/cart/" + user, {
+    product,
+    quantity,
+    user,
+  });
+  return response.data;
+});
 export const removeProductFromCart = createAsyncThunk(
   "product/removeFromCart",
   async ({ userId, productId }: { userId: string; productId: string }) => {
@@ -28,12 +36,21 @@ export const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    removeProduct:(state, action: PayloadAction<any>)=>{
-      const indexToRemove = state.cart.findIndex(item => item.product._id === action.payload);
+    removeProduct: (state, action: PayloadAction<any>) => {
+      const indexToRemove = state.cart.findIndex((item) => item.product._id === action.payload);
       if (indexToRemove !== -1) {
         state.cart.splice(indexToRemove, 1);
       }
-    } 
+    },
+    updateProductQuantity: (state, action: PayloadAction<any>) => {
+      state.cart = state.cart.map((item) => {
+        if (item.product._id === action.payload.productId) {
+          item.quantity = action.payload.quantity;
+          item.price = action.payload.price * action.payload.quantity;
+        }
+        return item;
+      });
+    },
   },
   extraReducers: (builder) => {
     // fetchCart
@@ -59,20 +76,9 @@ export const cartSlice = createSlice({
     builder.addCase(updateCart.rejected, (state: CartState, action: PayloadAction<any>) => {
       state.isLoading = false;
     });
-
-    //remove from cart
-    builder.addCase(removeProductFromCart.pending, (state: CartState, action: PayloadAction<any>) => {
-      state.isLoading = true;
-    });
-    builder.addCase(removeProductFromCart.fulfilled, (state: CartState, action: PayloadAction<any>) => {
-      state.isLoading = false;
-    });
-    builder.addCase(removeProductFromCart.rejected, (state: CartState, action: PayloadAction<any>) => {
-      state.isLoading = false;
-    });
   },
 });
-export const { removeProduct } = cartSlice.actions;
+export const { removeProduct, updateProductQuantity } = cartSlice.actions;
 
 export const selectCount = (state: CartState) => state.cart;
 export default cartSlice.reducer;

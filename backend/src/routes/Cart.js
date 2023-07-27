@@ -1,15 +1,21 @@
 const express = require("express");
 const router = express.Router();
 const Cart = require("../models/Cart");
+const Product = require("../models/Products");
 const authenticateToken = require("../controllers/authMiddleware");
 
 // Create and save a new cart
-router.post("/cart", authenticateToken, async (req, res) => {
+router.post("/cart", async (req, res) => {
   try {
     const { product, quantity, user } = req.body;
+    const productData = await Product.findById(product);
+    let totalPrice = 0;
+    if (productData) {
+      totalPrice = productData.price * quantity;
+    }
     const isAlreadyProduct = await Cart.findOne({ user, product });
     if (!isAlreadyProduct) {
-      const newCart = new Cart({ product, quantity, user });
+      const newCart = new Cart({ product, quantity, user, price: totalPrice });
       await newCart.save();
       res.status(201).json({ message: "cart updated", cart: req.body });
     } else {
@@ -34,7 +40,17 @@ router.patch("/cart/:userId", authenticateToken, async (req, res) => {
   try {
     const { userId } = req.params;
     const { product, quantity } = req.body;
-    const cartData = await Cart.findOneAndUpdate({ user: userId, product }, { quantity }, { new: true, runValidators: true })
+
+    const productData = await Product.findById(product);
+    let totalPrice = 0;
+    if (productData) {
+      totalPrice = productData.price * quantity;
+    }
+    const cartData = await Cart.findOneAndUpdate(
+      { user: userId, product },
+      { quantity, price: totalPrice },
+      { new: true, runValidators: true }
+    )
       .lean()
       .exec();
 
