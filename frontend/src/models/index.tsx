@@ -20,4 +20,5 @@ export interface ProductState {
 export interface CartState {
   cart: ICartResponse[];
   isLoading: boolean;
+  totalPrice: number;
 }

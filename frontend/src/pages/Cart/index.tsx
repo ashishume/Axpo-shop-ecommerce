@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import {
+  calculateTotalPrice,
   fetchCart,
   removeProduct,
   removeProductFromCart,
@@ -14,10 +15,16 @@ import CartProduct from "../../components/CartProduct";
 import { IProduct } from "../../models/product";
 const Cart = () => {
   const dispatch = useAppDispatch();
-  const { cart, isLoading } = useAppSelector((state) => state.cartSlice);
+  const { cart, totalPrice, isLoading } = useAppSelector((state) => state.cartSlice);
   useEffect(() => {
-    const userId = localStorage.getItem("userId");
-    if (userId) dispatch(fetchCart(userId));
+    async function fetchData() {
+      const userId = localStorage.getItem("userId");
+      if (userId) {
+        await dispatch(fetchCart(userId));
+        await dispatch(calculateTotalPrice());
+      }
+    }
+    fetchData();
   }, []);
 
   async function removeFromCart(product: IProduct) {
@@ -33,16 +40,17 @@ const Cart = () => {
     const userId = localStorage.getItem("userId");
     if (userId) {
       dispatch(updateQuantityCart({ product: product._id, quantity: qty, user: userId }));
+      dispatch(calculateTotalPrice());
     }
   }
+
   return (
     <Layout>
       <div className="text-2xl font-bold ml-10">Cart</div>
       <div className={styles.container}>
         <div className={styles.leftContainer}>
           {!isLoading ? (
-            cart.map(({ product, user,...productDetails }) => {
-                
+            cart.map(({ product, user, ...productDetails }) => {
               return (
                 <CartProduct
                   product={product}
@@ -60,9 +68,9 @@ const Cart = () => {
         <div className={styles.rightContainer}>
           <div className={styles.productDetails}>
             <div>Price details</div>
-            <div className={styles.totalMrp}>Total MRP : ₹ 200</div>
+            <div className={styles.totalMrp}>Total MRP : ₹ {totalPrice}</div>
             <div className={styles.Covenience}>Covenience Fee: ₹20</div>
-            <div className={styles.totalAmount}>Total amount: ₹220</div>
+            <div className={styles.totalAmount}>Total amount: ₹{totalPrice + 20}</div>
           </div>
           <button className={styles.checkoutButton}> Place order</button>
         </div>

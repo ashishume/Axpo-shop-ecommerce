@@ -6,6 +6,7 @@ import { ICart } from "../../models/cart";
 const initialState: CartState = {
   cart: [],
   isLoading: false,
+  totalPrice: 0,
 };
 
 export const fetchCart = createAsyncThunk("products/fetchCart", async (userId: string) => {
@@ -51,6 +52,13 @@ export const cartSlice = createSlice({
         return item;
       });
     },
+    calculateTotalPrice: (state) => {
+      let totalPrice = 0;
+      state.cart.forEach((item) => {
+        totalPrice += item.price;
+        state.totalPrice = totalPrice;
+      });
+    },
   },
   extraReducers: (builder) => {
     // fetchCart
@@ -78,7 +86,7 @@ export const cartSlice = createSlice({
     });
   },
 });
-export const { removeProduct, updateProductQuantity } = cartSlice.actions;
+export const { removeProduct, updateProductQuantity, calculateTotalPrice } = cartSlice.actions;
 
 export const selectCount = (state: CartState) => state.cart;
 export default cartSlice.reducer;
