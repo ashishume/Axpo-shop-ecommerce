@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { fetchCart } from "../../store/slices/cartSlice";
+import { fetchCart, removeProduct, removeProductFromCart } from "../../store/slices/cartSlice";
 import Layout from "../../components/layout";
 import styles from "./cart.module.scss";
 import SpinningLoader from "../../components/SpinningLoader";
 import CartProduct from "../../components/CartProduct";
+import { IProduct } from "../../models/product";
 const Cart = () => {
   const dispatch = useAppDispatch();
   const { cart, isLoading } = useAppSelector((state) => state.cartSlice);
@@ -13,6 +14,14 @@ const Cart = () => {
     if (userId) dispatch(fetchCart(userId));
     console.log(cart);
   }, []);
+
+  async function removeFromCart(product: IProduct) {
+    await dispatch(removeProduct(product._id));
+    const userId = localStorage.getItem("userId");
+    if (userId) {
+      await dispatch(removeProductFromCart({ userId, productId: product._id }));
+    }
+  }
   return (
     <Layout>
       <div className="text-2xl font-bold ml-10">Cart</div>
@@ -20,7 +29,7 @@ const Cart = () => {
         <div className={styles.leftContainer}>
           {!isLoading ? (
             cart.map(({ product, user }) => {
-              return <CartProduct product={product} key={product._id} />;
+              return <CartProduct product={product} key={product._id} removeFromCart={() => removeFromCart(product)} />;
             })
           ) : (
             <SpinningLoader />

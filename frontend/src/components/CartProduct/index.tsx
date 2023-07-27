@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./cart-product.module.scss";
 import { IProduct } from "../../models/product";
-const CartProduct = ({ product }: { product: IProduct }) => {
+const CartProduct = ({ product, removeFromCart }: { product: IProduct; removeFromCart: () => void }) => {
   return (
     <div className={styles.cartContainer}>
       <div className={styles.leftContent}>
@@ -13,7 +13,7 @@ const CartProduct = ({ product }: { product: IProduct }) => {
         <div className={styles.quantity}>Quantity: {product.quantity}</div>
         <div className={styles.price}>₹ {product.price}</div>
         <div className={styles.returnPolicyText}>14 days return policy</div>
-        <div className={styles.removeFromCart}>
+        <div className={styles.removeFromCart} onClick={removeFromCart}>
           <button>Remove</button>
         </div>
       </div>

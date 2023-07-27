@@ -16,11 +16,25 @@ export const updateCart = createAsyncThunk("product/updateCart", async ({ payloa
   const response = await Axios.post("/cart", payload);
   return response.data;
 });
-  
+export const removeProductFromCart = createAsyncThunk(
+  "product/removeFromCart",
+  async ({ userId, productId }: { userId: string; productId: string }) => {
+    const response = await Axios.delete(`/cart/${userId}/${productId}`);
+    return response.data;
+  }
+);
+
 export const cartSlice = createSlice({
   name: "cart",
   initialState,
-  reducers: {},
+  reducers: {
+    removeProduct:(state, action: PayloadAction<any>)=>{
+      const indexToRemove = state.cart.findIndex(item => item.product._id === action.payload);
+      if (indexToRemove !== -1) {
+        state.cart.splice(indexToRemove, 1);
+      }
+    } 
+  },
   extraReducers: (builder) => {
     // fetchCart
     builder.addCase(fetchCart.pending, (state: CartState, action: PayloadAction<any>) => {
@@ -31,7 +45,7 @@ export const cartSlice = createSlice({
       state.isLoading = false;
     });
     builder.addCase(fetchCart.rejected, (state: CartState, action: PayloadAction<any>) => {
-      state.cart = []
+      state.cart = [];
       state.isLoading = false;
     });
 
@@ -45,8 +59,20 @@ export const cartSlice = createSlice({
     builder.addCase(updateCart.rejected, (state: CartState, action: PayloadAction<any>) => {
       state.isLoading = false;
     });
+
+    //remove from cart
+    builder.addCase(removeProductFromCart.pending, (state: CartState, action: PayloadAction<any>) => {
+      state.isLoading = true;
+    });
+    builder.addCase(removeProductFromCart.fulfilled, (state: CartState, action: PayloadAction<any>) => {
+      state.isLoading = false;
+    });
+    builder.addCase(removeProductFromCart.rejected, (state: CartState, action: PayloadAction<any>) => {
+      state.isLoading = false;
+    });
   },
 });
+export const { removeProduct } = cartSlice.actions;
 
 export const selectCount = (state: CartState) => state.cart;
 export default cartSlice.reducer;
