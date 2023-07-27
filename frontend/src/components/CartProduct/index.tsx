@@ -29,7 +29,7 @@ const CartProduct = ({
           <select
             className={styles.quantitySelect}
             onChange={(e: React.ChangeEvent<HTMLSelectElement>) => onQuantitySelect(parseInt(e.target.value))}
-            value={productDetails.price}
+            value={productDetails.quantity}
           >
             <option>1</option>
             <option>2</option>
