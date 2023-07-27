@@ -22,7 +22,7 @@ const Navbar = () => {
         <img src={"/assets/amazon.png"} className="h-12 w-50" onClick={() => navigate("/")} />
         <ul>
           <li>
-            <WidgetsOutlinedIcon />
+            <WidgetsOutlinedIcon onClick={() => navigate("/products")} />
             All
           </li>
           <li>

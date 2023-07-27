@@ -40,6 +40,7 @@ export const cartSlice = createSlice({
     removeProduct: (state, action: PayloadAction<any>) => {
       const indexToRemove = state.cart.findIndex((item) => item.product._id === action.payload);
       if (indexToRemove !== -1) {
+        state.totalPrice = state.totalPrice - state.cart[indexToRemove].price;
         state.cart.splice(indexToRemove, 1);
       }
     },
