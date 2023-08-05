@@ -21,15 +21,15 @@ const Navbar = () => {
       <div className="menu-items">
         <img src={"/assets/amazon.png"} className="h-12 w-50" onClick={() => navigate("/")} />
         <ul>
-          <li>
-            <WidgetsOutlinedIcon onClick={() => navigate("/products")} />
+          <li onClick={() => navigate("/products")}>
+            <WidgetsOutlinedIcon />
             All
           </li>
           <li>
             <LocalOfferOutlinedIcon />
             Today's deals
           </li>
-          <li>
+          <li onClick={() => navigate("/categories")}>
             <CategoryOutlinedIcon />
             Categories
           </li>
@@ -44,9 +44,9 @@ const Navbar = () => {
           <li>
             <ShoppingCartOutlinedIcon />
           </li>
-          <li>
+          <li onClick={() => logOutUser()}>
             {/* TODO: to be removed in future */}
-            <Person2OutlinedIcon onClick={() => logOutUser()} />
+            <Person2OutlinedIcon />
           </li>
         </ul>
       </div>

@@ -86,5 +86,5 @@ export const productsSlice = createSlice({
 });
 
 // export const {} = productsSlice.actions;
-export const selectCount = (state: ProductState) => state.products;
+export const selectProducts = (state: ProductState) => state.products;
 export default productsSlice.reducer;

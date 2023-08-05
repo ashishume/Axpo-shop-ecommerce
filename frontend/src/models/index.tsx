@@ -22,3 +22,12 @@ export interface CartState {
   isLoading: boolean;
   totalPrice: number;
 }
+export interface CategoryState {
+  categories: ICategory[];
+  isLoading: boolean;
+}
+
+export interface ICategory {
+  name: string;
+  _id?: string;
+}
