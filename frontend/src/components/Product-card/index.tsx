@@ -5,7 +5,7 @@ const ProductCard: React.FC<{ product: IProduct; handleProduct: () => void }> = 
     <div className="product-container" onClick={handleProduct}>
       <div className="sale-tag">Sale</div>
       <div className="product-image-container">
-        <img src={product.image} className="product-image w-50 h-60" />
+        <img src={product.image} className="product-image w-50 h-60" draggable="false" />
       </div>
       <div className="pl-4">
         <div className="brand line-clamp-1">{product.brand}</div>

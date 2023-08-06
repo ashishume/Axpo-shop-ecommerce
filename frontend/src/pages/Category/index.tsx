@@ -25,7 +25,7 @@ const CategoryList = () => {
           <CategoryCard
             key={category._id}
             openCategory={() => openCategory(category)}
-            imageSource="assets/headphone.jpg"
+            imageSource={category.image}
             title={category.name}
           />
         );

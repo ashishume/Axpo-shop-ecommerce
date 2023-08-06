@@ -8,6 +8,7 @@ const initialState: CategoryState = {
     {
       name: "",
       _id: "",
+      image: "",
     },
   ],
   isLoading: false,

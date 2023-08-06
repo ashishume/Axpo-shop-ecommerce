@@ -6,8 +6,8 @@ const authenticateToken = require("../controllers/authMiddleware");
 // Create and save a new Category
 router.post("/category", async (req, res) => {
   try {
-    const { name } = req.body;
-    const newCategory = new Category({ name });
+    const { name, image } = req.body;
+    const newCategory = new Category({ name, image });
     await newCategory.save();
     res.status(201).json({ message: "category added", category: req.body });
   } catch (error) {

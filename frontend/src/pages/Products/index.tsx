@@ -20,7 +20,11 @@ const Products = () => {
   }, []);
 
   function handleProduct(product: IProduct) {
-    const title = product.name.split(" ").join("-").toLocaleLowerCase();
+    /** 
+     * Replace the text with spaces to - and also handles (triple dash)--- cases to (single dash)- 
+     * and removes the / and replaces with (single dash) -  
+     */
+    const title = product.name.replace(/\s+/g, "-").replace(/\//g, "-").replace(/-+/g, "-");
     navigate(`/product/${title}/${product._id}`);
   }
 

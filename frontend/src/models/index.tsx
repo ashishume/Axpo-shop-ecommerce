@@ -30,4 +30,5 @@ export interface CategoryState {
 export interface ICategory {
   name: string;
   _id?: string;
+  image: string;
 }
