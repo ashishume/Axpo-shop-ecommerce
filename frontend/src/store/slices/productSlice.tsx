@@ -17,6 +17,7 @@ const productInitial = {
 
 const initialState: ProductState = {
   products: [],
+  categoryProducts: [],
   product: productInitial,
   isLoading: false,
   productAddedToCart: {
@@ -27,6 +28,10 @@ const initialState: ProductState = {
 
 export const fetchProducts = createAsyncThunk("products/fetchProducts", async () => {
   const response = await Axios.get("/products", { withCredentials: true });
+  return response.data;
+});
+export const fetchCategoryProducts = createAsyncThunk("products/fetchCategoryProducts", async (categoryId: string) => {
+  const response = await Axios.get("/products/" + categoryId, { withCredentials: true });
   return response.data;
 });
 export const fetchProduct = createAsyncThunk("product/fetchProduct", async (productId: string) => {
@@ -44,7 +49,9 @@ export const checkIfAddedToCart = createAsyncThunk(
 export const productsSlice = createSlice({
   name: "products",
   initialState,
-  reducers: {},
+  reducers: {
+    clearState: (state) => initialState,
+  },
   extraReducers: (builder) => {
     //fetchProducts
     builder.addCase(fetchProducts.pending, (state: ProductState, action: PayloadAction<any>) => {
@@ -56,6 +63,19 @@ export const productsSlice = createSlice({
     });
     builder.addCase(fetchProducts.rejected, (state: ProductState, action: PayloadAction<any>) => {
       state.products = [];
+      state.isLoading = false;
+    });
+
+    //fetchCategoryProducts
+    builder.addCase(fetchCategoryProducts.pending, (state: ProductState, action: PayloadAction<any>) => {
+      state.isLoading = true;
+    });
+    builder.addCase(fetchCategoryProducts.fulfilled, (state: ProductState, action: PayloadAction<any>) => {
+      state.categoryProducts = action.payload;
+      state.isLoading = false;
+    });
+    builder.addCase(fetchCategoryProducts.rejected, (state: ProductState, action: PayloadAction<any>) => {
+      state.categoryProducts = [];
       state.isLoading = false;
     });
 
@@ -85,6 +105,6 @@ export const productsSlice = createSlice({
   },
 });
 
-// export const {} = productsSlice.actions;
+export const { clearState } = productsSlice.actions;
 export const selectProducts = (state: ProductState) => state.products;
 export default productsSlice.reducer;

@@ -20,7 +20,7 @@ const RoutePaths = () => {
         <Route path="/products" element={<Products />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/categories" element={<CategoryList />} />
-        <Route path="/categories/:categoryId" element={<CategoryItems />} />
+        <Route path="/categories/:categoryName/:categoryId" element={<CategoryItems />} />
         <Route path="/product/:title/:productId" element={<Product />} />
         {/* <Route
           path="/products"

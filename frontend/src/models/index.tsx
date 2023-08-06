@@ -9,6 +9,7 @@ export interface RootState {
 }
 export interface ProductState {
   products: IProduct[];
+  categoryProducts: IProduct[];
   product: IProduct;
   isLoading: boolean;
   productAddedToCart: {

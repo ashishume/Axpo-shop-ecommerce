@@ -52,6 +52,22 @@ router.get("/products", authenticateToken, async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+/** fetch category products */
+router.get("/products/:categoryId", authenticateToken, async (req, res) => {
+  try {
+    const { categoryId } = req.params;
+    const products = await Product.find({
+      category: categoryId,
+    })
+      .populate({
+        path: "category",
+      })
+      .select("-__v");
+    res.status(200).json(products);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
 /** fetch one products */
 router.get("/product/:id", authenticateToken, async (req, res) => {
   try {

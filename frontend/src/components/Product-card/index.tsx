@@ -8,8 +8,8 @@ const ProductCard: React.FC<{ product: IProduct; handleProduct: () => void }> = 
         <img src={product.image} className="product-image w-50 h-60" draggable="false" />
       </div>
       <div className="pl-4">
-        <div className="brand line-clamp-1">{product.brand}</div>
-        <div className="title text-md font-medium">{product.name}</div>
+        <div className="brand line-clamp-1 truncate">{product.brand}</div>
+        <div className="title text-md font-medium truncate">{product.name}</div>
         <div className="price text-xl font-bold my-3 text-left">₹{product.price}</div>
       </div>
     </div>

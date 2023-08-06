@@ -7,6 +7,7 @@ import { Axios } from "../../services/http-service";
 import { useNavigate } from "react-router-dom";
 import { IProduct } from "../../models/product";
 import useDidMount from "../../services/didMount";
+import SpinningLoader from "../../components/SpinningLoader";
 
 const Products = () => {
   const dispatch = useAppDispatch();
@@ -20,9 +21,9 @@ const Products = () => {
   }, []);
 
   function handleProduct(product: IProduct) {
-    /** 
-     * Replace the text with spaces to - and also handles (triple dash)--- cases to (single dash)- 
-     * and removes the / and replaces with (single dash) -  
+    /**
+     * Replace the text with spaces to - and also handles (triple dash)--- cases to (single dash)-
+     * and removes the / and replaces with (single dash) -
      */
     const title = product.name.replace(/\s+/g, "-").replace(/\//g, "-").replace(/-+/g, "-");
     navigate(`/product/${title}/${product._id}`);
@@ -37,7 +38,7 @@ const Products = () => {
             return <ProductCard key={product._id} product={product} handleProduct={() => handleProduct(product)} />;
           })
         ) : (
-          <div className="mx-5 font-bold">Loading...</div>
+          <SpinningLoader />
         )}
       </div>
     </Layout>
