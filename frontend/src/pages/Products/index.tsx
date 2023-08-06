@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { IProduct } from "../../models/product";
 import useDidMount from "../../services/didMount";
 import SpinningLoader from "../../components/SpinningLoader";
+import { newTitle } from "../../Utils/convertTextToLink";
 
 const Products = () => {
   const dispatch = useAppDispatch();
@@ -21,12 +22,7 @@ const Products = () => {
   }, []);
 
   function handleProduct(product: IProduct) {
-    /**
-     * Replace the text with spaces to - and also handles (triple dash)--- cases to (single dash)-
-     * and removes the / and replaces with (single dash) -
-     */
-    const title = product.name.replace(/\s+/g, "-").replace(/\//g, "-").replace(/-+/g, "-");
-    navigate(`/product/${title}/${product._id}`);
+    navigate(`/product/${newTitle(product.name)}/${product._id}`);
   }
 
   return (
