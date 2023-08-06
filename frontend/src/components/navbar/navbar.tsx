@@ -25,10 +25,10 @@ const Navbar = () => {
             <WidgetsOutlinedIcon />
             All
           </li>
-          <li>
+          {/* <li>
             <LocalOfferOutlinedIcon />
             Today's deals
-          </li>
+          </li> */}
           <li onClick={() => navigate("/categories")}>
             <CategoryOutlinedIcon />
             Categories
@@ -41,7 +41,7 @@ const Navbar = () => {
             <SearchOutlinedIcon />
             Search
           </li>
-          <li>
+          <li onClick={()=>navigate('/cart')}>
             <ShoppingCartOutlinedIcon />
           </li>
           <li onClick={() => logOutUser()}>
