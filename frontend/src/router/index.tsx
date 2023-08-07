@@ -16,6 +16,7 @@ const RoutePaths = () => {
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
         <Route path="/dashboard" element={<App />} />
         <Route path="/products" element={<Products />} />
         <Route path="/cart" element={<Cart />} />

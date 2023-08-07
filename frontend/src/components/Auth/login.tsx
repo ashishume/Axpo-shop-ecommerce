@@ -4,7 +4,7 @@ import { API_PATHS } from "../../constants/api-path";
 import { useNavigate } from "react-router-dom";
 import { Axios } from "../../services/http-service";
 import { useEffect } from "react";
-
+import './auth.scss'
 const Login = () => {
   const navigate = useNavigate();
 
@@ -64,6 +64,9 @@ const Login = () => {
             Submit
           </button>
         </form>
+        <div>
+          Not signed up? signup <a className="signup-link" onClick={() => navigate("/signup")}>here</a>{" "}
+        </div>
       </div>
     </>
   );
