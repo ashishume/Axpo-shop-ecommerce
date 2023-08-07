@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import "./search.scss";
 import Layout from "../../components/layout";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
