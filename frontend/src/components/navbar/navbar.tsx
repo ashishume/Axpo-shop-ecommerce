@@ -14,7 +14,6 @@ import { clearState, searchProducts } from "../../store/slices/productSlice";
 const Navbar = ({ searchValue = "", isFocused = false }: { searchValue: string; isFocused: boolean }) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const searchProductsData = useAppSelector((state) => state.productsSlice.searchProducts);
 
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [focused, setFocus] = useState(false);
@@ -28,23 +27,30 @@ const Navbar = ({ searchValue = "", isFocused = false }: { searchValue: string; 
 
   /** TODO: will use this method for auto suggestions */
   // function handleInputChange() {
-    // if (inputRef?.current) {
-    // const value = inputRef?.current?.value;
-    // dispatch(searchProducts(value));
-    // navigate(`/search?searchValue=${value}`);
-    // }
+  // if (inputRef?.current) {
+  // const value = inputRef?.current?.value;
+  // dispatch(searchProducts(value));
+  // navigate(`/search?searchValue=${value}`);
+  // }
   // }
   function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
+    setFocus(true);
     if (event.key === "Enter") {
-      const value = inputRef?.current?.value;
-      dispatch(searchProducts(value as any));
-      navigate(`/search?searchValue=${value}`);
+      onSearch();
     }
+  }
+  function onSearch() {
+    const value = inputRef?.current?.value;
+    dispatch(searchProducts(value as any));
+    navigate(`/search?searchValue=${value}`);
   }
 
   useEffect(() => {
     if (inputRef?.current) {
       inputRef.current.value = searchValue;
+      if (searchValue?.length) {
+        dispatch(searchProducts(searchValue));
+      }
     }
     if (isFocused) {
       inputRef.current?.focus();
@@ -85,6 +91,9 @@ const Navbar = ({ searchValue = "", isFocused = false }: { searchValue: string; 
                 // onChange={debounce(handleInputChange, 400)}
                 placeholder="Search products..."
               />
+              <span onClick={onSearch}>
+                <SearchOutlinedIcon />
+              </span>
             </div>
           </li>
           <li onClick={() => navigate("/cart")}>

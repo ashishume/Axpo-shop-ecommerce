@@ -40,8 +40,12 @@
       }
     }
     .search-input-field-container {
+      border: solid 1px #80808078;
+      padding: 0px 3px;
+      margin: 0 2px;
+      padding-bottom: 3px;
+      border-radius: 4px;
       .search-input-field {
-        border: solid 1px #80808078;
         padding: 6px 14px;
         margin: 0px;
         border-radius: 4px;
