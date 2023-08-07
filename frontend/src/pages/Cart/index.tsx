@@ -13,6 +13,7 @@ import styles from "./cart.module.scss";
 import SpinningLoader from "../../components/SpinningLoader";
 import CartProduct from "../../components/CartProduct";
 import { IProduct } from "../../models/product";
+import { formatIndianRupees } from "../../Utils/convertTextToLink";
 const Cart = () => {
   const dispatch = useAppDispatch();
   const { cart, totalPrice, isLoading } = useAppSelector((state) => state.cartSlice);
@@ -22,6 +23,8 @@ const Cart = () => {
       if (userId) {
         await dispatch(fetchCart(userId));
         await dispatch(calculateTotalPrice());
+      } else {
+        window.location.href = "/login";
       }
     }
     fetchData();
@@ -68,9 +71,9 @@ const Cart = () => {
         <div className={styles.rightContainer}>
           <div className={styles.productDetails}>
             <div>Price details</div>
-            <div className={styles.totalMrp}>Total MRP : ₹ {totalPrice}</div>
+            <div className={styles.totalMrp}>Total MRP : ₹ {formatIndianRupees(totalPrice)}</div>
             <div className={styles.Covenience}>Covenience Fee: ₹20</div>
-            <div className={styles.totalAmount}>Total amount: ₹{totalPrice + 20}</div>
+            <div className={styles.totalAmount}>Total amount: ₹{formatIndianRupees(totalPrice + 20)}</div>
           </div>
           <button className={styles.checkoutButton}> Place order</button>
         </div>

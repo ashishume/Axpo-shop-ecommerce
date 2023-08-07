@@ -1,22 +1,33 @@
 .cartContainer {
   display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  border: solid 1px rgb(171, 171, 171);
+  justify-content: space-evenly;
   border-radius: 6px;
   margin: 10px;
+  padding: 5px;
+  height: auto;
   .leftContent {
+    flex: 1;
+    overflow: hidden;
     .productImage {
-      height: 232px;
-      width: 184px;
+      width: 180px;
+      height: 225px;
+      object-fit: cover;
+      border-radius: 6px;
     }
   }
   .rightContent {
-    margin-left: 25px;
+    flex: 2;
+    margin-left: 15px;
     font-size: 16px;
     .title {
-      font-size: 20px;
+      font-size: 16px;
       font-weight: 400;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      cursor: pointer;
+      color: rgb(113, 113, 240);
     }
     .brandName {
       font-size: 25px;

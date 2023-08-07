@@ -8,6 +8,7 @@ import SpinningLoader from "../../components/SpinningLoader";
 import { updateCart } from "../../store/slices/cartSlice";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { ICart } from "../../models/cart";
+import { formatIndianRupees } from "../../Utils/convertTextToLink";
 const Product = () => {
   const dispatch = useAppDispatch();
   const { product, isLoading, productAddedToCart } = useAppSelector((state) => state.productsSlice);
@@ -56,7 +57,7 @@ const Product = () => {
           <div className={styles.rightContainer}>
             <div className={styles.brand}>{product.brand}</div>
             <div className={styles.title}>{product.name}</div>
-            <div className={styles.price}>₹ {product.price}</div>
+            <div className={styles.price}>₹ {formatIndianRupees(product.price)}</div>
             <div className={styles.taxDescription}>(Inclusive of all taxes)</div>
             <div className={styles.description}>{product.description}</div>
             <div className={styles.buttonActions}>
