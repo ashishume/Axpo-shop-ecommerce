@@ -18,6 +18,7 @@ const productInitial = {
 const initialState: ProductState = {
   products: [],
   categoryProducts: [],
+  searchProducts:[],
   product: productInitial,
   isLoading: false,
   productAddedToCart: {
@@ -36,6 +37,10 @@ export const fetchCategoryProducts = createAsyncThunk("products/fetchCategoryPro
 });
 export const fetchProduct = createAsyncThunk("product/fetchProduct", async (productId: string) => {
   const response = await Axios.get("/product/" + productId, { withCredentials: true });
+  return response.data;
+});
+export const searchProducts = createAsyncThunk("product/searchProducts", async (searchValue: string) => {
+  const response = await Axios.get("/search?searchValue=" + searchValue, { withCredentials: true });
   return response.data;
 });
 export const checkIfAddedToCart = createAsyncThunk(
@@ -89,6 +94,19 @@ export const productsSlice = createSlice({
     });
     builder.addCase(fetchProduct.rejected, (state: ProductState, action: PayloadAction<any>) => {
       state.product = productInitial;
+      state.isLoading = false;
+    });
+
+    //fetchSearchProducts
+    builder.addCase(searchProducts.pending, (state: ProductState, action: PayloadAction<any>) => {
+      state.isLoading = true;
+    });
+    builder.addCase(searchProducts.fulfilled, (state: ProductState, action: PayloadAction<any>) => {
+      state.searchProducts = action.payload;
+      state.isLoading = false;
+    });
+    builder.addCase(searchProducts.rejected, (state: ProductState, action: PayloadAction<any>) => {
+      state.searchProducts = [];
       state.isLoading = false;
     });
 

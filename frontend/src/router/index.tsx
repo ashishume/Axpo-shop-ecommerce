@@ -9,6 +9,7 @@ import Product from "../pages/Product";
 import Cart from "../pages/Cart";
 import CategoryList from "../pages/Category";
 import CategoryItems from "../pages/CategoryItems";
+import Search from "../pages/Search";
 
 const RoutePaths = () => {
   return (
@@ -19,6 +20,7 @@ const RoutePaths = () => {
         <Route path="/signup" element={<Signup />} />
         <Route path="/dashboard" element={<App />} />
         <Route path="/products" element={<Products />} />
+        <Route path="/search" element={<Search />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/categories" element={<CategoryList />} />
         <Route path="/categories/:categoryName/:categoryId" element={<CategoryItems />} />

@@ -7,9 +7,15 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import Person2OutlinedIcon from "@mui/icons-material/Person2Outlined";
 import { useNavigate } from "react-router-dom";
 import { Axios } from "../../services/http-service";
-import { useEffect, useRef, useState } from "react";
-const Navbar = () => {
+import React, { useEffect, useRef, useState } from "react";
+import { debounce } from "@mui/material";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { clearState, searchProducts } from "../../store/slices/productSlice";
+const Navbar = ({ searchValue = "", isFocused = false }: { searchValue: string; isFocused: boolean }) => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const searchProductsData = useAppSelector((state) => state.productsSlice.searchProducts);
+
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [focused, setFocus] = useState(false);
   async function logOutUser() {
@@ -20,11 +26,31 @@ const Navbar = () => {
     }
   }
 
-  function handleInputChange() {
-    if (inputRef?.current) {
-      console.log(inputRef.current?.value);
+  /** TODO: will use this method for auto suggestions */
+  // function handleInputChange() {
+    // if (inputRef?.current) {
+    // const value = inputRef?.current?.value;
+    // dispatch(searchProducts(value));
+    // navigate(`/search?searchValue=${value}`);
+    // }
+  // }
+  function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
+    if (event.key === "Enter") {
+      const value = inputRef?.current?.value;
+      dispatch(searchProducts(value as any));
+      navigate(`/search?searchValue=${value}`);
     }
   }
+
+  useEffect(() => {
+    if (inputRef?.current) {
+      inputRef.current.value = searchValue;
+    }
+    if (isFocused) {
+      inputRef.current?.focus();
+    }
+  }, [inputRef?.current?.value, isFocused]);
+
   return (
     <div className="navbar-container">
       <div className="menu-items">
@@ -52,7 +78,13 @@ const Navbar = () => {
               onClick={() => setFocus(true)}
               onBlur={() => setFocus(false)}
             >
-              <input className="search-input-field" ref={inputRef} onChange={handleInputChange} placeholder="Search products..." />
+              <input
+                className="search-input-field"
+                ref={inputRef}
+                onKeyDown={handleKeyDown}
+                // onChange={debounce(handleInputChange, 400)}
+                placeholder="Search products..."
+              />
             </div>
           </li>
           <li onClick={() => navigate("/cart")}>

@@ -1,9 +1,10 @@
+import { ReactNode } from "react";
 import Navbar from "../navbar/navbar";
 
-const Layout = ({ children }: any) => {
+const Layout = ({ children, searchValue = "", isFocused }: any) => {
   return (
     <div className="container mx-auto">
-      <Navbar />
+      <Navbar searchValue={searchValue} isFocused={isFocused} />
       {children}
     </div>
   );

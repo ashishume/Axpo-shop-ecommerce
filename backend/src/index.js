@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const port = 4000;
+const searchRoutes = require("./routes/SearchProducts");
 const userRoutes = require("./routes/Auth");
 const productRoutes = require("./routes/Products");
 const categoryRoutes = require("./routes/Category");
@@ -27,6 +28,7 @@ app.use("/api/v1", userRoutes);
 app.use("/api/v1", productRoutes);
 app.use("/api/v1", categoryRoutes);
 app.use("/api/v1", cartRoutes);
+app.use("/api/v1", searchRoutes);
 app.use(swaggerDoc);
 
 // Start the server
