@@ -7,13 +7,22 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import Person2OutlinedIcon from "@mui/icons-material/Person2Outlined";
 import { useNavigate } from "react-router-dom";
 import { Axios } from "../../services/http-service";
+import { useEffect, useRef, useState } from "react";
 const Navbar = () => {
   const navigate = useNavigate();
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const [focused, setFocus] = useState(false);
   async function logOutUser() {
     const response = await Axios.post("/logout");
     if (response.status === 200) {
       localStorage.removeItem("userId");
       navigate("/login");
+    }
+  }
+
+  function handleInputChange() {
+    if (inputRef?.current) {
+      console.log(inputRef.current?.value);
     }
   }
   return (
@@ -38,10 +47,15 @@ const Navbar = () => {
       <div className="right-items">
         <ul>
           <li>
-            <SearchOutlinedIcon />
-            Search
+            <div
+              className={`search-input-field-container ${focused ? "active-search" : ""}`}
+              onClick={() => setFocus(true)}
+              onBlur={() => setFocus(false)}
+            >
+              <input className="search-input-field" ref={inputRef} onChange={handleInputChange} placeholder="Search products..." />
+            </div>
           </li>
-          <li onClick={()=>navigate('/cart')}>
+          <li onClick={() => navigate("/cart")}>
             <ShoppingCartOutlinedIcon />
           </li>
           <li onClick={() => logOutUser()}>

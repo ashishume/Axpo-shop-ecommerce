@@ -36,9 +36,31 @@
         cursor: pointer;
       }
       li:hover {
-        background-color: rgba(225, 225, 225, 0.518);
         border-radius: 4px;
       }
+    }
+    .search-input-field-container {
+      .search-input-field {
+        border: solid 1px #80808078;
+        padding: 6px 14px;
+        margin: 0px;
+        border-radius: 4px;
+        width: 200px;
+        transition: width 0.3s;
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+    .active-search {
+      @extend .search-input-field;
+      .search-input-field {
+        width: 400px;
+      }
+    }
+    .active-icon {
+      display: none;
+      width: 100px;
     }
   }
 }

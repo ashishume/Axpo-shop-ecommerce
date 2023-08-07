@@ -21,20 +21,26 @@ const CategoryList = () => {
 
   return (
     <Layout>
-      {state.categories?.length > 1 ? (
-        state.categories.map((category) => {
-          return (
-            <CategoryCard
-              key={category._id}
-              openCategory={() => openCategory(category)}
-              imageSource={category.image}
-              title={category.name}
-            />
-          );
-        })
-      ) : (
-        <SpinningLoader />
-      )}
+      <div
+        style={{
+          display: "flex",
+        }}
+      >
+        {state.categories?.length > 1 ? (
+          state.categories.map((category) => {
+            return (
+              <CategoryCard
+                key={category._id}
+                openCategory={() => openCategory(category)}
+                imageSource={category.image}
+                title={category.name}
+              />
+            );
+          })
+        ) : (
+          <SpinningLoader />
+        )}
+      </div>
     </Layout>
   );
 };

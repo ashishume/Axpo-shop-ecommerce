@@ -3,7 +3,6 @@
   padding: 5px;
   margin: 10px 20px;
   border-radius: 6px;
-  display: inline-block;
   position: relative;
   box-shadow: 1px 0px 5px 1px rgba(128, 128, 128, 0.29);
   width: 150px;
@@ -16,6 +15,8 @@
     top: 25px;
     mix-blend-mode: multiply;
     overflow: hidden;
+    height: auto;
+    width: 150px;
   }
   .title {
     display: flex;
