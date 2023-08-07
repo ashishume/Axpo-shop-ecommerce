@@ -41,13 +41,13 @@
       font-size: 12px;
     }
     .removeFromCart {
-      border: solid 1px lightgray;
       text-align: center;
       padding: 3px 5px;
       width: fit-content;
       border-radius: 6px;
-      box-shadow: 1px 1px 4px 0px lightgray;
       margin-top: 10px;
+      text-decoration: underline;
+      cursor: pointer;
     }
     .quantitySelect {
       padding: 2px 4px;

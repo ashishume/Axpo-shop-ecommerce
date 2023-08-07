@@ -49,7 +49,7 @@ const CartProduct = ({
         <div className={styles.price}>₹ {formatIndianRupees(productDetails.price)}</div>
         <div className={styles.returnPolicyText}>14 days return policy</div>
         <div className={styles.removeFromCart} onClick={removeFromCart}>
-          <button>Remove</button>
+          Remove
         </div>
       </div>
     </div>
