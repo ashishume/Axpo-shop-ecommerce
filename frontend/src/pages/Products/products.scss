@@ -1,0 +1,10 @@
+.products-container {
+  display: flex;
+  justify-content: center;
+  .filter {
+    flex: 1;
+  }
+  .products-content {
+    flex: 6;
+  }
+}

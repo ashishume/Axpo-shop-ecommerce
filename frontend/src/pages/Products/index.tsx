@@ -9,7 +9,8 @@ import { IProduct } from "../../models/product";
 import useDidMount from "../../services/didMount";
 import SpinningLoader from "../../components/SpinningLoader";
 import { newTitle } from "../../Utils/convertTextToLink";
-
+import Filter from "../../components/Filter";
+import "./products.scss";
 const Products = () => {
   const dispatch = useAppDispatch();
   const productsResponse = useAppSelector((state) => state.productsSlice);
@@ -27,15 +28,20 @@ const Products = () => {
 
   return (
     <Layout>
-      <div className="text-2xl mx-8 my-2 font-bold">Most selling products</div>
-      <div className="mx-5">
-        {!productsResponse?.isLoading ? (
-          productsResponse.products.map((product) => {
-            return <ProductCard key={product._id} product={product} handleProduct={() => handleProduct(product)} />;
-          })
-        ) : (
-          <SpinningLoader />
-        )}
+      <div className="text-2xl mx-6 my-2 font-bold">Most selling products</div>
+      <div className="products-container">
+        <div className="filter">
+          <Filter />
+        </div>
+        <div className="products-content mx-5">
+          {!productsResponse?.isLoading ? (
+            productsResponse.products.map((product) => {
+              return <ProductCard key={product._id} product={product} handleProduct={() => handleProduct(product)} />;
+            })
+          ) : (
+            <SpinningLoader />
+          )}
+        </div>
       </div>
     </Layout>
   );
