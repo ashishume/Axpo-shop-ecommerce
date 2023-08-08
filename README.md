@@ -64,3 +64,5 @@ This project is an e-commerce website that aims to provide a seamless online sho
     npm start
 
     ```
+
+    ## Note: You can find the deployed project here: https://ecommerce-frontend-five-kappa.vercel.app/
