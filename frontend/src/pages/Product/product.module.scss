@@ -1,6 +1,6 @@
 .category {
   font-size: 25px;
-  text-transform:capitalize;
+  text-transform: capitalize;
   font-weight: 700;
   margin: 0 32px;
   padding-bottom: 10px;
@@ -14,6 +14,7 @@
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 
   .leftContainer {
+    overflow: hidden;
     width: 100%;
     height: 80vh;
     display: flex;
@@ -25,8 +26,10 @@
       font-weight: 600;
     }
     .productImageContainer {
-      display: flex;
-      justify-content: center;
+      object-fit: cover;
+      height: auto;
+      width: 270px;
+      mix-blend-mode: multiply;
     }
   }
   .rightContainer {
@@ -72,7 +75,7 @@
         margin: 0 10px;
         cursor: pointer;
       }
-     
+
       .wishlist {
         @extend .addToCart;
         background-color: #fff;
