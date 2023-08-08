@@ -3,6 +3,7 @@ export interface IProduct {
   name: string;
   category: {
     name: string;
+    _id: string;
   };
   brand: string;
   quantity: number;

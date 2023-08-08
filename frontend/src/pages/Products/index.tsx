@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { fetchProducts } from "../../store/slices/productSlice";
+import { fetchCategoryProducts, fetchProducts, removeFilterProductsByCategory } from "../../store/slices/productSlice";
 import Layout from "../../components/layout";
 import ProductCard from "../../components/Product-card";
 import { Axios } from "../../services/http-service";
@@ -13,9 +13,11 @@ import Filter from "../../components/Filter";
 import "./products.scss";
 const Products = () => {
   const dispatch = useAppDispatch();
-  const productsResponse = useAppSelector((state) => state.productsSlice);
+  const { isLoading, products, categoryFilterProducts } = useAppSelector((state) => state.productsSlice);
   const navigate = useNavigate();
   const didMount = useDidMount(true);
+
+  const [filterApplied, setFilterApplied] = useState<string[]>([]);
   useEffect(() => {
     if (didMount) {
       dispatch(fetchProducts());
@@ -25,22 +27,32 @@ const Products = () => {
   function handleProduct(product: IProduct) {
     navigate(`/product/${newTitle(product.name)}/${product._id}`);
   }
+  function handleCategorySelection(categoryId: string, checked: boolean) {
+    if (checked) {
+      dispatch(fetchCategoryProducts(categoryId));
+      setFilterApplied((state) => [...state, categoryId]);
+    } else {
+      setFilterApplied((state) => state.filter((v) => v !== categoryId));
+      dispatch(removeFilterProductsByCategory(categoryId));
+    }
+  }
 
   return (
     <Layout>
       <div className="text-2xl mx-6 my-2 font-bold">Most selling products</div>
       <div className="products-container">
         <div className="filter">
-          <Filter />
+          <Filter handleCategorySelection={handleCategorySelection} />
         </div>
         <div className="products-content mx-5">
-          {!productsResponse?.isLoading ? (
-            productsResponse.products.map((product) => {
-              return <ProductCard key={product._id} product={product} handleProduct={() => handleProduct(product)} />;
-            })
-          ) : (
-            <SpinningLoader />
-          )}
+          {filterApplied?.length
+            ? categoryFilterProducts.map((product) => {
+                return <ProductCard key={product._id} product={product} handleProduct={() => handleProduct(product)} />;
+              })
+            : products.map((product) => {
+                return <ProductCard key={product._id} product={product} handleProduct={() => handleProduct(product)} />;
+              })}
+          {isLoading ? <SpinningLoader /> : ""}
         </div>
       </div>
     </Layout>

@@ -7,6 +7,7 @@ const productInitial = {
   name: "",
   category: {
     name: "",
+    _id: "",
   },
   brand: "",
   quantity: 0,
@@ -18,7 +19,8 @@ const productInitial = {
 const initialState: ProductState = {
   products: [],
   categoryProducts: [],
-  searchProducts:[],
+  categoryFilterProducts: [],
+  searchProducts: [],
   product: productInitial,
   isLoading: false,
   productAddedToCart: {
@@ -56,6 +58,9 @@ export const productsSlice = createSlice({
   initialState,
   reducers: {
     clearState: (state) => initialState,
+    removeFilterProductsByCategory: (state, action) => {
+      state.categoryFilterProducts = state.categoryFilterProducts.filter((product) => product.category._id !== action.payload);
+    },
   },
   extraReducers: (builder) => {
     //fetchProducts
@@ -77,6 +82,7 @@ export const productsSlice = createSlice({
     });
     builder.addCase(fetchCategoryProducts.fulfilled, (state: ProductState, action: PayloadAction<any>) => {
       state.categoryProducts = action.payload;
+      state.categoryFilterProducts = [...state.categoryFilterProducts, ...action.payload];
       state.isLoading = false;
     });
     builder.addCase(fetchCategoryProducts.rejected, (state: ProductState, action: PayloadAction<any>) => {
@@ -123,6 +129,6 @@ export const productsSlice = createSlice({
   },
 });
 
-export const { clearState } = productsSlice.actions;
+export const { clearState, removeFilterProductsByCategory } = productsSlice.actions;
 export const selectProducts = (state: ProductState) => state.products;
 export default productsSlice.reducer;

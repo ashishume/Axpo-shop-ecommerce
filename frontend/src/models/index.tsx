@@ -10,6 +10,7 @@ export interface RootState {
 export interface ProductState {
   products: IProduct[];
   categoryProducts: IProduct[];
+  categoryFilterProducts: IProduct[];
   searchProducts: IProduct[];
   product: IProduct;
   isLoading: boolean;

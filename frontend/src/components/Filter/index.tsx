@@ -4,7 +4,7 @@ import "./filter.scss";
 import { fetchCategory } from "../../store/slices/categorySlices";
 import SpinningLoader from "../SpinningLoader";
 import Checkbox from "@mui/material/Checkbox";
-const Filter = () => {
+const Filter = ({ handleCategorySelection }: { handleCategorySelection: (e: string, checked: boolean) => void }) => {
   const dispatch = useAppDispatch();
   const { categories, isLoading } = useAppSelector((state) => state.categorySlice);
   useEffect(() => {
@@ -18,7 +18,7 @@ const Filter = () => {
       {categories.map((category) => {
         return (
           <div key={category._id}>
-            <Checkbox value={category._id} onChange={(e) => console.log(e.target.value)} />
+            <Checkbox value={category._id} onChange={(e) => handleCategorySelection(e.target.value, e.target.checked)} />
             {category.name}
           </div>
         );

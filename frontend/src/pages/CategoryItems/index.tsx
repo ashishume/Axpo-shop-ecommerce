@@ -26,7 +26,7 @@ const CategoryItems = () => {
     <Layout>
       {products?.length ? (
         products.map((product) => {
-          return <ProductCard product={product} handleProduct={() => handleProduct(product)} />;
+          return <ProductCard key={product._id} product={product} handleProduct={() => handleProduct(product)} />;
         })
       ) : (
         <SpinningLoader />

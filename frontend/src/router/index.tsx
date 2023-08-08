@@ -10,6 +10,7 @@ import Cart from "../pages/Cart";
 import CategoryList from "../pages/Category";
 import CategoryItems from "../pages/CategoryItems";
 import Search from "../pages/Search";
+import Layout from "../components/layout";
 
 const RoutePaths = () => {
   return (
@@ -22,7 +23,14 @@ const RoutePaths = () => {
         <Route path="/products" element={<Products />} />
         <Route path="/search" element={<Search />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/categories" element={<CategoryList />} />
+        <Route
+          path="/categories"
+          element={
+            <Layout>
+              <CategoryList />
+            </Layout>
+          }
+        />
         <Route path="/categories/:categoryName/:categoryId" element={<CategoryItems />} />
         <Route path="/product/:title/:productId" element={<Product />} />
         {/* <Route
