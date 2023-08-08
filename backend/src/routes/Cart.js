@@ -5,7 +5,7 @@ const Product = require("../models/Products");
 const authenticateToken = require("../controllers/authMiddleware");
 
 // Create and save a new cart
-router.post("/cart", async (req, res) => {
+router.post("/cart", authenticateToken, async (req, res) => {
   try {
     const { product, quantity, user } = req.body;
     const productData = await Product.findById(product);
@@ -26,7 +26,7 @@ router.post("/cart", async (req, res) => {
   }
 });
 
-router.get("/cart/:userId", async (req, res) => {
+router.get("/cart/:userId", authenticateToken, async (req, res) => {
   try {
     const { userId } = req.params;
     const cartData = await Cart.find({ user: userId }).populate("product").populate("user").select("-__v -password");
@@ -36,7 +36,7 @@ router.get("/cart/:userId", async (req, res) => {
   }
 });
 
-router.patch("/cart/:userId", async (req, res) => {
+router.patch("/cart/:userId", authenticateToken, async (req, res) => {
   try {
     const { userId } = req.params;
     const { product, quantity } = req.body;
@@ -63,7 +63,7 @@ router.patch("/cart/:userId", async (req, res) => {
   }
 });
 
-router.delete("/cart/:userId/:productId", async (req, res) => {
+router.delete("/cart/:userId/:productId", authenticateToken, async (req, res) => {
   try {
     const { userId, productId } = req.params;
     const cartData = await Cart.findOneAndRemove({ user: userId, product: productId });

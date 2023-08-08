@@ -4,7 +4,7 @@ const Product = require("../models/Products");
 const authenticateToken = require("../controllers/authMiddleware");
 
 // fetch all search value products
-router.get("/search", async (req, res) => {
+router.get("/search", authenticateToken, async (req, res) => {
   try {
     const { searchValue } = req.query;
     const products = await Product.find({
