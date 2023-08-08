@@ -14,10 +14,13 @@ import SpinningLoader from "../../components/SpinningLoader";
 import CartProduct from "../../components/CartProduct";
 import { IProduct } from "../../models/product";
 import { formatIndianRupees } from "../../Utils/convertTextToLink";
-import { placeOrder } from "../../store/slices/ordersSlice";
+import { placeOrder, resetOrdersPlacedBool } from "../../store/slices/ordersSlice";
+import { useNavigate } from "react-router-dom";
 const Cart = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { cart, totalPrice, isLoading } = useAppSelector((state) => state.cartSlice);
+  const { isOrderPlaced } = useAppSelector((state) => state.ordersSlice);
   useEffect(() => {
     async function fetchData() {
       const userId = localStorage.getItem("userId");
@@ -30,6 +33,15 @@ const Cart = () => {
     }
     fetchData();
   }, []);
+
+  useEffect(() => {
+    if (isOrderPlaced) {
+      navigate("/my-orders");
+    }
+    return () => {
+      dispatch(resetOrdersPlacedBool());
+    };
+  }, [isOrderPlaced]);
 
   async function removeFromCart(product: IProduct) {
     await dispatch(removeProduct(product._id));

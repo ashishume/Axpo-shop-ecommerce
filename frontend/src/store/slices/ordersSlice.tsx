@@ -6,6 +6,7 @@ import { API_PATHS } from "../../constants/api-path";
 const initialState: OrdersState = {
   orders: [],
   isLoading: false,
+  isOrderPlaced: false,
 };
 
 export const placeOrder = createAsyncThunk("product/placeOrder", async (payload: { user: string; products: string[] }) => {
@@ -20,7 +21,11 @@ export const fetchOrders = createAsyncThunk("product/orders", async (userId: str
 export const orderSlice = createSlice({
   name: "orders",
   initialState,
-  reducers: {},
+  reducers: {
+    resetOrdersPlacedBool: (state) => {
+      state.isOrderPlaced = false;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchOrders.pending, (state: OrdersState, action: PayloadAction<any>) => {
       state.isLoading = true;
@@ -33,8 +38,18 @@ export const orderSlice = createSlice({
       state.orders = [];
       state.isLoading = false;
     });
+    builder.addCase(placeOrder.pending, (state: OrdersState, action: PayloadAction<any>) => {
+      state.isOrderPlaced = false;
+    });
+    builder.addCase(placeOrder.fulfilled, (state: OrdersState, action: PayloadAction<any>) => {
+      state.isOrderPlaced = true;
+    });
+    builder.addCase(placeOrder.rejected, (state: OrdersState, action: PayloadAction<any>) => {
+      state.isOrderPlaced = false;
+    });
   },
 });
 
+export const { resetOrdersPlacedBool } = orderSlice.actions;
 export const selectCart = (state: OrdersState) => state.orders;
 export default orderSlice.reducer;

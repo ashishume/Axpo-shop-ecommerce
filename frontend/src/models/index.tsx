@@ -39,4 +39,5 @@ export interface ICategory {
 export interface OrdersState {
   orders: [];
   isLoading: boolean;
+  isOrderPlaced: boolean;
 }
