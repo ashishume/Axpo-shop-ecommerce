@@ -44,7 +44,7 @@ router.post("/products", async (req, res) => {
 });
 
 /** fetch multple products */
-router.get("/products", authenticateToken, async (req, res) => {
+router.get("/products", async (req, res) => {
   try {
     const products = await Product.find().select("-__v");
     res.status(200).json(products);
@@ -53,7 +53,7 @@ router.get("/products", authenticateToken, async (req, res) => {
   }
 });
 /** fetch category products */
-router.get("/products/:categoryId", authenticateToken, async (req, res) => {
+router.get("/products/:categoryId", async (req, res) => {
   try {
     const { categoryId } = req.params;
     const products = await Product.find({
@@ -69,7 +69,7 @@ router.get("/products/:categoryId", authenticateToken, async (req, res) => {
   }
 });
 /** fetch one products */
-router.get("/product/:id", authenticateToken, async (req, res) => {
+router.get("/product/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const product = await Product.findById(id)
@@ -84,7 +84,7 @@ router.get("/product/:id", authenticateToken, async (req, res) => {
 });
 
 /** check if product is already to cart or not */
-router.get("/product/added-to-cart/:userId/:productId", authenticateToken, async (req, res) => {
+router.get("/product/added-to-cart/:userId/:productId", async (req, res) => {
   try {
     const { userId, productId } = req.params;
     const cartData = await Cart.findOne({ user: userId, product: productId });

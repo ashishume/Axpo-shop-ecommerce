@@ -15,7 +15,7 @@ router.post("/category", async (req, res) => {
   }
 });
 // fetch all categories
-router.get("/category", authenticateToken, async (req, res) => {
+router.get("/category", async (req, res) => {
   try {
     const category = await Category.find().select("-__v");
     res.status(200).json(category);
