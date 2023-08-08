@@ -2,6 +2,7 @@ import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { CartState } from "../../models";
 import { Axios } from "../../services/http-service";
 import { ICart } from "../../models/cart";
+import { API_PATHS } from "../../constants/api-path";
 
 const initialState: CartState = {
   cart: [],
@@ -10,15 +11,15 @@ const initialState: CartState = {
 };
 
 export const fetchCart = createAsyncThunk("products/fetchCart", async (userId: string) => {
-  const response = await Axios.get("/cart/" + userId);
+  const response = await Axios.get(API_PATHS.CART + "/" + userId);
   return response.data;
 });
 export const updateCart = createAsyncThunk("product/updateCart", async ({ payload }: { payload: ICart }) => {
-  const response = await Axios.post("/cart", payload);
+  const response = await Axios.post(API_PATHS.CART, payload);
   return response.data;
 });
 export const updateQuantityCart = createAsyncThunk("product/updateQuantityCart", async ({ product, quantity, user }: ICart) => {
-  const response = await Axios.patch("/cart/" + user, {
+  const response = await Axios.patch(API_PATHS.CART + "/" + user, {
     product,
     quantity,
     user,
@@ -28,7 +29,7 @@ export const updateQuantityCart = createAsyncThunk("product/updateQuantityCart",
 export const removeProductFromCart = createAsyncThunk(
   "product/removeFromCart",
   async ({ userId, productId }: { userId: string; productId: string }) => {
-    const response = await Axios.delete(`/cart/${userId}/${productId}`);
+    const response = await Axios.delete(`${API_PATHS.CART}/${userId}/${productId}`);
     return response.data;
   }
 );

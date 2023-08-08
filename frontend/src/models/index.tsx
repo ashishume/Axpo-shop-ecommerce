@@ -35,3 +35,8 @@ export interface ICategory {
   _id?: string;
   image: string;
 }
+
+export interface OrdersState {
+  orders: [];
+  isLoading: boolean;
+}

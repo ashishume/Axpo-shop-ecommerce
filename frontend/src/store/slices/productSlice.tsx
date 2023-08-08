@@ -1,6 +1,7 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { ProductState } from "../../models";
 import { Axios } from "../../services/http-service";
+import { API_PATHS } from "../../constants/api-path";
 
 const productInitial = {
   _id: "",
@@ -30,25 +31,25 @@ const initialState: ProductState = {
 };
 
 export const fetchProducts = createAsyncThunk("products/fetchProducts", async () => {
-  const response = await Axios.get("/products", { withCredentials: true });
+  const response = await Axios.get(API_PATHS.PRODUCTS, { withCredentials: true });
   return response.data;
 });
 export const fetchCategoryProducts = createAsyncThunk("products/fetchCategoryProducts", async (categoryId: string) => {
-  const response = await Axios.get("/products/" + categoryId, { withCredentials: true });
+  const response = await Axios.get(API_PATHS.PRODUCTS + "/" + categoryId, { withCredentials: true });
   return response.data;
 });
 export const fetchProduct = createAsyncThunk("product/fetchProduct", async (productId: string) => {
-  const response = await Axios.get("/product/" + productId, { withCredentials: true });
+  const response = await Axios.get(API_PATHS.PRODUCT + "/" + productId, { withCredentials: true });
   return response.data;
 });
 export const searchProducts = createAsyncThunk("product/searchProducts", async (searchValue: string) => {
-  const response = await Axios.get("/search?searchValue=" + searchValue, { withCredentials: true });
+  const response = await Axios.get(API_PATHS.SEARCH + "?searchValue=" + searchValue, { withCredentials: true });
   return response.data;
 });
 export const checkIfAddedToCart = createAsyncThunk(
   "cart/checkIfAddedToCart",
   async ({ productId, userId }: { productId: string; userId: string }) => {
-    const response = await Axios.get("/product/added-to-cart/" + userId + "/" + productId, { withCredentials: true });
+    const response = await Axios.get(API_PATHS.ADD_TO_CART + userId + "/" + productId, { withCredentials: true });
     return response.data;
   }
 );

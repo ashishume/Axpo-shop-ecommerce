@@ -17,7 +17,7 @@ const Login = () => {
     const response = await Axios.post(API_PATHS.LOGIN, data);
     if (response.status === 200) {
       localStorage.setItem("userId", response.data.user);
-      navigate("/products");
+      navigate("/");
     }
   };
 
@@ -26,7 +26,7 @@ const Login = () => {
       try {
         const response = await Axios.get("/validate");
         if (response) {
-          navigate("/products");
+          navigate("/");
         }
       } catch (e: any) {}
     };

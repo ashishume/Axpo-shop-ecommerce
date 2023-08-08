@@ -2,6 +2,7 @@ import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { CartState, CategoryState } from "../../models";
 import { Axios } from "../../services/http-service";
 import { ICart } from "../../models/cart";
+import { API_PATHS } from "../../constants/api-path";
 
 const initialState: CategoryState = {
   categories: [
@@ -15,7 +16,7 @@ const initialState: CategoryState = {
 };
 
 export const fetchCategory = createAsyncThunk("category/fetchCategory", async () => {
-  const response = await Axios.get("/category");
+  const response = await Axios.get(API_PATHS.CATEGORY);
   return response.data;
 });
 

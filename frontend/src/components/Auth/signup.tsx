@@ -27,7 +27,7 @@ const Signup = () => {
       try {
         const response = await Axios.get("/validate");
         if (response) {
-          navigate("/products");
+          navigate("/");
         }
       } catch (e: any) {}
     };

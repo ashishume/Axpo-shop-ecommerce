@@ -14,6 +14,7 @@ import SpinningLoader from "../../components/SpinningLoader";
 import CartProduct from "../../components/CartProduct";
 import { IProduct } from "../../models/product";
 import { formatIndianRupees } from "../../Utils/convertTextToLink";
+import { placeOrder } from "../../store/slices/ordersSlice";
 const Cart = () => {
   const dispatch = useAppDispatch();
   const { cart, totalPrice, isLoading } = useAppSelector((state) => state.cartSlice);
@@ -46,7 +47,20 @@ const Cart = () => {
       dispatch(calculateTotalPrice());
     }
   }
-
+  function placeOrderHandler() {
+    const user = localStorage.getItem("userId");
+    if (user) {
+      let products: any = [];
+      cart.map((product) => {
+        products.push({ product: product.product._id, quantity: product.quantity });
+      });
+      let payload = {
+        products,
+        user,
+      };
+      dispatch(placeOrder(payload));
+    }
+  }
   return (
     <Layout>
       <div className="text-2xl font-bold ml-10">Cart</div>
@@ -75,7 +89,9 @@ const Cart = () => {
             <div className={styles.Covenience}>Covenience Fee: ₹20</div>
             <div className={styles.totalAmount}>Total amount: ₹{formatIndianRupees(totalPrice + 20)}</div>
           </div>
-          <button className={styles.checkoutButton}> Place order</button>
+          <button className={styles.checkoutButton} onClick={placeOrderHandler}>
+            Place order
+          </button>
         </div>
       </div>
     </Layout>
