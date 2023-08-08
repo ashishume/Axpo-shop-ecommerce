@@ -1,15 +1,15 @@
 const express = require("express");
 const app = express();
 const port = 4000;
-const searchRoutes = require("./routes/SearchProducts");
-const userRoutes = require("./routes/Auth");
-const productRoutes = require("./routes/Products");
-const categoryRoutes = require("./routes/Category");
-const cartRoutes = require("./routes/Cart");
-const swaggerDoc = require("./controllers/swagger");
+const searchRoutes = require("./src/routes/SearchProducts");
+const userRoutes = require("./src/routes/Auth");
+const productRoutes = require("./src/routes/Products");
+const categoryRoutes = require("./src/routes/Category");
+const cartRoutes = require("./src/routes/Cart");
+const swaggerDoc = require("./src/controllers/swagger");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
-require("./controllers/db-connect");
+require("./src/controllers/db-connect");
 app.use(cookieParser());
 
 // Middleware for parsing JSON and URL-encoded data
