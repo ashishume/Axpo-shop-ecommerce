@@ -2,7 +2,7 @@
   display: inline-block;
   box-shadow: 1px 1px 6px 0px lightgray;
   margin: 10px;
-  max-width: 190px;
+  max-width: 200px;
   border-radius: 7px;
   overflow: hidden;
   position: relative;
@@ -20,6 +20,9 @@
     text-align: center;
     display: flex;
     justify-content: center;
+    .product-image {
+      object-fit: contain;
+    }
   }
   .brand {
     margin: 8px 0;
