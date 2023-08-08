@@ -12,7 +12,7 @@ export const placeOrder = createAsyncThunk("product/placeOrder", async (payload:
   const response = await Axios.post(`${API_PATHS.CREATE_ORDERS}`, payload);
   return response.data;
 });
-export const fetchOrders = createAsyncThunk("product/orders", async ({ userId }: { userId: string }) => {
+export const fetchOrders = createAsyncThunk("product/orders", async (userId: string) => {
   const response = await Axios.get(`${API_PATHS.ORDERS}/${userId}`);
   return response.data;
 });

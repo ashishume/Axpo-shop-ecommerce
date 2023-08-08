@@ -11,6 +11,7 @@ import CategoryList from "../pages/Category";
 import CategoryItems from "../pages/CategoryItems";
 import Search from "../pages/Search";
 import Layout from "../components/layout";
+import Orders from "../pages/Orders";
 
 const RoutePaths = () => {
   return (
@@ -33,6 +34,7 @@ const RoutePaths = () => {
         />
         <Route path="/categories/:categoryName/:categoryId" element={<CategoryItems />} />
         <Route path="/product/:title/:productId" element={<Product />} />
+        <Route path="/my-orders" element={<Orders />} />
         {/* <Route
           path="/products"
           element={

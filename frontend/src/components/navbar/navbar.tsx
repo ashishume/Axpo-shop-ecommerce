@@ -5,6 +5,7 @@ import LocalOfferOutlinedIcon from "@mui/icons-material/LocalOfferOutlined";
 import CategoryOutlinedIcon from "@mui/icons-material/CategoryOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import Person2OutlinedIcon from "@mui/icons-material/Person2Outlined";
+import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import { useNavigate } from "react-router-dom";
 import { Axios } from "../../services/http-service";
 import React, { useEffect, useRef, useState } from "react";
@@ -95,6 +96,9 @@ const Navbar = ({ searchValue = "", isFocused = false }: { searchValue: string; 
                 <SearchOutlinedIcon />
               </span>
             </div>
+          </li>
+          <li onClick={() => navigate("/my-orders")}>
+            <LocalShippingIcon />
           </li>
           <li onClick={() => navigate("/cart")}>
             <ShoppingCartOutlinedIcon />
