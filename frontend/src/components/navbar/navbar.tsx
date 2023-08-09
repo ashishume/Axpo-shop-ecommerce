@@ -61,7 +61,7 @@ const Navbar = ({ searchValue = "", isFocused = false }: { searchValue: string; 
   return (
     <div className="navbar-container">
       <div className="menu-items">
-        <img src={"/assets/amazon.png"} className="h-12 w-50" onClick={() => navigate("/")} />
+        <img src={"/assets/logo.png"} className="h-12 w-50" onClick={() => navigate("/")} />
         <ul>
           <li onClick={() => navigate("/products")}>
             <WidgetsOutlinedIcon />
