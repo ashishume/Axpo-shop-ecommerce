@@ -25,7 +25,13 @@ router.get("/orders/:userId", authenticateToken, async (req, res) => {
     const { userId } = req.params;
     const orders = await Orders.find({
       user: userId,
-    }).select("-__v");
+    })
+      .populate({
+        path: "products.product",
+        select: "-__v",
+      })
+      .select("-__v");
+
     res.status(200).json(orders);
   } catch (error) {
     res.status(500).json({ message: error.message });

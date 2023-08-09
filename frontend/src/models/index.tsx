@@ -1,4 +1,5 @@
 import { ICart, ICartResponse } from "./cart";
+import { IOrders } from "./order";
 import { IProduct } from "./product";
 
 export interface RootState {
@@ -37,7 +38,7 @@ export interface ICategory {
 }
 
 export interface OrdersState {
-  orders: [];
+  orders: IOrders[];
   isLoading: boolean;
   isOrderPlaced: boolean;
 }
