@@ -63,7 +63,7 @@ const Navbar = ({ searchValue = "", isFocused = false }: { searchValue: string; 
       <div className="menu-items">
         <img src={"/assets/logo.png"} className="h-12 w-50" onClick={() => navigate("/")} />
         <ul>
-          <li onClick={() => navigate("/products")}>
+          <li className="icon-left" onClick={() => navigate("/products")}>
             <WidgetsOutlinedIcon />
             All
           </li>
@@ -71,7 +71,7 @@ const Navbar = ({ searchValue = "", isFocused = false }: { searchValue: string; 
             <LocalOfferOutlinedIcon />
             Today's deals
           </li> */}
-          <li onClick={() => navigate("/categories")}>
+          <li className="icon-left" onClick={() => navigate("/categories")}>
             <CategoryOutlinedIcon />
             Categories
           </li>
@@ -97,14 +97,14 @@ const Navbar = ({ searchValue = "", isFocused = false }: { searchValue: string; 
               </span>
             </div>
           </li>
-          <li onClick={() => navigate("/my-orders")}>
+          <li className="icon-right" onClick={() => navigate("/my-orders")}>
             <LocalShippingIcon />
           </li>
-          <li onClick={() => navigate("/cart")}>
+          <li className="icon-right" onClick={() => navigate("/cart")}>
             <ShoppingCartOutlinedIcon />
             {cart?.length > 0 ? <span className="cart-item-length">{cart.length} </span> : ""}
           </li>
-          <li onClick={() => logOutUser()}>
+          <li className="icon-right" onClick={() => logOutUser()}>
             {/* TODO: to be removed in future */}
             <Person2OutlinedIcon />
           </li>

@@ -1,7 +1,7 @@
 .navbar-container {
   display: flex;
   justify-content: space-between;
-  padding: 10px;
+  padding: 4px 10px;
   .menu-items {
     margin: 0 10px;
     font-weight: 600;
@@ -81,5 +81,11 @@
       display: none;
       width: 100px;
     }
+  }
+  .icon-left {
+    padding-top: 4px !important;
+  }
+  .icon-right {
+    padding-top: 15px !important;
   }
 }
