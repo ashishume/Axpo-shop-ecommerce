@@ -6,8 +6,8 @@ const authenticateToken = require("../controllers/authMiddleware");
 
 router.post("/orders/create", authenticateToken, async (req, res) => {
   try {
-    const { user, products } = req.body;
-    const newOrders = new Orders({ user, products });
+    const { user, products, totalAmount } = req.body;
+    const newOrders = new Orders({ user, products, orderDate: Date.now(), address: "", totalAmount });
     await newOrders.save();
     const productIds = products.map((value) => value.product);
     if (productIds?.length) {

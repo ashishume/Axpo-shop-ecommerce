@@ -1,6 +1,14 @@
+import { useNavigate } from "react-router-dom";
 import { IProduct } from "../../models/product";
 import "./product-card.scss";
-const ProductCard: React.FC<{ product: IProduct; handleProduct: () => void }> = ({ product, handleProduct }) => {
+import { newTitle } from "../../Utils/convertTextToLink";
+const ProductCard: React.FC<{ product: IProduct }> = ({ product }) => {
+  const navigate = useNavigate();
+
+  function handleProduct() {
+    navigate(`/product/${newTitle(product.name)}/${product._id}`);
+  }
+
   return (
     <div className="product-container" onClick={handleProduct}>
       <div className="sale-tag">Sale</div>
@@ -9,7 +17,7 @@ const ProductCard: React.FC<{ product: IProduct; handleProduct: () => void }> = 
       </div>
       <div className="pl-4">
         <div className="brand line-clamp-1 truncate">{product.brand}</div>
-        <div className="title text-md font-medium truncate">{product.name}</div>
+        <div className="title text-md font-medium truncate pr-3">{product.name}</div>
         <div className="price text-xl font-bold my-3 text-left">₹{product.price}</div>
       </div>
     </div>

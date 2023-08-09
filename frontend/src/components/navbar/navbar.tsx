@@ -15,7 +15,7 @@ import { clearState, searchProducts } from "../../store/slices/productSlice";
 const Navbar = ({ searchValue = "", isFocused = false }: { searchValue: string; isFocused: boolean }) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-
+  const { cart } = useAppSelector((state) => state.cartSlice);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [focused, setFocus] = useState(false);
   async function logOutUser() {
@@ -102,6 +102,7 @@ const Navbar = ({ searchValue = "", isFocused = false }: { searchValue: string; 
           </li>
           <li onClick={() => navigate("/cart")}>
             <ShoppingCartOutlinedIcon />
+            {cart?.length > 0 ? <span className="cart-item-length">{cart.length} </span> : ""}
           </li>
           <li onClick={() => logOutUser()}>
             {/* TODO: to be removed in future */}

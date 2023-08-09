@@ -19,14 +19,12 @@ const CategoryItems = () => {
       dispatch(clearState());
     };
   }, []);
-  function handleProduct(product: IProduct) {
-    navigate(`/product/${newTitle(product.name)}/${product._id}`);
-  }
+
   return (
     <Layout>
       {products?.length ? (
         products.map((product) => {
-          return <ProductCard key={product._id} product={product} handleProduct={() => handleProduct(product)} />;
+          return <ProductCard key={product._id} product={product} />;
         })
       ) : (
         <SpinningLoader />

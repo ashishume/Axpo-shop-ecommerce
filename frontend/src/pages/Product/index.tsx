@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import styles from "./product.module.scss";
 import Layout from "../../components/layout";
 import SpinningLoader from "../../components/SpinningLoader";
-import { updateCart } from "../../store/slices/cartSlice";
+import { fetchCart, updateCart } from "../../store/slices/cartSlice";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { ICart } from "../../models/cart";
 import { formatIndianRupees } from "../../Utils/convertTextToLink";
@@ -35,6 +35,7 @@ const Product = () => {
       };
       await dispatch(updateCart({ payload }));
       await checkProductAdded();
+      await dispatch(fetchCart(userId));
     }
   }
 

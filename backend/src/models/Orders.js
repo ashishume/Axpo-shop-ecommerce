@@ -21,6 +21,17 @@ const ordersSchema = new mongoose.Schema({
       },
     },
   ],
+  totalAmount: {
+    type: Number,
+    required: true,
+  },
+  orderDate: {
+    type: Date,
+    required: true,
+  },
+  address: {
+    type: String,
+  },
 });
 
 // Create the Orders model

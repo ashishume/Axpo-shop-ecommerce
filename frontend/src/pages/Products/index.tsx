@@ -47,10 +47,10 @@ const Products = () => {
         <div className="products-content mx-5">
           {filterApplied?.length
             ? categoryFilterProducts.map((product) => {
-                return <ProductCard key={product._id} product={product} handleProduct={() => handleProduct(product)} />;
+                return <ProductCard key={product._id} product={product} />;
               })
             : products.map((product) => {
-                return <ProductCard key={product._id} product={product} handleProduct={() => handleProduct(product)} />;
+                return <ProductCard key={product._id} product={product} />;
               })}
           {isLoading ? <SpinningLoader /> : ""}
         </div>

@@ -69,6 +69,7 @@ const Cart = () => {
       let payload = {
         products,
         user,
+        totalAmount: totalPrice,
       };
       dispatch(placeOrder(payload));
     }

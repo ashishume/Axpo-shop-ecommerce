@@ -14,15 +14,12 @@ const Search = () => {
 
   const searchProducts = useAppSelector((state) => state.productsSlice.searchProducts);
   const isLoading = useAppSelector((state) => state.productsSlice.isLoading);
-  function handleProduct(product: IProduct) {
-    navigate(`/product/${newTitle(product.name)}/${product._id}`);
-  }
 
   return (
     <Layout searchValue={paramValue} isFocused={true}>
       {isLoading ? <SpinningLoader /> : ""}
       {searchProducts.map((product) => {
-        return <ProductCard key={product._id} product={product} handleProduct={() => handleProduct(product)} />;
+        return <ProductCard key={product._id} product={product} />;
       })}
       {!searchProducts?.length ? <div className="m-2 p-2 text-center font-normal text-lg">No results found</div> : ""}
     </Layout>

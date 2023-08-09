@@ -10,12 +10,13 @@ const orderRoutes = require("./src/routes/Orders");
 const swaggerDoc = require("./src/controllers/swagger");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+const morgan = require("morgan");
 require("./src/controllers/db-connect");
 app.use(cookieParser());
 
-
 // Middleware for parsing JSON and URL-encoded data
 app.use(express.json());
+app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: true }));
 app.use(
   "*",
