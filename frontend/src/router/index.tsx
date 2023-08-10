@@ -14,7 +14,6 @@ import Layout from '../components/layout';
 import Orders from '../pages/Orders';
 import { useEffect, useState } from 'react';
 import { Axios } from '../services/http-service';
-import AuthPrivateRoute from './auth-private-route';
 
 const RoutePaths = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
@@ -37,20 +36,9 @@ const RoutePaths = () => {
       <Routes>
         <Route
           path="/login"
-          element={
-            <AuthPrivateRoute isLoggedIn={isLoggedIn}>
-              <Login setIsLoggedIn={setIsLoggedIn} />
-            </AuthPrivateRoute>
-          }
+          element={<Login setIsLoggedIn={setIsLoggedIn} />}
         />
-        <Route
-          path="/signup"
-          element={
-            <AuthPrivateRoute isLoggedIn={isLoggedIn}>
-              <Signup />
-            </AuthPrivateRoute>
-          }
-        />
+        <Route path="/signup" element={<Signup />} />
         <Route
           path="/"
           element={
