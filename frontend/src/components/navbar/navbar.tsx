@@ -1,28 +1,36 @@
-import "./navbar.scss";
-import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
-import WidgetsOutlinedIcon from "@mui/icons-material/WidgetsOutlined";
-import LocalOfferOutlinedIcon from "@mui/icons-material/LocalOfferOutlined";
-import CategoryOutlinedIcon from "@mui/icons-material/CategoryOutlined";
-import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import Person2OutlinedIcon from "@mui/icons-material/Person2Outlined";
-import LocalShippingIcon from "@mui/icons-material/LocalShipping";
-import { useNavigate } from "react-router-dom";
-import { Axios } from "../../services/http-service";
-import React, { useEffect, useRef, useState } from "react";
-import { debounce } from "@mui/material";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { clearState, searchProducts } from "../../store/slices/productSlice";
-const Navbar = ({ searchValue = "", isFocused = false }: { searchValue: string; isFocused: boolean }) => {
+import './navbar.scss';
+import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import WidgetsOutlinedIcon from '@mui/icons-material/WidgetsOutlined';
+import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined';
+import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import Person2OutlinedIcon from '@mui/icons-material/Person2Outlined';
+import LocalShippingIcon from '@mui/icons-material/LocalShipping';
+import { useNavigate } from 'react-router-dom';
+import { Axios } from '../../services/http-service';
+import React, { useEffect, useRef, useState } from 'react';
+import { debounce } from '@mui/material';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { clearState, searchProducts } from '../../store/slices/productSlice';
+import MenuIcon from '@mui/icons-material/Menu';
+const Navbar = ({
+  searchValue = '',
+  isFocused = false,
+}: {
+  searchValue: string;
+  isFocused: boolean;
+}) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { cart } = useAppSelector((state) => state.cartSlice);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [focused, setFocus] = useState(false);
+  const [sidebar, setSidebar] = useState(getScreenSize() ? false : true);
   async function logOutUser() {
-    const response = await Axios.post("/logout");
+    const response = await Axios.post('/logout');
     if (response.status === 200) {
-      localStorage.removeItem("userId");
-      navigate("/login");
+      localStorage.removeItem('userId');
+      navigate('/login');
     }
   }
 
@@ -34,9 +42,24 @@ const Navbar = ({ searchValue = "", isFocused = false }: { searchValue: string; 
   // navigate(`/search?searchValue=${value}`);
   // }
   // }
+
+  useEffect(() => {
+    function handleResize() {
+      setSidebar(getScreenSize());
+    }
+
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  function getScreenSize() {
+    return window.innerWidth <= 768 ? false : true;
+  }
   function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
     setFocus(true);
-    if (event.key === "Enter") {
+    if (event.key === 'Enter') {
       onSearch();
     }
   }
@@ -60,28 +83,46 @@ const Navbar = ({ searchValue = "", isFocused = false }: { searchValue: string; 
 
   return (
     <div className="navbar-container">
-      <div className="menu-items">
-        <img src={"/assets/logo.png"} className="h-12 w-50" onClick={() => navigate("/")} />
+      <div
+        onClick={() => setSidebar(!sidebar)}
+        className="menu-item-more hidden"
+      >
+        <MenuIcon />
+      </div>
+      <div className={(sidebar ? 'sidebar-menu-items ' : '') + ' menu-items'}>
+        {sidebar ? (
+          <img
+            src={'/assets/logo.png'}
+            className="h-12 w-50 shop-logo"
+            onClick={() => navigate('/')}
+          />
+        ) : null}
         <ul>
-          <li className="icon-left" onClick={() => navigate("/products")}>
-            <WidgetsOutlinedIcon />
-            All
-          </li>
-          {/* <li>
-            <LocalOfferOutlinedIcon />
-            Today's deals
-          </li> */}
-          <li className="icon-left" onClick={() => navigate("/categories")}>
-            <CategoryOutlinedIcon />
-            Categories
-          </li>
+          {sidebar ? (
+            <>
+              <li className="icon-left" onClick={() => navigate('/products')}>
+                <WidgetsOutlinedIcon />
+                All
+              </li>
+              {/* <li>
+          <LocalOfferOutlinedIcon />
+          Today's deals
+        </li> */}
+              <li className="icon-left" onClick={() => navigate('/categories')}>
+                <CategoryOutlinedIcon />
+                Categories
+              </li>
+            </>
+          ) : null}
         </ul>
       </div>
       <div className="right-items">
         <ul>
           <li>
             <div
-              className={`search-input-field-container ${focused ? "active-search" : ""}`}
+              className={`search-input-field-container ${
+                focused ? 'active-search' : ''
+              }`}
               onClick={() => setFocus(true)}
               onBlur={() => setFocus(false)}
             >
@@ -97,12 +138,16 @@ const Navbar = ({ searchValue = "", isFocused = false }: { searchValue: string; 
               </span>
             </div>
           </li>
-          <li className="icon-right" onClick={() => navigate("/my-orders")}>
+          <li className="icon-right" onClick={() => navigate('/my-orders')}>
             <LocalShippingIcon />
           </li>
-          <li className="icon-right" onClick={() => navigate("/cart")}>
+          <li className="icon-right" onClick={() => navigate('/cart')}>
             <ShoppingCartOutlinedIcon />
-            {cart?.length > 0 ? <span className="cart-item-length">{cart.length} </span> : ""}
+            {cart?.length > 0 ? (
+              <span className="cart-item-length">{cart.length} </span>
+            ) : (
+              ''
+            )}
           </li>
           <li className="icon-right" onClick={() => logOutUser()}>
             {/* TODO: to be removed in future */}

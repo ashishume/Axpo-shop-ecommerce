@@ -1,15 +1,53 @@
 .navbar-container {
   display: flex;
   justify-content: space-between;
-  padding: 4px 10px;
+  @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+    position: relative;
+  }
+  @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+    .menu-item-more {
+      display: inline-block;
+      vertical-align: middle;
+      margin-top: 16px;
+      margin-left: 12px;
+      height: 100%;
+    }
+  }
+  @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+    .sidebar-menu-items {
+      .shop-logo {
+        text-align: center;
+        margin-right: 50px;
+        mix-blend-mode: multiply;
+      }
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      position: absolute;
+      top: 0;
+      left: 40px;
+      z-index: 99;
+      background-color: rgb(255, 255, 255);
+      box-shadow: 1px 2px 4px 2px rgb(197, 194, 194);
+    }
+  }
   .menu-items {
     margin: 0 10px;
     font-weight: 600;
     font-weight: 20px;
     padding: 0 10px;
     display: flex;
-    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+      'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     ul {
+      @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
       display: flex;
       li {
         display: flex;
@@ -25,6 +63,10 @@
     }
   }
   .right-items {
+    @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+      margin: 0;
+      padding: 0;
+    }
     margin-right: 10px;
     display: flex;
     align-items: center;
@@ -55,12 +97,18 @@
       }
     }
     .search-input-field-container {
+      @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+        width: 90%;
+      }
       border: solid 1px #80808078;
       padding: 0px 3px;
       margin: 0 2px;
       padding-bottom: 3px;
       border-radius: 4px;
       .search-input-field {
+        @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+          width: 80%;
+        }
         padding: 6px 14px;
         margin: 0px;
         border-radius: 4px;
@@ -74,6 +122,9 @@
     .active-search {
       @extend .search-input-field;
       .search-input-field {
+        @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+          width: 80%;
+        }
         width: 400px;
       }
     }
