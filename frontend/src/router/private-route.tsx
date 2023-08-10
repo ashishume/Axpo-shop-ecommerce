@@ -1,8 +1,6 @@
 import { Navigate } from 'react-router-dom';
 
 function PrivateRoute({ isLoggedIn, children }: any) {
-  console.log(isLoggedIn);
-  
   if (isLoggedIn === false) {
     return <Navigate to="/login" replace />;
   } else if (isLoggedIn === true) return children;
