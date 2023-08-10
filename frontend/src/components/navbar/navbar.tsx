@@ -1,7 +1,6 @@
 import './navbar.scss';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import WidgetsOutlinedIcon from '@mui/icons-material/WidgetsOutlined';
-import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined';
 import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import Person2OutlinedIcon from '@mui/icons-material/Person2Outlined';
@@ -9,7 +8,6 @@ import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import { useNavigate } from 'react-router-dom';
 import { Axios } from '../../services/http-service';
 import React, { useEffect, useRef, useState } from 'react';
-import { debounce } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { clearState, searchProducts } from '../../store/slices/productSlice';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -25,7 +23,6 @@ const Navbar = ({
   const { cart } = useAppSelector((state) => state.cartSlice);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [focused, setFocus] = useState(false);
-  const [sidebar, setSidebar] = useState(getScreenSize() ? false : true);
   async function logOutUser() {
     const response = await Axios.post('/logout');
     if (response.status === 200) {
@@ -43,20 +40,6 @@ const Navbar = ({
   // }
   // }
 
-  useEffect(() => {
-    function handleResize() {
-      setSidebar(getScreenSize());
-    }
-
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-
-  function getScreenSize() {
-    return window.innerWidth <= 768 ? false : true;
-  }
   function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
     setFocus(true);
     if (event.key === 'Enter') {
@@ -83,37 +66,27 @@ const Navbar = ({
 
   return (
     <div className="navbar-container">
-      <div
-        onClick={() => setSidebar(!sidebar)}
+      {/* <div
         className="menu-item-more hidden"
       >
         <MenuIcon />
-      </div>
-      <div className={(sidebar ? 'sidebar-menu-items ' : '') + ' menu-items'}>
-        {sidebar ? (
-          <img
-            src={'/assets/logo.png'}
-            className="h-12 w-50 shop-logo"
-            onClick={() => navigate('/')}
-          />
-        ) : null}
+      </div> */}
+      <div className='menu-items'>
+        <img
+          src={'/assets/logo.png'}
+          className="h-12 w-50 shop-logo"
+          onClick={() => navigate('/')}
+        />
+
         <ul>
-          {sidebar ? (
-            <>
-              <li className="icon-left" onClick={() => navigate('/products')}>
-                <WidgetsOutlinedIcon />
-                All
-              </li>
-              {/* <li>
-          <LocalOfferOutlinedIcon />
-          Today's deals
-        </li> */}
-              <li className="icon-left" onClick={() => navigate('/categories')}>
-                <CategoryOutlinedIcon />
-                Categories
-              </li>
-            </>
-          ) : null}
+          <li className="icon-left" onClick={() => navigate('/products')}>
+            <WidgetsOutlinedIcon />
+            All
+          </li>
+          <li className="icon-left" onClick={() => navigate('/categories')}>
+            <CategoryOutlinedIcon />
+            Categories
+          </li>
         </ul>
       </div>
       <div className="right-items">
