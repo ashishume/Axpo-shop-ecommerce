@@ -1,6 +1,6 @@
-import { ICart, ICartResponse } from "./cart";
-import { IOrders } from "./order";
-import { IProduct } from "./product";
+import { ICart, ICartResponse } from './cart';
+import { IOrders } from './order';
+import { IProduct } from './product';
 
 export interface RootState {
   products: IProduct[];

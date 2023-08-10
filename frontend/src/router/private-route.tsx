@@ -1,29 +1,11 @@
-import { useEffect, useState } from "react";
-import { Navigate, Route, useLocation } from "react-router-dom";
-import { Axios } from "../services/http-service";
+import { Navigate } from 'react-router-dom';
 
-/** this implementation doesnt work */
-function PrivateRoute({ children }: any) {
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
-  useEffect(() => {}, []);
-  function isLoggedIn() {
-    Axios.get("/validate")
-      .then((response) => {
-        const { iat, exp } = response.data;
-        if (iat < exp) {
-          setIsAuthenticated(true);
-        } else {
-          setIsAuthenticated(false);
-        }
-      })
-      .catch((error) => {
-        if (error.response?.status === 403 && error.response?.data?.message === "Invalid or expired token") {
-        }
-      });
-    return isAuthenticated;
-  }
-  const location = useLocation();
-  return isLoggedIn() ? <>{children}</> : <Navigate to={`/login?redirect=${encodeURIComponent(location.pathname)}`} replace />;
+function PrivateRoute({ isLoggedIn, children }: any) {
+  console.log(isLoggedIn);
+  
+  if (isLoggedIn === false) {
+    return <Navigate to="/login" replace />;
+  } else if (isLoggedIn === true) return children;
+  else return null;
 }
-
 export default PrivateRoute;

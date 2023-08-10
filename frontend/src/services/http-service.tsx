@@ -7,17 +7,4 @@ export const Axios = axios.create({
   headers: { "Content-Type": "application/json" },
 });
 
-Axios.interceptors.response.use(
-  (response) => {
-    return response;
-  },
-  (error) => {
-    if (
-      (error.response?.status === 403 && error.response?.data?.message === "Invalid or expired token") ||
-      error.response?.data?.message === "Authorization token not provided"
-    ) {
-      window.location.href = "/login";
-    }
-    return Promise.reject(error);
-  }
-);
+

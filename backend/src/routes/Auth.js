@@ -39,14 +39,15 @@ router.get("/validate", async (req, res) => {
     const token = req.cookies.jwt;
     if (token) {
       const authTokenExp = jwt.verify(token, process.env.SECRET_KEY);
-      res.status(200).json(authTokenExp);
-    } else {
-      res.status(401).json({
-        message: "user is not logged in",
+      res.status(200).json({
+        isLoggedIn: true,
+        authTokenExp
       });
+    } else {
+      res.status(401).json({ isLoggedIn: false });
     }
   } catch (error) {
-    res.status(401).json({ message: "Invalid or expired token" });
+    res.status(401).json({ message: "Invalid or expired token", isLoggedIn: false });
   }
 });
 router.post("/logout", async (req, res) => {

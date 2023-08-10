@@ -22,21 +22,8 @@ const Signup = () => {
     }
   };
 
-  useEffect(() => {
-    const checkLogin = async () => {
-      try {
-        const response = await Axios.get("/validate");
-        if (response) {
-          navigate("/");
-        }
-      } catch (e: any) {}
-    };
-    checkLogin();
-  }, []);
-
   return (
     <>
-      <Layout />
       <div className="container mx-auto border m-20 p-10 max-w-md rounded-lg shadow">
         <h3 className="font-bold text-3xl">Signup</h3>
         <form onSubmit={handleSubmit(onSubmit)}>
