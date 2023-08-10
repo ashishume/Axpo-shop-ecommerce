@@ -1,12 +1,12 @@
-import React, { useEffect } from "react";
-import CategoryCard from "../../components/category-card";
-import Layout from "../../components/layout";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { fetchCategory } from "../../store/slices/categorySlices";
-import { ICategory } from "../../models";
-import { useNavigate } from "react-router-dom";
-import SpinningLoader from "../../components/SpinningLoader";
-
+import React, { useEffect } from 'react';
+import CategoryCard from '../../components/category-card';
+import Layout from '../../components/layout';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { fetchCategory } from '../../store/slices/categorySlices';
+import { ICategory } from '../../models';
+import { useNavigate } from 'react-router-dom';
+import SpinningLoader from '../../components/SpinningLoader';
+import './index.scss';
 const CategoryList = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -20,11 +20,7 @@ const CategoryList = () => {
   }
 
   return (
-    <div
-      style={{
-        display: "flex",
-      }}
-    >
+    <div className="category-container">
       {state.categories?.length > 1 ? (
         state.categories.map((category) => {
           return (

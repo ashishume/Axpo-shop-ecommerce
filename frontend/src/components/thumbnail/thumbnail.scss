@@ -1,4 +1,7 @@
 .thumbnail-container {
+  @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+    padding: 10px;
+  }
   background-color: rgba(193, 222, 232, 0.353);
   display: flex;
   justify-content: space-around;
@@ -12,9 +15,9 @@
       margin-top: 10px;
       cursor: pointer;
     }
-    .view-more-button:hover{
-        @extend .view-more-button;
-        background-color: rgba(210, 210, 210, 0.277);
+    .view-more-button:hover {
+      @extend .view-more-button;
+      background-color: rgba(210, 210, 210, 0.277);
     }
   }
   .right-content {
