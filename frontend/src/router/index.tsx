@@ -1,4 +1,10 @@
-import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
+import {
+  BrowserRouter,
+  Navigate,
+  Route,
+  Routes,
+  useNavigate,
+} from 'react-router-dom';
 import Login from '../components/Auth/login';
 import App from '../App';
 import Signup from '../components/Auth/signup';
@@ -13,6 +19,7 @@ import Layout from '../components/layout';
 import Orders from '../pages/Orders';
 import { useEffect, useState } from 'react';
 import { Axios } from '../services/http-service';
+import BookingRoutePaths from './bookings-routes';
 
 const RoutePaths = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
@@ -104,6 +111,15 @@ const RoutePaths = () => {
             </PrivateRoute>
           }
         />
+        <Route
+          path="/bookings/*"
+          element={
+            <PrivateRoute isLoggedIn={isLoggedIn}>
+              <BookingRoutePaths />
+            </PrivateRoute>
+          }
+        />
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </BrowserRouter>
   );

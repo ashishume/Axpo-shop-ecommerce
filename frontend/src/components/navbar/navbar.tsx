@@ -5,6 +5,7 @@ import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import Person2OutlinedIcon from '@mui/icons-material/Person2Outlined';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
+import FlightIcon from '@mui/icons-material/Flight';
 import { useNavigate } from 'react-router-dom';
 import { Axios } from '../../services/http-service';
 import React, { useEffect, useRef, useState } from 'react';
@@ -87,6 +88,10 @@ const Navbar = ({
           <li className="icon-left" onClick={() => navigate('/categories')}>
             <CategoryOutlinedIcon />
             Categories
+          </li>
+          <li className="icon-left" onClick={() => navigate('/bookings/')}>
+            <FlightIcon />
+            Bookings
           </li>
         </ul>
       </div>

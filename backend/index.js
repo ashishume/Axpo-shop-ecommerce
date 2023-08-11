@@ -1,12 +1,7 @@
 const express = require("express");
 const app = express();
 const port = 4000;
-const searchRoutes = require("./src/routes/SearchProducts");
-const userRoutes = require("./src/routes/Auth");
-const productRoutes = require("./src/routes/Products");
-const categoryRoutes = require("./src/routes/Category");
-const cartRoutes = require("./src/routes/Cart");
-const orderRoutes = require("./src/routes/Orders");
+const routes = require("./routes");
 const swaggerDoc = require("./src/controllers/swagger");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
@@ -25,14 +20,8 @@ app.use(
     credentials: true,
   })
 );
-
-
-app.use("/api/v1", userRoutes);
-app.use("/api/v1", productRoutes);
-app.use("/api/v1", categoryRoutes);
-app.use("/api/v1", cartRoutes);
-app.use("/api/v1", searchRoutes);
-app.use("/api/v1", orderRoutes);
+//define all the routes index
+app.use(routes);
 app.use(swaggerDoc);
 
 // Start the server
