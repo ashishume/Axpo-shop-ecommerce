@@ -139,4 +139,29 @@
   .icon-right {
     padding-top: 15px !important;
   }
+  .logout-button {
+    position: relative;
+  }
+  .logout-menu {
+    position: absolute;
+    top: 43px;
+    left: -17px;
+    margin: 6px 4px;
+    padding: 6px 12px;
+    border: solid 1px #80808052;
+    border-radius: 4px;
+    box-shadow: 2px 1px 3px 1px #80808052;
+    background: #fff;
+    opacity: 0;
+    transform: translateY(-50%);
+    transition:
+      opacity 0.2s ease-in-out,
+      transform 0.2s ease-in-out;
+    pointer-events: none;
+  }
+  .logout-menu.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
 }

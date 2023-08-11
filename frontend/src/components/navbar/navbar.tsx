@@ -23,6 +23,7 @@ const Navbar = ({
   const { cart } = useAppSelector((state) => state.cartSlice);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [focused, setFocus] = useState(false);
+  const [isMenuVisible, showMenu] = useState(false);
   async function logOutUser() {
     const response = await Axios.post('/logout');
     if (response.status === 200) {
@@ -71,7 +72,7 @@ const Navbar = ({
       >
         <MenuIcon />
       </div> */}
-      <div className='menu-items'>
+      <div className="menu-items">
         <img
           src={'/assets/logo.png'}
           className="h-12 w-50 shop-logo"
@@ -122,9 +123,18 @@ const Navbar = ({
               ''
             )}
           </li>
-          <li className="icon-right" onClick={() => logOutUser()}>
-            {/* TODO: to be removed in future */}
+          <li
+            className="icon-right logout-button"
+            onClick={() => showMenu(!isMenuVisible)}
+          >
             <Person2OutlinedIcon />
+
+            <div
+              className={`logout-menu ${isMenuVisible ? 'visible' : ''}`}
+              onClick={() => logOutUser()}
+            >
+              Logout
+            </div>
           </li>
         </ul>
       </div>

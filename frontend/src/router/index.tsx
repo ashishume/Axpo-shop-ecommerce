@@ -2,7 +2,6 @@ import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
 import Login from '../components/Auth/login';
 import App from '../App';
 import Signup from '../components/Auth/signup';
-// import PrivateRoute from "./private-route";
 import Products from '../pages/Products';
 import PrivateRoute from './private-route';
 import Product from '../pages/Product';

@@ -28,6 +28,9 @@ const Login = ({
 
   return (
     <>
+      <div className="flex justify-center align-center pt-15">
+        <img src="assets/logo.png" height="200px" width="200px" className="" />
+      </div>
       <div className="container mx-auto border m-20 p-10 max-w-md rounded-lg shadow">
         <h3 className="font-bold text-3xl">Login</h3>
         <form onSubmit={handleSubmit(onSubmit)}>
