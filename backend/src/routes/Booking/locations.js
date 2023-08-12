@@ -3,7 +3,7 @@ const router = express.Router();
 const { locations } = require("../../constants/locations");
 const authenticateToken = require("../../controllers/authMiddleware");
 
-router.get("/locations", async (req, res) => {
+router.get("/locations", authenticateToken, async (req, res) => {
   try {
     res.status(200).json(locations);
   } catch (error) {

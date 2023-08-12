@@ -1,0 +1,75 @@
+.flight-card-container {
+  margin-top: 30px;
+  background-color: #fff;
+  .flight-card-content {
+    &:hover{
+      background-color: rgba(0, 0, 0, 0.179);
+    }
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 20px 40px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 15px;
+    .branding {
+      display: flex;
+      flex: 1;
+      .brand-content {
+        margin-left: 15px;
+        .brand {
+          font-weight: 600;
+          font-size: 18px;
+        }
+        .flightNo {
+          font-weight: 400;
+          font-size: 16px;
+          color: rgba(0, 0, 0, 0.705);
+        }
+      }
+    }
+    .time-source-location {
+      flex:2;
+      font-size: 18px;
+      font-weight: 500;
+      .from-time {
+        font-weight: 700;
+      }
+      .from-location {
+        color: rgba(0, 0, 0, 0.692);
+      }
+    }
+    .middle-duration {
+      flex: 2;
+      .middle-bar {
+        border: solid 2px #0f9c3f;
+        text-align: center;
+        max-width: 100%;
+        margin-right: 44px;
+      }
+      .time-diff {
+        text-align: center;
+        padding-right: 34px;
+        font-size: 16px;
+        font-weight: 500;
+        padding-top: 5px;
+      }
+    }
+    .time-destination-location {
+      flex: 2;
+      font-size: 18px;
+      font-weight: 500;
+      .to-time {
+        font-weight: 700;
+      }
+      .to-location {
+        color: rgba(0, 0, 0, 0.692);
+      }
+    }
+    .price {
+      flex: 0.5;
+      font-size: 20px;
+      font-weight: 500;
+    }
+  }
+}

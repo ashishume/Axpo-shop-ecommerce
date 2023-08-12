@@ -8,12 +8,20 @@ const initialState: FlightsState = {
   isLoading: false,
   searchedSourceLocationResults: [],
   searchedDestinationLocationResults: [],
+  flights: [],
 };
 
 export const fetchLocations = createAsyncThunk(
   'bookings/fetchLocations',
   async () => {
     const response = await Axios.get(API_PATHS.LOCATIONS);
+    return response.data;
+  }
+);
+export const fetchFlights = createAsyncThunk(
+  'bookings/fetchFlights',
+  async () => {
+    const response = await Axios.get(API_PATHS.FLIGHTS);
     return response.data;
   }
 );
@@ -76,6 +84,28 @@ export const flightsSlices = createSlice({
       fetchLocations.rejected,
       (state: FlightsState, action: PayloadAction<any>) => {
         state.locations = [];
+        state.isLoading = false;
+      }
+    );
+
+
+    builder.addCase(
+      fetchFlights.pending,
+      (state: FlightsState, action: PayloadAction<any>) => {
+        state.isLoading = true;
+      }
+    );
+    builder.addCase(
+      fetchFlights.fulfilled,
+      (state: FlightsState, action: PayloadAction<any>) => {
+        state.flights = action.payload;
+        state.isLoading = false;
+      }
+    );
+    builder.addCase(
+      fetchFlights.rejected,
+      (state: FlightsState, action: PayloadAction<any>) => {
+        state.flights = [];
         state.isLoading = false;
       }
     );

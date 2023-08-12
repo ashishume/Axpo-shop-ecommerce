@@ -8,15 +8,15 @@ import {
   searchDestinationLocations,
   clearSourceLocations,
   clearDestinationLocations,
+  fetchFlights,
 } from '../../store/flightsSlices';
 import { useNavigate } from 'react-router-dom';
 import { FieldValues, useForm } from 'react-hook-form';
-import { Axios } from '../../../../services/http-service';
-import { API_PATHS } from '../../../../constants/api-path';
-import { Checkbox } from '@mui/material';
 import Autocomplete from '../../components/Autocomplete';
 import { ILocation } from '../../constants/flights';
 import { ISearchFlights } from '../../../../models/Form';
+import FlightCardView from '../../components/FlightViewCard';
+import SpinningLoader from '../../../../components/SpinningLoader';
 const SearchFlight = () => {
   const inputStyle =
     'input-field-content inline-block p-5 text-xl mx-1 rounded-lg border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 placeholder:text-xl focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6';
@@ -28,6 +28,8 @@ const SearchFlight = () => {
     locations,
     searchedSourceLocationResults,
     searchedDestinationLocationResults,
+    flights,
+    isLoading,
   } = useAppSelector((state) => state.flightsSlices);
 
   const [source, setSource] = useState({
@@ -47,8 +49,6 @@ const SearchFlight = () => {
   const {
     register,
     handleSubmit,
-    trigger,
-    setValue,
     formState: { errors },
   } = useForm<ISearchFlights>();
   const onSubmit = async (data: FieldValues) => {
@@ -60,19 +60,11 @@ const SearchFlight = () => {
     };
     console.log(payload);
 
+    dispatch(fetchFlights());
+
     try {
     } catch (e: any) {}
   };
-
-  //   flightNo:
-  //   brand:
-  //   brandLogo:
-  //   sourceAirport:
-  //   destinationAirport:
-  //   sourceLocation:
-  //   destinationLocation:
-  //   fromTime:
-  //   toTime:
 
   function autocompleteSourceLocation(e: React.ChangeEvent<HTMLInputElement>) {
     dispatch(searchSourceLocations(e.target.value));
@@ -122,6 +114,7 @@ const SearchFlight = () => {
 
   return (
     <Layout>
+      {console.log(flights)}
       <div className="search-flight-container">
         <div className="search-flight-content">
           <div className="trips">
@@ -193,10 +186,8 @@ const SearchFlight = () => {
                 })}
                 className={inputStyle}
               />
-               {errors.fromDate && (
-                <div className="error-message">
-                  Please enter a date
-                </div>
+              {errors.fromDate && (
+                <div className="error-message">Please enter a date</div>
               )}
             </div>
             <div className="mt-2 inline-block input-container">
@@ -212,7 +203,7 @@ const SearchFlight = () => {
                 })}
                 className={inputStyle}
               />
-               {errors.passengerCount && (
+              {errors.passengerCount && (
                 <div className="error-message">
                   Please enter number of passengers
                 </div>
@@ -227,6 +218,15 @@ const SearchFlight = () => {
               </button>
             </div>
           </form>
+        </div>
+
+        <div className="flights-data-container">
+          {flights?.length &&
+            flights.map((flight) => {
+              return <FlightCardView key={flight._id} flightData={flight} />;
+            })}
+
+          {isLoading ? <SpinningLoader /> : null}
         </div>
       </div>
     </Layout>

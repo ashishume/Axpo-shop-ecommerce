@@ -36,6 +36,13 @@ const flightSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  timeDiff: {
+    type: "String",
+  },
+  price: {
+    type: Number,
+    required: true,
+  },
 });
 
 const Flight = mongoose.model("flight", flightSchema);

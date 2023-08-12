@@ -1,6 +1,10 @@
 .navbar-container {
+  background-color: #fff;
+  width: 100%;
   display: flex;
   justify-content: space-between;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 15px;
+
   padding-top: 10px;
   @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
     position: relative;
@@ -148,7 +152,6 @@
     top: 43px;
     left: -17px;
     margin: 6px 4px;
-    padding: 6px 12px;
     border: solid 1px #80808052;
     border-radius: 4px;
     box-shadow: 2px 1px 3px 1px #80808052;

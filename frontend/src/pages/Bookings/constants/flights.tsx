@@ -3,6 +3,7 @@ export interface FlightsState {
   isLoading: boolean;
   searchedSourceLocationResults: ILocation[] | [];
   searchedDestinationLocationResults: ILocation[] | [];
+  flights: IFlight[] | [];
 }
 export interface SeatsState {
   seats: [];
@@ -13,4 +14,19 @@ export interface ILocation {
   id: number;
   location: string;
   airport: string;
+}
+
+export interface IFlight {
+  _id: string;
+  flightNo: string;
+  brand: string;
+  brandLogo: string;
+  sourceAirport: string;
+  destinationAirport: string;
+  sourceLocation?: string;
+  destinationLocation?: string;
+  fromTime: string;
+  toTime: string;
+  timeDiff: string;
+  price: string;
 }

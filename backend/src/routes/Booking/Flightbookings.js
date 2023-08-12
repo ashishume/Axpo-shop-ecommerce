@@ -43,7 +43,7 @@ router.post("/flight/book", async (req, res) => {
   }
 });
 
-router.get("/flights/bookings/:userId", async (req, res) => {
+router.get("/flights/bookings/:userId", authenticateToken, async (req, res) => {
   try {
     const { userId } = req.params;
     const bookings = await FlightBooking.find({
