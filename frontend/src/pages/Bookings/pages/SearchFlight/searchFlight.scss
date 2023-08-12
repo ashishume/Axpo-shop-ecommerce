@@ -5,9 +5,7 @@
   .search-flight-content {
     padding: 20px;
     box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 15px;
-    width: -moz-fit-content;
-    width: fit-content;
-    padding-bottom: 74px;
+    padding-bottom: 100px;
     border-radius: 20px;
     position: relative;
     .trips {
@@ -34,7 +32,7 @@
         border-radius: 15px;
         margin-top: 15px;
         .input-field-content {
-          min-width: 400px;
+          width: 400px;
           font-size: 18px;
           &:focus {
             box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 15px;
@@ -58,7 +56,7 @@
         }
 
         .auto-complete-location-container {
-          display: none;
+          // display: none;
           position: absolute;
           top: 100%;
           left: 6px;
@@ -102,6 +100,20 @@
           display: inline-block;
           border: solid 1px #0000001a;
           cursor: pointer;
+        }
+
+        .error-message{
+          position: absolute;
+          top: 68px;
+          left: 5px;
+          background: #ff000017;
+          padding: 4px 16px;
+          border-radius: 4px;
+          width: 98%;
+          margin: 1px 1px;
+          text-align: center;
+          color: #c73434;
+          font-weight: 600;
         }
       }
       .button-container {

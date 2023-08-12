@@ -4,3 +4,10 @@ export interface FormInputs {
   name: string;
   email: string;
 }
+
+export interface ISearchFlights {
+  sourceAirport: string;
+  destinationAirport: string;
+  fromDate: string;
+  passengerCount: string;
+}

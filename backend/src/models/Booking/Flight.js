@@ -22,11 +22,11 @@ const flightSchema = new mongoose.Schema({
   },
   sourceLocation: {
     type: String,
-    required: true,
+    // required: true,
   },
   destinationLocation: {
     type: String,
-    required: true,
+    // required: true,
   },
   fromTime: {
     type: String,

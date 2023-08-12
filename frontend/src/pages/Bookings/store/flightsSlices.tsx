@@ -3,16 +3,11 @@ import { FlightsState } from '../constants/flights';
 import { Axios } from '../../../services/http-service';
 import { API_PATHS } from '../../../constants/api-path';
 
-const initialLocation = {
-  id: 0,
-  location: '',
-  airport: '',
-};
-
 const initialState: FlightsState = {
-  locations: [initialLocation],
+  locations: [],
   isLoading: false,
-  searchedLocationResults: [initialLocation],
+  searchedSourceLocationResults: [],
+  searchedDestinationLocationResults: [],
 };
 
 export const fetchLocations = createAsyncThunk(
@@ -27,10 +22,8 @@ export const flightsSlices = createSlice({
   name: 'flights',
   initialState,
   reducers: {
-    searchLocations: (state, action: PayloadAction<any>) => {
-      console.log(action.payload);
-
-      state.searchedLocationResults = state.locations.filter((item) => {
+    searchSourceLocations: (state, action: PayloadAction<any>) => {
+      state.searchedSourceLocationResults = state.locations.filter((item) => {
         const airport = item.airport.toLowerCase();
         const location = item.location.toLowerCase();
         return (
@@ -39,8 +32,30 @@ export const flightsSlices = createSlice({
       });
 
       if (action.payload === '') {
-        state.searchedLocationResults = [];
+        state.searchedSourceLocationResults = [];
       }
+    },
+    searchDestinationLocations: (state, action: PayloadAction<any>) => {
+      state.searchedDestinationLocationResults = state.locations.filter(
+        (item) => {
+          const airport = item.airport.toLowerCase();
+          const location = item.location.toLowerCase();
+          return (
+            location.includes(action.payload) ||
+            airport.includes(action.payload)
+          );
+        }
+      );
+
+      if (action.payload === '') {
+        state.searchedDestinationLocationResults = [];
+      }
+    },
+    clearSourceLocations: (state) => {
+      state.searchedSourceLocationResults = [];
+    },
+    clearDestinationLocations: (state) => {
+      state.searchedDestinationLocationResults = [];
     },
   },
   extraReducers: (builder) => {
@@ -60,11 +75,16 @@ export const flightsSlices = createSlice({
     builder.addCase(
       fetchLocations.rejected,
       (state: FlightsState, action: PayloadAction<any>) => {
-        state.locations = [initialLocation];
+        state.locations = [];
         state.isLoading = false;
       }
     );
   },
 });
-export const { searchLocations } = flightsSlices.actions;
+export const {
+  searchSourceLocations,
+  searchDestinationLocations,
+  clearSourceLocations,
+  clearDestinationLocations,
+} = flightsSlices.actions;
 export default flightsSlices.reducer;

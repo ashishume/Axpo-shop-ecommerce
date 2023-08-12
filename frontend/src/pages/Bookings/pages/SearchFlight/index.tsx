@@ -2,33 +2,64 @@ import { useEffect, useState } from 'react';
 import Layout from '../../../../components/layout';
 import './searchFlight.scss';
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
-import { fetchLocations, searchLocations } from '../../store/flightsSlices';
+import {
+  fetchLocations,
+  searchSourceLocations,
+  searchDestinationLocations,
+  clearSourceLocations,
+  clearDestinationLocations,
+} from '../../store/flightsSlices';
 import { useNavigate } from 'react-router-dom';
 import { FieldValues, useForm } from 'react-hook-form';
 import { Axios } from '../../../../services/http-service';
 import { API_PATHS } from '../../../../constants/api-path';
 import { Checkbox } from '@mui/material';
+import Autocomplete from '../../components/Autocomplete';
+import { ILocation } from '../../constants/flights';
+import { ISearchFlights } from '../../../../models/Form';
 const SearchFlight = () => {
-  const dispatch = useAppDispatch();
-  const { locations, searchedLocationResults } = useAppSelector(
-    (state) => state.flightsSlices
-  );
+  const inputStyle =
+    'input-field-content inline-block p-5 text-xl mx-1 rounded-lg border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 placeholder:text-xl focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6';
 
-  const [source, setSource] = useState('');
+  const inputLabelStyle = 'block leading-6 text-gray-900 text-xl py-3 mx-1';
+
+  const dispatch = useAppDispatch();
+  const {
+    locations,
+    searchedSourceLocationResults,
+    searchedDestinationLocationResults,
+  } = useAppSelector((state) => state.flightsSlices);
+
+  const [source, setSource] = useState({
+    location: '',
+    airport: '',
+  });
+  const [destination, setDestination] = useState({
+    location: '',
+    airport: '',
+  });
 
   useEffect(() => {
     dispatch(fetchLocations());
   }, []);
 
   const navigate = useNavigate();
-  //   const [error, setError] = useState('');
   const {
     register,
     handleSubmit,
+    trigger,
+    setValue,
     formState: { errors },
-  } = useForm();
+  } = useForm<ISearchFlights>();
   const onSubmit = async (data: FieldValues) => {
-    console.log(data);
+    const payload = {
+      sourceLocation: source.airport,
+      destinationLocation: destination.airport,
+      fromDate: data.fromDate,
+      passengerCount: '2',
+    };
+    console.log(payload);
+
     try {
     } catch (e: any) {}
   };
@@ -42,13 +73,53 @@ const SearchFlight = () => {
   //   destinationLocation:
   //   fromTime:
   //   toTime:
-  function autocompleteLocation(e: React.ChangeEvent<HTMLInputElement>) {
-    dispatch(searchLocations(e.target.value));
-    setSource(e.target.value);
+
+  function autocompleteSourceLocation(e: React.ChangeEvent<HTMLInputElement>) {
+    dispatch(searchSourceLocations(e.target.value));
+    setSource((state) => {
+      return {
+        ...state,
+        location: e.target.value,
+        airport: e.target.value,
+      };
+    });
   }
-  const inputStyle =
-    'input-field-content inline-block p-5 text-xl mx-1 rounded-lg border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 placeholder:text-xl focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6';
-  const inputLabelStyle = 'block leading-6 text-gray-900 text-xl py-3 mx-1';
+
+  function autocompleteDestinationLocation(
+    e: React.ChangeEvent<HTMLInputElement>
+  ) {
+    dispatch(searchDestinationLocations(e.target.value));
+    setDestination((state) => {
+      return {
+        ...state,
+        location: e.target.value,
+        airport: e.target.value,
+      };
+    });
+  }
+
+  function handleSourceLocationSelection(location: ILocation) {
+    dispatch(clearSourceLocations());
+    setSource((state) => {
+      return {
+        ...state,
+        airport: location.airport,
+        location: location.location,
+      };
+    });
+  }
+
+  async function handleDestinationLocationSelection(location: ILocation) {
+    dispatch(clearDestinationLocations());
+    setDestination((state) => {
+      return {
+        ...state,
+        airport: location.airport,
+        location: location.location,
+      };
+    });
+  }
+
   return (
     <Layout>
       <div className="search-flight-container">
@@ -65,49 +136,48 @@ const SearchFlight = () => {
           </div>
           <form onSubmit={handleSubmit(onSubmit)} className="input-form">
             <div className="mt-2 inline-block input-container">
-              <label className={`${inputLabelStyle} input-label`}>Source</label>
+              <label className={`${inputLabelStyle} input-label`}>From</label>
               <input
-                id="sourceLocation"
+                id="sourceAirport"
                 type="text"
-                value={source}
-                {...register('sourceLocation')}
-                required
-                onChange={autocompleteLocation}
+                autoComplete="off"
+                value={source.airport}
+                {...register('sourceAirport', {
+                  required: true,
+                })}
+                onChange={autocompleteSourceLocation}
                 className={inputStyle}
               />
-              {searchedLocationResults && (
-                <div
-                  className={`auto-complete-location-container ${
-                    searchedLocationResults?.length ? 'visible' : ''
-                  }`}
-                >
-                  {searchedLocationResults.map((location) => {
-                    return (
-                      <div
-                        key={location.id}
-                        className="auto-complete-location-container-content"
-                      >
-                        <div className="inner-content">
-                          <div className="location">{location.location}</div>
-                          <div className="airport">{location.airport}</div>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
+              <Autocomplete
+                handleLocationSelection={handleSourceLocationSelection}
+                searchedLocationResults={searchedSourceLocationResults}
+              />
+              {errors.sourceAirport && (
+                <div className="error-message">Please enter valid source</div>
               )}
             </div>
             <div className="mt-2 inline-block input-container">
-              <label className={`${inputLabelStyle} input-label`}>
-                Destination
-              </label>
+              <label className={`${inputLabelStyle} input-label`}>To</label>
               <input
-                id="destinationLocation"
+                id="destinationAirport"
                 type="text"
-                {...register('destinationLocation')}
-                required
+                autoComplete="off"
+                value={destination.airport}
+                {...register('destinationAirport', {
+                  required: true,
+                })}
+                onChange={autocompleteDestinationLocation}
                 className={inputStyle}
               />
+              <Autocomplete
+                handleLocationSelection={handleDestinationLocationSelection}
+                searchedLocationResults={searchedDestinationLocationResults}
+              />
+              {errors.destinationAirport && (
+                <div className="error-message">
+                  Please enter valid destination
+                </div>
+              )}
             </div>
             <div className="mt-2 inline-block input-container">
               <label className={`${inputLabelStyle} input-label`}>
@@ -116,8 +186,9 @@ const SearchFlight = () => {
               <input
                 id="fromDate"
                 type="date"
-                {...register('fromDate')}
-                required
+                {...register('fromDate', {
+                  required: true,
+                })}
                 className={inputStyle}
               />
             </div>
@@ -129,15 +200,15 @@ const SearchFlight = () => {
                 id="passengerCount"
                 type="number"
                 min="0"
-                {...register('passengerCount')}
-                required
+                {...register('passengerCount', {
+                  required: true,
+                })}
                 className={inputStyle}
               />
             </div>
             <div className="mt-2 block rounded-md button-container">
               <button
                 id="fromDate"
-                {...register('fromDate')}
                 className="p-5 m-5 bg-sky-600 rounded-lg text-color text-white font-bold text-xl button-class"
               >
                 SEARCH FLIGHTS

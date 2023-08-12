@@ -1,7 +1,8 @@
 export interface FlightsState {
-  locations: ILocation[];
+  locations: ILocation[] | [];
   isLoading: boolean;
-  searchedLocationResults: ILocation[];
+  searchedSourceLocationResults: ILocation[] | [];
+  searchedDestinationLocationResults: ILocation[] | [];
 }
 export interface SeatsState {
   seats: [];
