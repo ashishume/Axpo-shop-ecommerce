@@ -10,6 +10,7 @@ const orderRoutes = require("./src/routes/Orders");
 const flightRoutes = require("./src/routes/Booking/Flight");
 const flightBookingRoutes = require("./src/routes/Booking/Flightbookings");
 const flightSeatBookingRoutes = require("./src/routes/Booking/SeatBookings");
+const locations = require("./src/routes/Booking/locations");
 
 [
   userRoutes,
@@ -21,5 +22,6 @@ const flightSeatBookingRoutes = require("./src/routes/Booking/SeatBookings");
   flightRoutes,
   flightSeatBookingRoutes,
   flightBookingRoutes,
+  locations,
 ].forEach((apiRoutes) => app.use("/api/v1", apiRoutes));
 module.exports = app;

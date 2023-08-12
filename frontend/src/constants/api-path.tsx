@@ -10,4 +10,9 @@ export const API_PATHS = {
   CATEGORY: "/category",
   CREATE_ORDERS: "/orders/create",
   ORDERS: "/orders",
+  //Flights API paths
+
+  FLIGHTS:'/flights',
+  LOCATIONS:'/locations',
+  FLIGHT_SEATS:'/flights/seats'
 };

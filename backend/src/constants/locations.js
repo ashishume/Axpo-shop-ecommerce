@@ -1,0 +1,26 @@
+const locations = [
+  { id: 1, location: "Mumbai", airport: "Chhatrapati Shivaji Maharaj International Airport (BOM)" },
+  { id: 2, location: "Delhi", airport: "Indira Gandhi International Airport (DEL)" },
+  { id: 3, location: "Bangalore", airport: "Kempegowda International Airport (BLR)" },
+  { id: 4, location: "Chennai", airport: "Chennai International Airport (MAA)" },
+  { id: 5, location: "Hyderabad", airport: "Rajiv Gandhi International Airport (HYD)" },
+  { id: 6, location: "Kolkata", airport: "Netaji Subhas Chandra Bose International Airport (CCU)" },
+  { id: 7, location: "Pune", airport: "Pune International Airport (PNQ)" },
+  { id: 8, location: "Ahmedabad", airport: "Sardar Vallabhbhai Patel International Airport (AMD)" },
+  { id: 9, location: "Jaipur", airport: "Jaipur International Airport (JAI)" },
+  { id: 10, location: "Lucknow", airport: "Chaudhary Charan Singh International Airport (LKO)" },
+  { id: 11, location: "Kochi", airport: "Cochin International Airport (COK)" },
+  { id: 12, location: "Goa", airport: "Dabolim Airport (GOI)" },
+  { id: 13, location: "Amritsar", airport: "Sri Guru Ram Dass Jee International Airport (ATQ)" },
+  { id: 14, location: "Bhubaneswar", airport: "Biju Patnaik International Airport (BBI)" },
+  { id: 15, location: "Coimbatore", airport: "Coimbatore International Airport (CJB)" },
+  { id: 16, location: "Trivandrum", airport: "Trivandrum International Airport (TRV)" },
+  { id: 17, location: "Nagpur", airport: "Dr. Babasaheb Ambedkar International Airport (NAG)" },
+  { id: 18, location: "Indore", airport: "Devi Ahilya Bai Holkar Airport (IDR)" },
+  { id: 19, location: "Bhopal", airport: "Raja Bhoj International Airport (BHO)" },
+  { id: 20, location: "Vadodara", airport: "Vadodara Airport (BDQ)" },
+  { id: 21, location: "Agra", airport: "Pandit Deendayal Upadhyay Airport (AGR)" },
+  { id: 22, location: "Bagdogra", airport: "Bagdogra International Airport (BA)" },
+];
+
+module.exports = { locations };

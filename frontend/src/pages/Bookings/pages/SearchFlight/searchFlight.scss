@@ -1,0 +1,120 @@
+.search-flight-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  .search-flight-content {
+    padding: 20px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 15px;
+    width: -moz-fit-content;
+    width: fit-content;
+    padding-bottom: 74px;
+    border-radius: 20px;
+    position: relative;
+    .trips {
+      font-size: 17px;
+      padding: 10px 0;
+      display: inline-block;
+      div {
+        display: inline-block;
+        padding: 2px 7px;
+        text-align: center;
+        border-radius: 30px;
+        background-color: #abe4fa;
+        color: #2a71aa;
+        font-weight: 700;
+        margin: 4px 7px;
+      }
+    }
+    .input-form {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .input-container {
+        position: relative;
+        border-radius: 15px;
+        margin-top: 15px;
+        .input-field-content {
+          min-width: 400px;
+          font-size: 18px;
+          &:focus {
+            box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 15px;
+          }
+
+          @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+            width: 100%;
+          }
+        }
+        .input-label {
+          position: absolute;
+          top: -16px;
+          left: 20px;
+          background-color: #fff;
+          margin: 0 1px;
+          z-index: 1;
+          padding: 4px 8px;
+          text-align: center;
+          font-size: 18px;
+          font-weight: 600;
+        }
+
+        .auto-complete-location-container {
+          display: none;
+          position: absolute;
+          top: 100%;
+          left: 6px;
+          width: 97%;
+          background-color: #ffffff;
+          z-index: 99;
+          border-radius: 0px 0px 6px 6px;
+          margin: 0;
+          box-shadow: rgba(119, 119, 119, 0.2) 0px 2px;
+          font-size: 16px;
+
+          overflow: auto;
+          max-height: 60vh;
+
+          .auto-complete-location-container-content {
+            border-bottom: solid 1px lightgray;
+            padding: 8px 3px;
+            font-size: 20px;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+              'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            .inner-content {
+              padding: 8px 12px;
+
+              .location {
+                font-size: 25px;
+                font-weight: 600;
+              }
+              .airport {
+                font-size: 13px;
+                color: gray;
+              }
+            }
+            &:hover {
+              background-color: rgba(0, 0, 0, 0.151);
+            }
+          }
+        }
+
+        .auto-complete-location-container.visible {
+          @extend .auto-complete-location-container;
+          display: inline-block;
+          border: solid 1px #0000001a;
+          cursor: pointer;
+        }
+      }
+      .button-container {
+        position: absolute;
+        left: 50%;
+        top: 97%;
+        transform: translate(-50%, -50%);
+        .button-class {
+          border-radius: 40px;
+          padding: 19px 28px;
+          box-shadow: 2px 3px 5px 3px lightgray;
+        }
+      }
+    }
+  }
+}

@@ -1,10 +1,17 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import productsSlice from "./slices/productSlice";
-import cartSlice from "./slices/cartSlice";
-import categorySlice from "./slices/categorySlices";
-import ordersSlice from "./slices/ordersSlice";
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import productsSlice from './slices/productSlice';
+import cartSlice from './slices/cartSlice';
+import categorySlice from './slices/categorySlices';
+import ordersSlice from './slices/ordersSlice';
+import flightsSlices from '../pages/Bookings/store/flightsSlices';
 const store = configureStore({
-  reducer: combineReducers({ productsSlice, cartSlice, categorySlice, ordersSlice }),
+  reducer: combineReducers({
+    productsSlice,
+    cartSlice,
+    categorySlice,
+    ordersSlice,
+    flightsSlices,
+  }),
 });
 export default store;
 
