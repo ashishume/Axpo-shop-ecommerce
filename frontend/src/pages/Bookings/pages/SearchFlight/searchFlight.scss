@@ -1,6 +1,6 @@
 .search-flight-container {
-  display: flex;
-  justify-content: center;
+  height: 100vh;
+  overflow: hidden;
   margin-top: 30px;
   .search-flight-content {
     padding: 20px;
@@ -28,11 +28,12 @@
       justify-content: center;
       align-items: center;
       .input-container {
+        width: 100%;
         position: relative;
         border-radius: 15px;
         margin-top: 15px;
         .input-field-content {
-          width: 400px;
+          width: 350px;
           font-size: 18px;
           &:focus {
             box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 15px;
@@ -60,7 +61,7 @@
           position: absolute;
           top: 100%;
           left: 6px;
-          width: 97%;
+          width: 95%;
           background-color: #ffffff;
           z-index: 99;
           border-radius: 0px 0px 6px 6px;
@@ -101,15 +102,15 @@
           border: solid 1px #0000001a;
           cursor: pointer;
         }
-
-        .error-message{
+        .error-message {
           position: absolute;
           top: 68px;
           left: 5px;
           background: #ff000017;
           padding: 4px 16px;
           border-radius: 4px;
-          width: 98%;
+          width: 93%;
+          align-self: center;
           margin: 1px 1px;
           text-align: center;
           color: #c73434;

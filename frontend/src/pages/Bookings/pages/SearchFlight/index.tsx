@@ -145,6 +145,7 @@ const SearchFlight = () => {
                 {...register('sourceAirport', {
                   required: true,
                 })}
+                placeholder="Enter city or airport"
                 onChange={autocompleteSourceLocation}
                 className={inputStyle}
               />
@@ -163,6 +164,7 @@ const SearchFlight = () => {
                 type="text"
                 autoComplete="off"
                 value={destination.airport}
+                placeholder="Enter city or airport"
                 {...register('destinationAirport', {
                   required: true,
                 })}
@@ -191,6 +193,11 @@ const SearchFlight = () => {
                 })}
                 className={inputStyle}
               />
+               {errors.fromDate && (
+                <div className="error-message">
+                  Please enter a date
+                </div>
+              )}
             </div>
             <div className="mt-2 inline-block input-container">
               <label className={`${inputLabelStyle} input-label`}>
@@ -205,6 +212,11 @@ const SearchFlight = () => {
                 })}
                 className={inputStyle}
               />
+               {errors.passengerCount && (
+                <div className="error-message">
+                  Please enter number of passengers
+                </div>
+              )}
             </div>
             <div className="mt-2 block rounded-md button-container">
               <button
