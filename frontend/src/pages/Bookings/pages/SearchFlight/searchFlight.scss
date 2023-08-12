@@ -106,14 +106,11 @@
         .error-message {
           position: absolute;
           top: 68px;
-          left: 5px;
-          background: #ff000017;
-          padding: 4px 16px;
+          padding: 4px 5px;
           border-radius: 4px;
           width: 93%;
           align-self: center;
           margin: 1px 1px;
-          text-align: center;
           color: #c73434;
           font-weight: 600;
         }
@@ -132,7 +129,7 @@
     }
   }
   .flights-data-container{
-    margin: 100px 50px;
+    margin: 150px 50px;
     padding-bottom: 100px;
   }
 }

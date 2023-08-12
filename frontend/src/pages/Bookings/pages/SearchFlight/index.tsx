@@ -13,10 +13,11 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { FieldValues, useForm } from 'react-hook-form';
 import Autocomplete from '../../components/Autocomplete';
-import { ILocation } from '../../constants/flights';
+import { IFlight, ILocation } from '../../constants/flights';
 import { ISearchFlights } from '../../../../models/Form';
 import FlightCardView from '../../components/FlightViewCard';
 import SpinningLoader from '../../../../components/SpinningLoader';
+
 const SearchFlight = () => {
   const inputStyle =
     'input-field-content inline-block p-5 text-xl mx-1 rounded-lg border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 placeholder:text-xl focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6';
@@ -43,6 +44,7 @@ const SearchFlight = () => {
 
   useEffect(() => {
     dispatch(fetchLocations());
+    // dispatch(fetchFlights());
   }, []);
 
   const navigate = useNavigate();
@@ -110,6 +112,11 @@ const SearchFlight = () => {
         location: location.location,
       };
     });
+  }
+
+  function handleFlightBooking(flight: IFlight) {
+    console.log(flight);
+    navigate('/bookings/book-flight');
   }
 
   return (
@@ -223,7 +230,13 @@ const SearchFlight = () => {
         <div className="flights-data-container">
           {flights?.length &&
             flights.map((flight) => {
-              return <FlightCardView key={flight._id} flightData={flight} />;
+              return (
+                <FlightCardView
+                  key={flight._id}
+                  flightData={flight}
+                  handleFlightBooking={() => handleFlightBooking(flight)}
+                />
+              );
             })}
 
           {isLoading ? <SpinningLoader /> : null}
