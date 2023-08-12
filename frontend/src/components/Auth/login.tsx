@@ -38,7 +38,7 @@ const Login = ({
     <>
       <CustomSnackbar message={error} isError={true} />
       <div className="flex justify-center align-center pt-15">
-        <img src="assets/logo.png" height="200px" width="200px" className="" />
+        <img src="assets/logo.png" height="200px" width="200px" className="image-logo" />
       </div>
       <div className="container mx-auto border m-20 p-10 max-w-md rounded-lg shadow">
         <h3 className="font-bold text-3xl">Login</h3>

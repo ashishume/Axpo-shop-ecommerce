@@ -13,7 +13,7 @@ const Thumbnail = () => {
           <div className="text-1xl max-sm:text-sm pt-3 antialiased bold font-sans">
             Shop laptops, desktops, monitors, cameras, headphones and many more
           </div>
-          <div className="view-more-button max-sm:text-sm" onClick={() => navigate("/products")}>
+          <div className="view-more-button max-sm:text-sm bg-white shadow" onClick={() => navigate("/products")}>
             View more
           </div>
         </div>
