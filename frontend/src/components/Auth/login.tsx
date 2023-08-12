@@ -1,33 +1,42 @@
 import { FieldValues, useForm } from 'react-hook-form';
-import Layout from '../layout';
 import { API_PATHS } from '../../constants/api-path';
 import { useNavigate } from 'react-router-dom';
 import { Axios } from '../../services/http-service';
 import './auth.scss';
+import { useState } from 'react';
+import CustomSnackbar from '../Snackbar';
+import { SNACKBAR_TIMEOUT } from '../../constants/snackbar';
 const Login = ({
   setIsLoggedIn,
 }: {
   setIsLoggedIn: (val: boolean) => void;
 }) => {
   const navigate = useNavigate();
-
+  const [error, setError] = useState('');
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
   const onSubmit = async (data: FieldValues) => {
-    const response = await Axios.post(API_PATHS.LOGIN, data);
-    if (response.status === 200) {
-      setIsLoggedIn(true);
-      localStorage.setItem('userId', response.data.user);
-      navigate('/');
+    try {
+      const response = await Axios.post(API_PATHS.LOGIN, data);
+      if (response.status === 200) {
+        setIsLoggedIn(true);
+        localStorage.setItem('userId', response.data.user);
+        navigate('/');
+      }
+    } catch (e: any) {
+      setError(e.response.data.message);
+      setTimeout(() => {
+        setError('');
+      }, SNACKBAR_TIMEOUT);
     }
   };
 
-
   return (
     <>
+      <CustomSnackbar message={error} isError={true} />
       <div className="flex justify-center align-center pt-15">
         <img src="assets/logo.png" height="200px" width="200px" className="" />
       </div>

@@ -8,9 +8,14 @@ const jwt = require("jsonwebtoken");
 router.post("/signup", async (req, res) => {
   try {
     const { name, email, password } = req.body;
-    const newUser = new User({ name, email, password });
-    await newUser.save();
-    res.status(201).json({ message: "signed up successfully", name, email });
+    const isAlreadySignedUp = await User.findOne({ email });
+    if (!isAlreadySignedUp) {
+      const newUser = new User({ name, email, password });
+      await newUser.save();
+      res.status(201).json({ message: "signed up successfully", name, email });
+    } else {
+      res.status(409).json({ message: "User already registered, please login" });
+    }
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -25,7 +30,7 @@ router.post("/login", async (req, res) => {
     }
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      throw new Error("Invalid password");
+      throw new Error("Please enter a valid password");
     }
     const token = jwt.sign({ userId: user._id }, process.env.SECRET_KEY, { expiresIn: "2h" });
     res.cookie("jwt", token, { httpOnly: true, sameSite: "none", secure: true });
@@ -41,7 +46,7 @@ router.get("/validate", async (req, res) => {
       const authTokenExp = jwt.verify(token, process.env.SECRET_KEY);
       res.status(200).json({
         isLoggedIn: true,
-        authTokenExp
+        authTokenExp,
       });
     } else {
       res.status(401).json({ isLoggedIn: false });

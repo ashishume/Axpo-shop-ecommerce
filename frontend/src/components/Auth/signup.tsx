@@ -1,14 +1,15 @@
 import { useForm } from 'react-hook-form';
-import Layout from '../layout';
 import { API_PATHS } from '../../constants/api-path';
 import { useNavigate } from 'react-router-dom';
 import { Axios } from '../../services/http-service';
-import { useEffect } from 'react';
+import { useState } from 'react';
 import { FormInputs } from '../../models/Form';
 import './auth.scss';
+import CustomSnackbar from '../Snackbar';
+import { SNACKBAR_TIMEOUT } from '../../constants/snackbar';
 const Signup = () => {
   const navigate = useNavigate();
-
+  const [error, setError] = useState('');
   const {
     register,
     handleSubmit,
@@ -16,14 +17,22 @@ const Signup = () => {
     formState: { errors },
   } = useForm<FormInputs>();
   const onSubmit = async (data: FormInputs) => {
-    const response = await Axios.post(API_PATHS.SIGNUP, data);
-    if (response.status === 201) {
-      navigate('/login');
+    try {
+      const response = await Axios.post(API_PATHS.SIGNUP, data);
+      if (response.status === 201) {
+        navigate('/login');
+      }
+    } catch (e: any) {
+      setError(e.response.data.message);
+      setTimeout(() => {
+        setError('');
+      }, SNACKBAR_TIMEOUT);
     }
   };
 
   return (
     <>
+      <CustomSnackbar message={error} isError={true} />
       <div className="flex justify-center align-center pt-15">
         <img src="assets/logo.png" height="200px" width="200px" className="" />
       </div>
