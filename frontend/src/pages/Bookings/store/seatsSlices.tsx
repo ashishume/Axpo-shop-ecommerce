@@ -11,8 +11,12 @@ const initialState: SeatsState = {
 export const fetchSeats = createAsyncThunk(
   'bookings/fetchSeats',
   async (payload: { flight: string; fromDate: string }) => {
-    const response = await Axios.post(API_PATHS.FLIGHT_SEATS, payload);
-    return response.data;
+    try {
+      const response = await Axios.post(API_PATHS.FLIGHT_SEATS, payload);
+      return response.data;
+    } catch (e: any) {
+      console.error(e.response.message);
+    }
   }
 );
 

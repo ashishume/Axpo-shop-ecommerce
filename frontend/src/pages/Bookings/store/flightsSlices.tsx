@@ -15,23 +15,45 @@ const initialState: FlightsState = {
 export const fetchLocations = createAsyncThunk(
   'bookings/fetchLocations',
   async () => {
-    const response = await Axios.get(API_PATHS.LOCATIONS);
-    return response.data;
+    try {
+      const response = await Axios.get(API_PATHS.LOCATIONS);
+      return response.data;
+    } catch (e: any) {
+      console.error(e.response.message);
+    }
   }
 );
 export const fetchFlights = createAsyncThunk(
   'bookings/fetchFlights',
   async () => {
-    const response = await Axios.get(API_PATHS.FLIGHTS);
-    return response.data;
+    try {
+      const response = await Axios.get(API_PATHS.FLIGHTS);
+      return response.data;
+    } catch (e: any) {
+      console.error(e.response.message);
+    }
   }
 );
 export const fetchOneFlight = createAsyncThunk(
   'bookings/fetchOneFlight',
   async (flightId: string) => {
-    const response = await Axios.get(API_PATHS.FLIGHT + '/' + flightId);
-    console.log(response);
-    return response.data;
+    try {
+      const response = await Axios.get(API_PATHS.FLIGHT + '/' + flightId);
+      return response.data;
+    } catch (e: any) {
+      console.error(e.response.message);
+    }
+  }
+);
+export const bookFlightSeat = createAsyncThunk(
+  'bookings/bookFlightSeat',
+  async (payload: any) => {
+    try {
+      const response = await Axios.post(API_PATHS.FLIGHT_BOOK, payload);
+      return response.data;
+    } catch (e: any) {
+      console.error(e.response.message);
+    }
   }
 );
 

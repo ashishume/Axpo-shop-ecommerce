@@ -1,11 +1,11 @@
-const rowsCount = 10;
-const columnCount = 10;
+const rowsCount = 30;
+const columnCount = 6;
 
 const generateSeatsData = () => {
   let rowData = [];
-  for (let rowIndex = 0; rowIndex < rowsCount; rowIndex++) {
+  for (let rowIndex = 1; rowIndex <= rowsCount; rowIndex++) {
     let columnData = [];
-    for (let columnIndex = 0; columnIndex < columnCount; columnIndex++) {
+    for (let columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
       columnData.push({
         seatId: `${rowIndex}-${columnIndex}`,
         isBooked: false,

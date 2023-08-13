@@ -1,35 +1,43 @@
 import './index.scss';
 import { IColumn, ISeats } from '../../models/flights';
+import { Fragment } from 'react';
 const FlightSeatBooking = ({
   seats,
   handleBooking,
 }: {
   seats: ISeats | null;
-  handleBooking: (column:IColumn) => void;
+  handleBooking: (column: IColumn) => void;
 }) => {
   return (
     <div className="flight-seat-container">
+      <div className="building">
+        <div className="half-circle"></div>
+        <div className="rectangle"></div>
+      </div>
       {seats &&
-        seats.seatStructure.map((row) => {
+        seats.seatStructure.map((row, rowIndex: number) => {
           return (
-            <div className="m-10" key={row._id}>
-              {row.columns.map((column) => {
+            <div className="row-seats" key={row._id}>
+              {row.columns.map((column, columnIndex: number) => {
                 return (
-                  <span
-                    key={column._id}
-                    className="m-5"
-                    onClick={() => handleBooking(column)}
-                  >
-                    <span
-                      style={{
-                        border: 'solid 1px black',
-                        padding: '10px',
-                        background: column.isBooked ? '#18aa5e5c' : '#ff00005c',
-                      }}
+                  <Fragment key={column._id}>
+                    {columnIndex % 3 === 0 && columnIndex !== 0 ? (
+                      <div className="row-index-content">{rowIndex + 1}</div>
+                    ) : null}
+                    <div className="alphabets">
+                      {rowIndex === 0
+                        ? String.fromCharCode(65 + columnIndex)
+                        : ''}
+                    </div>
+                    <div
+                      className={`seat-block ${
+                        column.isBooked ? 'booked-seats' : ''
+                      }`}
+                      onClick={() => handleBooking(column)}
                     >
-                      {column.seatId}
-                    </span>
-                  </span>
+                      <div className="divider"></div>
+                    </div>
+                  </Fragment>
                 );
               })}
             </div>

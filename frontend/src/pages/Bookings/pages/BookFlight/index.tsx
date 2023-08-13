@@ -1,20 +1,17 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import Layout from '../../../../components/layout';
 import FlightSeatBooking from '../../components/FlightSeatBooking';
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
 import { fetchSeats } from '../../store/seatsSlices';
 import { useParams } from 'react-router-dom';
-import { fetchOneFlight } from '../../store/flightsSlices';
-
+import { bookFlightSeat, fetchOneFlight } from '../../store/flightsSlices';
+import './book-flight.scss';
 const BookFlight = () => {
   const dispatch = useAppDispatch();
   const { seats, isLoading } = useAppSelector((state) => state.seatsSlices);
   const { flight } = useAppSelector((state) => state.flightsSlices);
   const params = useParams();
-  const { flightId } = params;
-  useEffect(() => {}, [params?.flightId]);
-
-  function handleBooking(column: any) {
+  async function handleBooking(column: any) {
     const { flightId, fromDate } = params;
     const flightSearchData = localStorage.getItem('flightBookingData');
     const userId = localStorage.getItem('userId');
@@ -30,28 +27,31 @@ const BookFlight = () => {
         price: flight?.price,
         passengerDetails: null,
       };
-      console.log(payload);
+      await dispatch(bookFlightSeat(payload));
+      await fetchSeatsStructure(params);
     }
-    // Axios.post('/flight/book', payload).then((response) => {
-    //   console.log(response);
-    // });
   }
-
+  function fetchSeatsStructure(params: any) {
+    dispatch(
+      fetchSeats({
+        flight: params.flightId,
+        fromDate: params.fromDate,
+      })
+    );
+  }
   useEffect(() => {
     if (params?.flightId && params?.fromDate) {
-      dispatch(
-        fetchSeats({
-          flight: params.flightId,
-          fromDate: params.fromDate,
-        })
-      );
+      fetchSeatsStructure(params);
       dispatch(fetchOneFlight(params?.flightId));
     }
   }, []);
 
   return (
     <Layout>
-      <FlightSeatBooking seats={seats} handleBooking={handleBooking} />
+      <div className="flight-seats-container">
+       
+        <FlightSeatBooking seats={seats} handleBooking={handleBooking} />
+      </div>
     </Layout>
   );
 };
