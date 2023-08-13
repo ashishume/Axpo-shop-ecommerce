@@ -11,8 +11,10 @@ const FlightSeatBooking = ({
   return (
     <div className="flight-seat-container">
       <div className="building">
-        <div className="half-circle"></div>
+        <div className="half-circle">Cockpit</div>
         <div className="rectangle"></div>
+        <div className="right-wing"></div>
+        <div className="left-wing"></div>
       </div>
       {seats &&
         seats.seatStructure.map((row, rowIndex: number) => {
@@ -33,7 +35,9 @@ const FlightSeatBooking = ({
                       className={`seat-block ${
                         column.isBooked ? 'booked-seats' : ''
                       }`}
-                      onClick={() => handleBooking(column)}
+                      onClick={() =>
+                        !column.isBooked ? handleBooking(column) : () => {}
+                      }
                     >
                       <div className="divider"></div>
                     </div>

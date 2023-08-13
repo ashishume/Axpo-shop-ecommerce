@@ -49,8 +49,11 @@ const BookFlight = () => {
   return (
     <Layout>
       <div className="flight-seats-container">
-       
+        <div className='wing'></div>
+        <div className='text-3xl font-medium m-5'>Please select your seats</div>
+        <div className='plane-seat-structure-design'>
         <FlightSeatBooking seats={seats} handleBooking={handleBooking} />
+        </div>
       </div>
     </Layout>
   );

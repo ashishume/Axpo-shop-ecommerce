@@ -1,14 +1,14 @@
 .flight-seat-container {
   position: relative;
- 
-  $plane-color: rgb(183, 183, 183);
+
+  $plane-color: rgb(221, 219, 219);
   .rectangle {
     position: absolute;
-    left: 60%;
+    left: 7%;
     width: 361px;
     background-color: $plane-color;
     top: 209%;
-    height: 96rem;
+    height: 100rem;
   }
 
   .half-circle {
@@ -16,6 +16,28 @@
     height: 32rem;
     border-radius: 300px 300px 0 0;
     top: 40%;
+    padding-top: 50px;
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  .right-wing {
+    background-color: $plane-color;
+    position: absolute;
+    top: 239%;
+    left: 163%;
+    width: 16rem;
+    height: 36rem;
+    transform: skew(40deg) rotate(40deg);
+  }
+  .left-wing {
+    background-color: rgb(221, 219, 219);
+    position: absolute;
+    top: 308%;
+    left: -304%;
+    width: 66rem;
+    height: 10rem;
+    transform: scaleX(-1) skew(66deg) rotate(-24deg);
   }
 
   .row-seats {
@@ -43,6 +65,7 @@
     }
     .seat-block.booked-seats {
       background-color: #d60a0a8f;
+      cursor: not-allowed;
     }
     .row-index-content {
       transform: translate(0px, -20px);

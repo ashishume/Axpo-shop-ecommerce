@@ -1,12 +1,11 @@
 .flight-seats-container {
-  margin-top: 50px;
-  width: 600px;
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -15%);
-  text-align: center;
-  padding-bottom: 22rem;
+  .plane-seat-structure-design {
+    margin-top: -100px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    padding-bottom: 22rem;
+  }
 }
 
 .building {
