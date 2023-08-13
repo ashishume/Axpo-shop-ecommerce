@@ -16,21 +16,26 @@ router.post("/flight/book", async (req, res) => {
       user,
       price,
       passengerDetails,
-      seatId, //TODO: figure out booking for multple seatIds (for now it works for only 1 seat)
+      seatId, // this contains multple seats to book all at once
     });
     await flightBookingData.save();
 
     //update seat ids of passengers on that specfic date
     const seatBooking = await FlightSeatBooking.findOne({ flight, fromDate });
     const updatedSeats = seatBooking.toObject();
-    for (const row of updatedSeats.seatStructure) {
-      for (const column of row.columns) {
-        if (column.seatId === seatId) {
-          column.isBooked = true;
-          break;
+
+    /**TODO: need to be optimised to remove big O cube */
+    seatId.forEach((seat) => {
+      for (const row of updatedSeats.seatStructure) {
+        for (const column of row.columns) {
+          if (column.seatId === seat) {
+            column.isBooked = true;
+            break;
+          }
         }
       }
-    }
+    });
+
     const result = await FlightSeatBooking.findOneAndUpdate(
       { flight, fromDate },
       { $set: { seatStructure: updatedSeats.seatStructure } },

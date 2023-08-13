@@ -50,7 +50,7 @@
       border: solid 1px black;
       height: 35px;
       width: 30px;
-      background-color: #d4d4d4e7;
+      background-color: #23cf2e34;
       margin: 5px;
       border-radius: 4px;
       &:hover {
@@ -64,7 +64,7 @@
       }
     }
     .seat-block.booked-seats {
-      background-color: #d60a0a8f;
+      background-color: #ea0a0a88;
       cursor: not-allowed;
     }
     .row-index-content {
@@ -80,6 +80,9 @@
       display: inline-block;
       position: absolute;
       transform: translate(15px, -20px);
+    }
+    .selected-seats{
+      background-color: #d0a52f8f;
     }
   }
 }

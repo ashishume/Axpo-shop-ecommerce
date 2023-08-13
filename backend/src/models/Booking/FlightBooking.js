@@ -20,10 +20,11 @@ const flightBookingSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  seatId: {
-    type: String,
-    required: true,
-  },
+  seatId: [
+    {
+      type: String,
+    },
+  ],
   passengerDetails: [
     {
       name: {

@@ -3,10 +3,12 @@ import { IColumn, ISeats } from '../../models/flights';
 import { Fragment } from 'react';
 const FlightSeatBooking = ({
   seats,
-  handleBooking,
+  addSeatsForBooking,
+  seatIds,
 }: {
   seats: ISeats | null;
-  handleBooking: (column: IColumn) => void;
+  addSeatsForBooking: (column: IColumn) => void;
+  seatIds: string[];
 }) => {
   return (
     <div className="flight-seat-container">
@@ -34,9 +36,11 @@ const FlightSeatBooking = ({
                     <div
                       className={`seat-block ${
                         column.isBooked ? 'booked-seats' : ''
+                      }${
+                        seatIds.includes(column.seatId) ? ' selected-seats' : ''
                       }`}
                       onClick={() =>
-                        !column.isBooked ? handleBooking(column) : () => {}
+                        !column.isBooked ? addSeatsForBooking(column) : () => {}
                       }
                     >
                       <div className="divider"></div>
