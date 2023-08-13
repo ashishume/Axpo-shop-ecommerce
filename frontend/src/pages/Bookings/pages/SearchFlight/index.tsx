@@ -13,7 +13,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { FieldValues, useForm } from 'react-hook-form';
 import Autocomplete from '../../components/Autocomplete';
-import { IFlight, ILocation } from '../../constants/flights';
+import { IFlight, ILocation } from '../../models/flights';
 import { ISearchFlights } from '../../../../models/Form';
 import FlightCardView from '../../components/FlightViewCard';
 import SpinningLoader from '../../../../components/SpinningLoader';
@@ -41,6 +41,12 @@ const SearchFlight = () => {
     location: '',
     airport: '',
   });
+  const [flightData, setflightData] = useState<{
+    destinationLocation: string;
+    fromDate: string;
+    passengerCount: string;
+    sourceLocation: string;
+  } | null>(null);
 
   useEffect(() => {
     dispatch(fetchLocations());
@@ -60,8 +66,10 @@ const SearchFlight = () => {
       fromDate: data.fromDate,
       passengerCount: '2',
     };
-    console.log(payload);
-
+    setflightData(payload);
+    if (payload) {
+      localStorage.setItem('flightBookingData', JSON.stringify(payload));
+    }
     dispatch(fetchFlights());
 
     try {
@@ -115,13 +123,12 @@ const SearchFlight = () => {
   }
 
   function handleFlightBooking(flight: IFlight) {
-    console.log(flight);
-    navigate('/bookings/book-flight');
+    if (flight && flightData)
+      navigate(`/bookings/book-flight/${flight._id}/${flightData?.fromDate}`);
   }
 
   return (
     <Layout>
-      {console.log(flights)}
       <div className="search-flight-container">
         <div className="search-flight-content">
           <div className="trips">
@@ -228,7 +235,7 @@ const SearchFlight = () => {
         </div>
 
         <div className="flights-data-container">
-          {flights?.length &&
+          {flights &&
             flights.map((flight) => {
               return (
                 <FlightCardView

@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const FlightSeatBooking = require("../../models/Booking/SeatBooking");
 const authenticateToken = require("../../controllers/authMiddleware");
-const { generateSeatsData } = require("../../controllers/assignSeats");
+const { generateSeatsData } = require("../../controllers/Booking/assignSeats");
 
 /** fetch seats based on flightid and fromDate */
 router.post("/flights/seats", async (req, res) => {

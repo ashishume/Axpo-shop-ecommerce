@@ -1,6 +1,6 @@
 import React from 'react';
 import './style.scss';
-import { IFlight } from '../../constants/flights';
+import { IFlight } from '../../models/flights';
 import { formatIndianRupees } from '../../../../Utils/convertTextToLink';
 import LocalAirportIcon from '@mui/icons-material/LocalAirport';
 const FlightCardView = ({

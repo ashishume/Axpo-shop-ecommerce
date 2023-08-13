@@ -1,50 +1,19 @@
-import { useEffect, useState } from 'react';
 import './index.scss';
-import { Axios } from '../../../../services/http-service';
-const FlightSeatBooking = () => {
-  const [rowData, setRowData] = useState<null | any>(null);
-  const [flight, setFlight] = useState<null | any>(null);
-
-  useEffect(() => {
-    const payload = {
-      flight: '64d68f48906abb5ed44ec8e7',
-      fromDate: '12-08-2023',
-    };
-    //fetch seats for that specific date
-    Axios.post('/flights/seats', payload).then((res) => {
-      console.log(res.data);
-      setRowData(res.data.seatStructure);
-      setFlight(res.data);
-    });
-
-    // const res = createGridData();
-    // console.log(res);
-  }, []);
-
-  function handleBooking(column: any) {
-    const payload = {
-      flight: flight.flight,
-      ...column,
-      fromDate: '12-08-2023',
-      toDate: '12-08-2023',
-      bookingClass: 'Economy',
-      user: '64d1fc9744e96509bcbd41a2',
-      price: 5000,
-      passengerDetails: null,
-    };
-    console.log(payload);
-
-    Axios.post('/flight/book', payload).then((response) => {
-      console.log(response);
-    });
-  }
+import { IColumn, ISeats } from '../../models/flights';
+const FlightSeatBooking = ({
+  seats,
+  handleBooking,
+}: {
+  seats: ISeats | null;
+  handleBooking: (column:IColumn) => void;
+}) => {
   return (
     <div className="flight-seat-container">
-      {rowData &&
-        rowData.map((row: any, rowIndex: number) => {
+      {seats &&
+        seats.seatStructure.map((row) => {
           return (
             <div className="m-10" key={row._id}>
-              {row.columns.map((column: any, columnIndex: number) => {
+              {row.columns.map((column) => {
                 return (
                   <span
                     key={column._id}

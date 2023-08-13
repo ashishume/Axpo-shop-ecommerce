@@ -4,6 +4,7 @@ import cartSlice from './slices/cartSlice';
 import categorySlice from './slices/categorySlices';
 import ordersSlice from './slices/ordersSlice';
 import flightsSlices from '../pages/Bookings/store/flightsSlices';
+import seatsSlices from '../pages/Bookings/store/seatsSlices';
 const store = configureStore({
   reducer: combineReducers({
     productsSlice,
@@ -11,6 +12,7 @@ const store = configureStore({
     categorySlice,
     ordersSlice,
     flightsSlices,
+    seatsSlices
   }),
 });
 export default store;

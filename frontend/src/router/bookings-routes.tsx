@@ -6,7 +6,7 @@ const BookingRoutePaths = () => {
   return (
     <Routes>
       <Route path="/search-flight" element={<SearchFlight />} />
-      <Route path="/book-flight" element={<BookFlight />} />
+      <Route path="/book-flight/:flightId/:fromDate" element={<BookFlight />} />
       <Route path="*" element={<Navigate to="/bookings/search-flight" />} />
     </Routes>
   );

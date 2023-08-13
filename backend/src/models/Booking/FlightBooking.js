@@ -9,7 +9,6 @@ const flightBookingSchema = new mongoose.Schema({
   },
   toDate: {
     type: Date,
-    required: true,
   },
   bookingClass: {
     type: String,

@@ -1,5 +1,5 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { FlightsState } from '../constants/flights';
+import { FlightsState } from '../models/flights';
 import { Axios } from '../../../services/http-service';
 import { API_PATHS } from '../../../constants/api-path';
 
@@ -9,6 +9,7 @@ const initialState: FlightsState = {
   searchedSourceLocationResults: [],
   searchedDestinationLocationResults: [],
   flights: [],
+  flight: null,
 };
 
 export const fetchLocations = createAsyncThunk(
@@ -22,6 +23,14 @@ export const fetchFlights = createAsyncThunk(
   'bookings/fetchFlights',
   async () => {
     const response = await Axios.get(API_PATHS.FLIGHTS);
+    return response.data;
+  }
+);
+export const fetchOneFlight = createAsyncThunk(
+  'bookings/fetchOneFlight',
+  async (flightId: string) => {
+    const response = await Axios.get(API_PATHS.FLIGHT + '/' + flightId);
+    console.log(response);
     return response.data;
   }
 );
@@ -88,7 +97,7 @@ export const flightsSlices = createSlice({
       }
     );
 
-
+    //fetch all flights data
     builder.addCase(
       fetchFlights.pending,
       (state: FlightsState, action: PayloadAction<any>) => {
@@ -106,6 +115,28 @@ export const flightsSlices = createSlice({
       fetchFlights.rejected,
       (state: FlightsState, action: PayloadAction<any>) => {
         state.flights = [];
+        state.isLoading = false;
+      }
+    );
+
+    //fetch each flight data
+    builder.addCase(
+      fetchOneFlight.pending,
+      (state: FlightsState, action: PayloadAction<any>) => {
+        state.isLoading = true;
+      }
+    );
+    builder.addCase(
+      fetchOneFlight.fulfilled,
+      (state: FlightsState, action: PayloadAction<any>) => {
+        state.flight = action.payload;
+        state.isLoading = false;
+      }
+    );
+    builder.addCase(
+      fetchOneFlight.rejected,
+      (state: FlightsState, action: PayloadAction<any>) => {
+        state.flight = null;
         state.isLoading = false;
       }
     );

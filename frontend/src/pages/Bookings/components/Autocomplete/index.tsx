@@ -1,5 +1,5 @@
 import React from 'react';
-import { ILocation } from '../../constants/flights';
+import { ILocation } from '../../models/flights';
 
 const Autocomplete = ({
   searchedLocationResults,

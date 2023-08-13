@@ -52,7 +52,7 @@ router.get("/flight/:flightId", authenticateToken, async (req, res) => {
   try {
     const { flightId } = req.params;
     const flight = await Flight.findById(flightId).select("-__v");
-    res.status(201).json(flight);
+    res.status(200).json(flight);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

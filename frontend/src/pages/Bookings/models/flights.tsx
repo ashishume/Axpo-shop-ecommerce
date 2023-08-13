@@ -4,9 +4,10 @@ export interface FlightsState {
   searchedSourceLocationResults: ILocation[] | [];
   searchedDestinationLocationResults: ILocation[] | [];
   flights: IFlight[] | [];
+  flight: IFlight | null;
 }
 export interface SeatsState {
-  seats: [];
+  seats: ISeats | null;
   isLoading: boolean;
 }
 
@@ -29,4 +30,23 @@ export interface IFlight {
   toTime: string;
   timeDiff: string;
   price: string;
+}
+
+export interface ISeats {
+  _id: string;
+  flight: string;
+  seatStructure: [
+    {
+      columns: IColumn[];
+      id: number;
+      _id: number;
+    },
+  ];
+  fromDate: string;
+}
+
+export interface IColumn {
+  seatId: string;
+  isBooked: boolean;
+  _id: string;
 }
