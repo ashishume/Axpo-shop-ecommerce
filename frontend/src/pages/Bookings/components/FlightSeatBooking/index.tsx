@@ -1,23 +1,48 @@
 import './index.scss';
 import { IColumn, ISeats } from '../../models/flights';
-import { Fragment } from 'react';
+import { Dispatch, Fragment, SetStateAction, useEffect, useState } from 'react';
+import SpinningLoader from '../../../../components/SpinningLoader';
+import CustomSnackbar from '../../../../components/Snackbar';
+import { SNACKBAR_TIMEOUT } from '../../../../constants/snackbar';
 const FlightSeatBooking = ({
   seats,
   addSeatsForBooking,
   seatIds,
+  passengerCount,
+  counter,
 }: {
   seats: ISeats | null;
   addSeatsForBooking: (column: IColumn) => void;
   seatIds: string[];
+  passengerCount: number;
+  counter: number;
 }) => {
+  const [errorMessage, setErrorMessage] = useState('');
+
+  function showErrorMessage(
+    isBooked: boolean,
+    counter: number,
+    passengerCount: number
+  ) {
+    if (isBooked) setErrorMessage('This seat is already booked');
+    else if (counter >= passengerCount)
+      setErrorMessage('Max seat booking limit reached');
+
+    setTimeout(() => {
+      setErrorMessage('');
+    }, SNACKBAR_TIMEOUT);
+  }
+
   return (
     <div className="flight-seat-container">
-      <div className="building">
-        <div className="half-circle">Cockpit</div>
-        <div className="rectangle"></div>
-        <div className="right-wing"></div>
-        <div className="left-wing"></div>
-      </div>
+      {seats?.seatStructure?.length ? (
+        <div className="building">
+          <div className="half-circle">Cockpit</div>
+          <div className="rectangle"></div>
+          <div className="right-wing"></div>
+          <div className="left-wing"></div>
+        </div>
+      ) : null}
       {seats &&
         seats.seatStructure.map((row, rowIndex: number) => {
           return (
@@ -40,7 +65,13 @@ const FlightSeatBooking = ({
                         seatIds.includes(column.seatId) ? ' selected-seats' : ''
                       }`}
                       onClick={() =>
-                        !column.isBooked ? addSeatsForBooking(column) : () => {}
+                        !column.isBooked && counter < passengerCount
+                          ? addSeatsForBooking(column)
+                          : showErrorMessage(
+                              column.isBooked,
+                              counter,
+                              passengerCount
+                            )
                       }
                     >
                       <div className="divider"></div>
@@ -51,6 +82,8 @@ const FlightSeatBooking = ({
             </div>
           );
         })}
+      <CustomSnackbar message={errorMessage} isError={true} />
+      {!seats?.seatStructure?.length ? <SpinningLoader /> : null}
     </div>
   );
 };

@@ -14,10 +14,13 @@ const BookFlight = () => {
   const params = useParams();
 
   const [seatIds, setSeatIds] = useState<any>([]);
+  const [passengerCount, setPassengerCount] = useState(0);
+  const [counter, setCounter] = useState(0);
 
   function addSeatsForBooking(column: any) {
     /** TODO: find a way to avoid duplicate seat ids and also unselect the selected ones without clearing all seats */
     setSeatIds((state: any) => [...state, column.seatId]);
+    setCounter((prevState) => prevState + 1);
   }
 
   function clearSelectedSeats(column: any) {
@@ -52,24 +55,49 @@ const BookFlight = () => {
       })
     );
   }
+
   useEffect(() => {
     if (params?.flightId && params?.fromDate) {
       fetchSeatsStructure(params);
       dispatch(fetchOneFlight(params?.flightId));
+    }
+
+    const flightSearchData = localStorage.getItem('flightBookingData');
+    if (flightSearchData) {
+      const flightData = JSON.parse(flightSearchData);
+      setPassengerCount(flightData.passengerCount);
     }
   }, []);
 
   return (
     <Layout>
       <div className="flight-seats-container">
-        <div className="wing"></div>
         <div className="text-3xl font-medium m-5">Please select your seats</div>
-        <Button onClick={confirmSeatsBooking}>Confirm</Button>
-        <Button onClick={clearSelectedSeats}>Clear Selected seats</Button>
+        <div className="seat-button-container">
+          <Button
+            onClick={confirmSeatsBooking}
+            variant="contained"
+            disabled={!!![].concat(...seatIds).length}
+            className="confirm-button"
+          >
+            Confirm
+          </Button>
+          <Button
+            onClick={clearSelectedSeats}
+            variant="contained"
+            disabled={!!![].concat(...seatIds).length}
+            color="error"
+            className="clear-button"
+          >
+            Clear Selected seats
+          </Button>
+        </div>
         <div className="plane-seat-structure-design">
           <FlightSeatBooking
             seatIds={[].concat(...seatIds)}
             seats={seats}
+            passengerCount={passengerCount}
+            counter={counter}
             addSeatsForBooking={addSeatsForBooking}
           />
         </div>
