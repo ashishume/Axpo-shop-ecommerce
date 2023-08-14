@@ -12,6 +12,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { clearState, searchProducts } from '../../store/slices/productSlice';
 import MenuIcon from '@mui/icons-material/Menu';
+import LuggageIcon from '@mui/icons-material/Luggage';
 const Navbar = ({
   searchValue = '',
   isFocused = false,
@@ -92,6 +93,10 @@ const Navbar = ({
           <li className="icon-left" onClick={() => navigate('/bookings/')}>
             <FlightIcon />
             Bookings
+          </li>
+          <li className="icon-left" onClick={() => navigate('/bookings/my-bookings')}>
+            <LuggageIcon />
+            My trips
           </li>
         </ul>
       </div>

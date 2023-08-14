@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { fetchMyBookings } from '../../store/flightsSlices';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import AirplanemodeActiveIcon from '@mui/icons-material/AirplanemodeActive';
+import SpinningLoader from '../../../../components/SpinningLoader';
 const FlightBookings = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -22,6 +23,7 @@ const FlightBookings = () => {
     <Layout>
       <div className="bookings-parent-container">
         <div className="booking-title">My Bookings</div>
+        {!flightBookings?.length && isLoading ? <SpinningLoader /> : null}
         {flightBookings &&
           flightBookings.map(
             ({
