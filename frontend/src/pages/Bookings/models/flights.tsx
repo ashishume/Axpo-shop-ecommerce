@@ -1,3 +1,5 @@
+import { IUser } from '../../../models/user';
+
 export interface FlightsState {
   locations: ILocation[] | [];
   isLoading: boolean;
@@ -5,6 +7,7 @@ export interface FlightsState {
   searchedDestinationLocationResults: ILocation[] | [];
   flights: IFlight[] | [];
   flight: IFlight | null;
+  flightBookings: IBookings[] | null;
 }
 export interface SeatsState {
   seats: ISeats | null;
@@ -49,4 +52,16 @@ export interface IColumn {
   seatId: string;
   isBooked: boolean;
   _id: string;
+}
+
+export interface IBookings {
+  _id: string;
+  flight: IFlight;
+  fromDate: string;
+  toDate: string;
+  bookingClass: string;
+  user: IUser;
+  price: number;
+  seatId: string[];
+  passengerDetails: any;
 }

@@ -10,6 +10,7 @@ const initialState: FlightsState = {
   searchedDestinationLocationResults: [],
   flights: [],
   flight: null,
+  flightBookings: [],
 };
 
 export const fetchLocations = createAsyncThunk(
@@ -39,6 +40,19 @@ export const fetchOneFlight = createAsyncThunk(
   async (flightId: string) => {
     try {
       const response = await Axios.get(API_PATHS.FLIGHT + '/' + flightId);
+      return response.data;
+    } catch (e: any) {
+      console.error(e.response.message);
+    }
+  }
+);
+export const fetchMyBookings = createAsyncThunk(
+  'bookings/fetchMyBookings',
+  async (userId: string) => {
+    try {
+      const response = await Axios.get(
+        API_PATHS.MY_FLIGHT_BOOKINGS + '/' + userId
+      );
       return response.data;
     } catch (e: any) {
       console.error(e.response.message);
@@ -159,6 +173,28 @@ export const flightsSlices = createSlice({
       fetchOneFlight.rejected,
       (state: FlightsState, action: PayloadAction<any>) => {
         state.flight = null;
+        state.isLoading = false;
+      }
+    );
+
+    //fetch my bookings
+    builder.addCase(
+      fetchMyBookings.pending,
+      (state: FlightsState, action: PayloadAction<any>) => {
+        state.isLoading = true;
+      }
+    );
+    builder.addCase(
+      fetchMyBookings.fulfilled,
+      (state: FlightsState, action: PayloadAction<any>) => {
+        state.flightBookings = action.payload;
+        state.isLoading = false;
+      }
+    );
+    builder.addCase(
+      fetchMyBookings.rejected,
+      (state: FlightsState, action: PayloadAction<any>) => {
+        state.flightBookings = null;
         state.isLoading = false;
       }
     );

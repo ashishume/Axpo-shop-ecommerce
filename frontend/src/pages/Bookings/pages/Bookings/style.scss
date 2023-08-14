@@ -1,0 +1,83 @@
+.bookings-parent-container {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .booking-title {
+    text-align: left;
+    width: 75%;
+    font-size: 30px;
+    font-weight: 700;
+  }
+  .bookings-container {
+    position: relative;
+    width: 75%;
+    background-color: #fff;
+    margin: 25px 20px;
+    padding: 0 20px 40px 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.1);
+
+    @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+      width: 100%;
+    }
+
+    .flight-icon {
+      position: absolute;
+      left: 50%;
+      top: -13%;
+      background: #ffffff;
+      height: 45px;
+      width: 45px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      transform: rotate(45deg);
+      box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.1);
+      border: solid 1px rgba(0, 0, 0, 0.421);
+    }
+
+    .location-container {
+      display: flex;
+      border-bottom: solid 1px rgba(0, 0, 0, 0.258);
+      margin: 13px 0px;
+      padding: 10px 0;
+      font-size: 18px;
+      font-weight: 500;
+      .trip-status {
+        margin-left: 20px;
+      }
+    }
+    .date-container {
+      display: flex;
+      justify-content: space-around;
+      width: 100%;
+      font-weight: 500;
+      font-size: 16px;
+      .from-date {
+        div {
+          font-weight: 400;
+        }
+      }
+      .to-date {
+        margin-left: 40px;
+        div {
+          font-weight: 400;
+        }
+      }
+      .flight-details-container {
+        display: flex;
+        .brand-logo {
+          margin-right: 16px;
+        }
+        .brand-details {
+          display: flex;
+          flex-direction: column;
+          font-size: 16px;
+          padding-top: 7px;
+        }
+      }
+    }
+  }
+}

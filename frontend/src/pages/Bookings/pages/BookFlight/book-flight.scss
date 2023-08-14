@@ -16,6 +16,10 @@
 .seat-button-container {
   text-align: center;
   .confirm-button {
+    z-index: 999;
     margin: 0 10px;
+  }
+  .clear-button {
+    z-index: 999;
   }
 }

@@ -9,6 +9,7 @@ const flightBookingSchema = new mongoose.Schema({
   },
   toDate: {
     type: Date,
+    default: Date.now(),
   },
   bookingClass: {
     type: String,

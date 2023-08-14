@@ -3,12 +3,13 @@ import Layout from '../../../../components/layout';
 import FlightSeatBooking from '../../components/FlightSeatBooking';
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
 import { fetchSeats } from '../../store/seatsSlices';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { bookFlightSeat, fetchOneFlight } from '../../store/flightsSlices';
 import './book-flight.scss';
 import { Button } from '@mui/material';
 const BookFlight = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { seats, isLoading } = useAppSelector((state) => state.seatsSlices);
   const { flight } = useAppSelector((state) => state.flightsSlices);
   const params = useParams();
@@ -45,6 +46,8 @@ const BookFlight = () => {
       };
       await dispatch(bookFlightSeat(payload));
       await fetchSeatsStructure(params);
+
+      await navigate('/bookings/my-bookings');
     }
   }
   function fetchSeatsStructure(params: any) {
@@ -76,7 +79,7 @@ const BookFlight = () => {
         <div className="seat-button-container">
           <Button
             onClick={confirmSeatsBooking}
-            variant="contained"
+            variant="outlined"
             disabled={!!![].concat(...seatIds).length}
             className="confirm-button"
           >
@@ -84,7 +87,7 @@ const BookFlight = () => {
           </Button>
           <Button
             onClick={clearSelectedSeats}
-            variant="contained"
+            variant="outlined"
             disabled={!!![].concat(...seatIds).length}
             color="error"
             className="clear-button"

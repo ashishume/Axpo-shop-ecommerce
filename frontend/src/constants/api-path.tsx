@@ -16,5 +16,6 @@ export const API_PATHS = {
   FLIGHT: '/flight',
   FLIGHT_BOOK: '/flight/book',
   LOCATIONS: '/locations',
+  MY_FLIGHT_BOOKINGS: '/flights/bookings',
   FLIGHT_SEATS: '/flights/seats',
 };
