@@ -20,6 +20,8 @@ This project is an e-commerce website that aims to provide a seamless online sho
   - Secure payment processing integrated for safe transactions.
 - Order History:
   - View past orders and their details.
+- Flight Bookings
+  - You can book your flight from source to destination along with selection of seats  
 
 ## Getting Started
 
