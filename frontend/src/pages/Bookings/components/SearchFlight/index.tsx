@@ -31,11 +31,7 @@ const FlightSearchBar = ({
   handleDestinationLocationSelection: (e: any) => void;
   searchedDestinationLocationResults: ILocation[];
 }) => {
-  const inputStyle =
-    'input-field-content inline-block p-5 text-xl mx-1 rounded-lg border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 placeholder:text-xl focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6';
-
-  const inputLabelStyle = 'block leading-6 text-gray-900 text-xl py-3 mx-1';
-
+  const inputStyle = 'input-field-content';
   return (
     <div className="search-flight-content">
       <div className="trips">
@@ -49,8 +45,8 @@ const FlightSearchBar = ({
         </div>
       </div>
       <form onSubmit={handleSubmit(onSubmit)} className="input-form">
-        <div className="mt-2 inline-block input-container">
-          <label className={`${inputLabelStyle} input-label`}>From</label>
+        <div className="mt-2 input-container">
+          <label className="input-label">From</label>
           <input
             id="sourceAirport"
             type="text"
@@ -71,8 +67,8 @@ const FlightSearchBar = ({
             <div className="error-message">Please enter valid source</div>
           )}
         </div>
-        <div className="mt-2 inline-block input-container">
-          <label className={`${inputLabelStyle} input-label`}>To</label>
+        <div className="mt-2 input-container">
+          <label className="input-label">To</label>
           <input
             id="destinationAirport"
             type="text"
@@ -93,8 +89,8 @@ const FlightSearchBar = ({
             <div className="error-message">Please enter valid destination</div>
           )}
         </div>
-        <div className="mt-2 inline-block input-container">
-          <label className={`${inputLabelStyle} input-label`}>
+        <div className="mt-2 input-container">
+          <label className="input-label">
             Departure date
           </label>
           <input
@@ -109,8 +105,8 @@ const FlightSearchBar = ({
             <div className="error-message">Please enter a date</div>
           )}
         </div>
-        <div className="mt-2 inline-block input-container">
-          <label className={`${inputLabelStyle} input-label`}>
+        <div className="mt-2 input-container">
+          <label className="input-label">
             No. of passengers
           </label>
           <input
@@ -128,7 +124,7 @@ const FlightSearchBar = ({
             </div>
           )}
         </div>
-        <div className="mt-2 block rounded-md button-container">
+        <div className="mt-2 button-container">
           <button
             id="fromDate"
             className="p-5 m-5 bg-sky-600 rounded-lg text-color text-white font-bold text-xl button-class"
