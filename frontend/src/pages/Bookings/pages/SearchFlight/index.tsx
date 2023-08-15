@@ -9,6 +9,7 @@ import {
   clearSourceLocations,
   clearDestinationLocations,
   fetchFlights,
+  clearFlightsSearchData,
 } from '../../store/flightsSlices';
 import { useNavigate } from 'react-router-dom';
 import { FieldValues, useForm } from 'react-hook-form';
@@ -46,6 +47,10 @@ const SearchFlight = () => {
   useEffect(() => {
     dispatch(fetchLocations());
     // dispatch(fetchFlights());
+
+    return ()=>{
+      dispatch(clearFlightsSearchData())
+    }
   }, []);
 
   const navigate = useNavigate();

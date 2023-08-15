@@ -110,6 +110,9 @@ export const flightsSlices = createSlice({
     clearDestinationLocations: (state) => {
       state.searchedDestinationLocationResults = [];
     },
+    clearFlightsSearchData: (state) => {
+      state.flights = [];
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(
@@ -205,5 +208,6 @@ export const {
   searchDestinationLocations,
   clearSourceLocations,
   clearDestinationLocations,
+  clearFlightsSearchData
 } = flightsSlices.actions;
 export default flightsSlices.reducer;

@@ -1,5 +1,5 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
-import BookFlight from '../pages/Bookings/pages/BookFlight';
+import BookFlight from '../pages/Bookings/pages/BookFlightSeats';
 import SearchFlight from '../pages/Bookings/pages/SearchFlight';
 import FlightBookings from '../pages/Bookings/pages/Bookings';
 
