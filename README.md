@@ -21,7 +21,7 @@ This project is an e-commerce website that aims to provide a seamless online sho
 - Order History:
   - View past orders and their details.
 - Flight Bookings
-  - You can book your flight from source to destination along with selection of seats  
+  - You can book your flight from source to destination along with selection of seats
 
 ## Getting Started
 
@@ -37,34 +37,44 @@ This project is an e-commerce website that aims to provide a seamless online sho
    ```sh
    git clone https://github.com/ashishume/ecommerce.git
    ```
+
 2. Install frontend dependencies:
 
    ```sh
     cd frontend
     npm install
    ```
-3. Install backend dependencies:
+
+3. Create a .env.development.local and .env.production.local files in the frontend directory and configure your environment variables:
+
+   ```
+   for prod: REACT_APP_API_BASE_URL= http://prod-server-link/
+   for dev: REACT_APP_API_BASE_URL=http://localhost:3000/v1/api/
+   ```
+
+4. Install backend dependencies:
 
    ```sh
-    cd backend 
+    cd backend
     npm install
-    ```
-4. Create a .env file in the backend directory and configure your environment variables:
+   ```
 
-    ``` 
-    DB_CONNECTION_STR=mongodb://localhost/your-database-name
-    SECRET_KEY=your-secret-key 
-    ```
+5. Create a .env file in the backend directory and configure your environment variables:
 
-5. Start both the servers
+   ```
+   DB_CONNECTION_STR=mongodb://localhost/your-database-name
+   SECRET_KEY=your-secret-key
+   ```
 
-    ``` 
-    # In the frontend directory
-    npm start
+6. Start both the servers
 
-    # In the backend directory
-    npm start
+   ```
+   # In the frontend directory
+   npm start
 
-    ```
+   # In the backend directory
+   npm start
 
-    ## Note: You can find the deployed project here: https://ecommerce-frontend-five-kappa.vercel.app/
+   ```
+
+   ## Note: You can find the deployed project here: https://ecommerce-frontend-five-kappa.vercel.app/
