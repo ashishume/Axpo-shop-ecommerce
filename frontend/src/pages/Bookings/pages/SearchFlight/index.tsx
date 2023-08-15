@@ -13,7 +13,7 @@ import {
 } from '../../store/flightsSlices';
 import { useNavigate } from 'react-router-dom';
 import { FieldValues, useForm } from 'react-hook-form';
-import { IFlight, ILocation } from '../../models/flights';
+import { IFlight, IFlightSearch, ILocation } from '../../models/flights';
 import { ISearchFlights } from '../../../../models/Form';
 import FlightCardView from '../../components/FlightViewCard';
 import SpinningLoader from '../../../../components/SpinningLoader';
@@ -37,20 +37,14 @@ const SearchFlight = () => {
     location: '',
     airport: '',
   });
-  const [flightData, setflightData] = useState<{
-    destinationLocation: string;
-    fromDate: string;
-    passengerCount: string;
-    sourceLocation: string;
-  } | null>(null);
+  const [flightData, setflightData] = useState<IFlightSearch | null>(null);
 
   useEffect(() => {
     dispatch(fetchLocations());
-    // dispatch(fetchFlights());
 
-    return ()=>{
-      dispatch(clearFlightsSearchData())
-    }
+    return () => {
+      dispatch(clearFlightsSearchData());
+    };
   }, []);
 
   const navigate = useNavigate();
@@ -61,16 +55,18 @@ const SearchFlight = () => {
   } = useForm<ISearchFlights>();
   const onSubmit = async (data: FieldValues) => {
     const payload = {
-      sourceLocation: source.airport,
-      destinationLocation: destination.airport,
+      sourceAirport: source.airport,
+      destinationAirport: destination.airport,
       fromDate: data.fromDate,
-      passengerCount: data.passengerCount,
+      toDate: data.toDate ?? null,
+      passengersCount: data.passengerCount,
     };
     setflightData(payload);
     if (payload) {
       localStorage.setItem('flightBookingData', JSON.stringify(payload));
     }
-    dispatch(fetchFlights());
+
+    dispatch(fetchFlights(payload));
   };
 
   function autocompleteSourceLocation(e: React.ChangeEvent<HTMLInputElement>) {

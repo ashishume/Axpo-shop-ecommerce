@@ -65,3 +65,11 @@ export interface IBookings {
   seatId: string[];
   passengerDetails: any;
 }
+
+export interface IFlightSearch {
+  sourceAirport: string;
+  destinationAirport: string;
+  fromDate: string;
+  toDate: string;
+  passengersCount: string;
+}

@@ -1,5 +1,5 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { FlightsState } from '../models/flights';
+import { FlightsState, IFlightSearch } from '../models/flights';
 import { Axios } from '../../../services/http-service';
 import { API_PATHS } from '../../../constants/api-path';
 
@@ -26,9 +26,9 @@ export const fetchLocations = createAsyncThunk(
 );
 export const fetchFlights = createAsyncThunk(
   'bookings/fetchFlights',
-  async () => {
+  async (payload: IFlightSearch) => {
     try {
-      const response = await Axios.get(API_PATHS.FLIGHTS);
+      const response = await Axios.post(API_PATHS.FLIGHTS, payload);
       return response.data;
     } catch (e: any) {
       console.error(e.response.message);
@@ -208,6 +208,6 @@ export const {
   searchDestinationLocations,
   clearSourceLocations,
   clearDestinationLocations,
-  clearFlightsSearchData
+  clearFlightsSearchData,
 } = flightsSlices.actions;
 export default flightsSlices.reducer;

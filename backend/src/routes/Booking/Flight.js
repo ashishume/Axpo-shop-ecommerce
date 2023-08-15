@@ -39,9 +39,14 @@ router.post("/flight", async (req, res) => {
   }
 });
 
-router.get("/flights", authenticateToken, async (req, res) => {
+/**fetch flights based on from and to date */
+router.post("/flights", authenticateToken, async (req, res) => {
   try {
-    const flights = await Flight.find().select("-__v");
+    const { sourceAirport, destinationAirport, fromDate, toDate, passengersCount } = req.body;
+    const flights = await Flight.find({
+      sourceAirport,
+      destinationAirport,
+    }).select("-__v");
     res.status(201).json(flights);
   } catch (error) {
     res.status(500).json({ message: error.message });
