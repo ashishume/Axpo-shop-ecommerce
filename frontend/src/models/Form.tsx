@@ -9,5 +9,6 @@ export interface ISearchFlights {
   sourceAirport: string;
   destinationAirport: string;
   fromDate: string;
+  toDate?: string;
   passengersCount: string;
 }

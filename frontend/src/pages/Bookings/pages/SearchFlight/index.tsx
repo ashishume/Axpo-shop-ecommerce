@@ -42,15 +42,21 @@ const SearchFlight = () => {
   useEffect(() => {
     dispatch(fetchLocations());
 
-    return () => {
-      dispatch(clearFlightsSearchData());
-    };
+    const flightBookingData: string | null =
+      localStorage.getItem('flightBookingData');
+    if (flightBookingData) {
+      const parseData = JSON.parse(flightBookingData);
+      for (let key in parseData as ISearchFlights) {
+        setValue(key as any, parseData[key]);
+      }
+    }
   }, []);
 
   const navigate = useNavigate();
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<ISearchFlights>();
   const onSubmit = async (data: FieldValues) => {

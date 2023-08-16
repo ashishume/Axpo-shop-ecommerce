@@ -38,7 +38,7 @@ const FlightBookings = () => {
               passengerDetails,
             }) => {
               return (
-                <div className="bookings-container">
+                <div className="bookings-container" key={_id}>
                   <div className="flight-icon">
                     <AirplanemodeActiveIcon />
                   </div>

@@ -69,8 +69,13 @@ const BookFlight = () => {
     const flightSearchData = localStorage.getItem('flightBookingData');
     if (flightSearchData) {
       const flightData = JSON.parse(flightSearchData);
-      setPassengersCount(flightData.passengersCount);
+      setPassengersCount(parseInt(flightData.passengersCount));
     }
+
+    return () => {
+      setSeatIds([]);
+      setCounter(0);
+    };
   }, []);
 
   return (
