@@ -17,6 +17,7 @@ const FlightSearchBar = ({
   autocompleteDestinationLocation,
   handleDestinationLocationSelection,
   searchedDestinationLocationResults,
+  watch,
 }: {
   handleSubmit: (v: any) => FormEventHandler<HTMLFormElement>;
   onSubmit: (data: FieldValues) => void;
@@ -30,11 +31,16 @@ const FlightSearchBar = ({
   autocompleteDestinationLocation: (e: any) => void;
   handleDestinationLocationSelection: (e: any) => void;
   searchedDestinationLocationResults: ILocation[];
+  watch: any;
 }) => {
   const [tripStatus, setTripStatus] = useState('');
   function handleRadioChange(e: React.ChangeEvent<HTMLInputElement>) {
     setTripStatus(e.target.value);
   }
+
+  const currentDate = new Date().toISOString().split('T')[0];
+  const selectedFromDate = watch('fromDate'); // Get the selected fromDate value
+
   const inputStyle = 'input-field-content';
   return (
     <div className="search-flight-content">
@@ -114,6 +120,7 @@ const FlightSearchBar = ({
             {...register('fromDate', {
               required: true,
             })}
+            min={currentDate}
             className={inputStyle}
           />
           {errors.fromDate && (
@@ -130,6 +137,7 @@ const FlightSearchBar = ({
                 required: true,
               })}
               className={inputStyle}
+              min={selectedFromDate}
             />
             {errors.fromDate && (
               <div className="error-message">Please enter a date</div>

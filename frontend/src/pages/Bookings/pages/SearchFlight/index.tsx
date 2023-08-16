@@ -57,6 +57,7 @@ const SearchFlight = () => {
     register,
     handleSubmit,
     setValue,
+    watch,
     formState: { errors },
   } = useForm<ISearchFlights>();
   const onSubmit = async (data: FieldValues) => {
@@ -146,6 +147,7 @@ const SearchFlight = () => {
           searchedDestinationLocationResults={
             searchedDestinationLocationResults
           }
+          watch={watch}
         />
 
         <div className="flights-data-container">

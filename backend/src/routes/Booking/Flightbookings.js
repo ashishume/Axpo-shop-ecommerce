@@ -56,6 +56,7 @@ router.get("/flights/bookings/:userId", authenticateToken, async (req, res) => {
     })
       .populate("flight")
       .populate("user")
+      .sort({ fromDate: -1 })
       .select("-__v")
       .exec();
     res.status(201).json(bookings);
