@@ -28,7 +28,6 @@ This project is an e-commerce website that aims to provide a seamless online sho
 ### Prerequisites
 
 - Node.js and npm: Make sure you have Node.js and npm installed. You can download them from https://nodejs.org/.
-- MongoDB: Install and set up MongoDB. You can download it from https://www.mongodb.com/try/download/community.
 
 ### Installation
 
