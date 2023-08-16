@@ -37,7 +37,11 @@ This project is an e-commerce website that aims to provide a seamless online sho
    ```sh
    git clone https://github.com/ashishume/ecommerce.git
    ```
-
+2. Install the main dependencies in the root folder:
+  
+    ```
+    npm install
+    ```
 2. Install frontend dependencies:
 
    ```sh
@@ -66,15 +70,11 @@ This project is an e-commerce website that aims to provide a seamless online sho
    SECRET_KEY=your-secret-key
    ```
 
-6. Start both the servers
+6. Start both the servers 
 
    ```
-   # In the frontend directory
+   # In the root directory
    npm start
-
-   # In the backend directory
-   npm start
-
    ```
 
    ## Note: You can find the deployed project here: https://ecommerce-frontend-five-kappa.vercel.app/
