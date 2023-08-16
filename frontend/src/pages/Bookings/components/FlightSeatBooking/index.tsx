@@ -8,13 +8,13 @@ const FlightSeatBooking = ({
   seats,
   addSeatsForBooking,
   seatIds,
-  passengerCount,
+  passengersCount,
   counter,
 }: {
   seats: ISeats | null;
   addSeatsForBooking: (column: IColumn) => void;
   seatIds: string[];
-  passengerCount: number;
+  passengersCount: number;
   counter: number;
 }) => {
   const [errorMessage, setErrorMessage] = useState('');
@@ -22,10 +22,10 @@ const FlightSeatBooking = ({
   function showErrorMessage(
     isBooked: boolean,
     counter: number,
-    passengerCount: number
+    passengersCount: number
   ) {
     if (isBooked) setErrorMessage('This seat is already booked');
-    else if (counter >= passengerCount)
+    else if (counter >= passengersCount)
       setErrorMessage('Max seat booking limit reached');
 
     setTimeout(() => {
@@ -65,12 +65,12 @@ const FlightSeatBooking = ({
                         seatIds.includes(column.seatId) ? ' selected-seats' : ''
                       }`}
                       onClick={() =>
-                        !column.isBooked && counter < passengerCount
+                        !column.isBooked && counter < passengersCount
                           ? addSeatsForBooking(column)
                           : showErrorMessage(
                               column.isBooked,
                               counter,
-                              passengerCount
+                              passengersCount
                             )
                       }
                     >

@@ -139,15 +139,15 @@ const FlightSearchBar = ({
         <div className="mt-2 input-container">
           <label className="input-label">No. of passengers</label>
           <input
-            id="passengerCount"
+            id="passengersCount"
             type="number"
             min="0"
-            {...register('passengerCount', {
+            {...register('passengersCount', {
               required: true,
             })}
             className={inputStyle}
           />
-          {errors.passengerCount && (
+          {errors.passengersCount && (
             <div className="error-message">
               Please enter number of passengers
             </div>

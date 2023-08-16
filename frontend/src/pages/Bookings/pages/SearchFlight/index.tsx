@@ -59,7 +59,7 @@ const SearchFlight = () => {
       destinationAirport: destination.airport,
       fromDate: data.fromDate,
       toDate: data.toDate ?? null,
-      passengersCount: data.passengerCount,
+      passengersCount: data.passengersCount,
     };
     setflightData(payload);
     if (payload) {

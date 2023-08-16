@@ -15,7 +15,7 @@ const BookFlight = () => {
   const params = useParams();
 
   const [seatIds, setSeatIds] = useState<any>([]);
-  const [passengerCount, setPassengerCount] = useState(0);
+  const [passengersCount, setPassengersCount] = useState(0);
   const [counter, setCounter] = useState(0);
 
   function addSeatsForBooking(column: any) {
@@ -26,6 +26,7 @@ const BookFlight = () => {
 
   function clearSelectedSeats(column: any) {
     setSeatIds([]);
+    setCounter(0);
   }
 
   async function confirmSeatsBooking() {
@@ -68,7 +69,7 @@ const BookFlight = () => {
     const flightSearchData = localStorage.getItem('flightBookingData');
     if (flightSearchData) {
       const flightData = JSON.parse(flightSearchData);
-      setPassengerCount(flightData.passengerCount);
+      setPassengersCount(flightData.passengersCount);
     }
   }, []);
 
@@ -99,7 +100,7 @@ const BookFlight = () => {
           <FlightSeatBooking
             seatIds={[].concat(...seatIds)}
             seats={seats}
-            passengerCount={passengerCount}
+            passengersCount={passengersCount}
             counter={counter}
             addSeatsForBooking={addSeatsForBooking}
           />
