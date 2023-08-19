@@ -47,7 +47,7 @@ const BookFlight = () => {
       };
       await dispatch(bookFlightSeat(payload));
       await fetchSeatsStructure(params);
-
+      await localStorage.removeItem('flightBookingData');
       await navigate('/bookings/my-bookings');
     }
   }
