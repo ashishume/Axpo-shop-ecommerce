@@ -50,6 +50,11 @@ const SearchFlight = () => {
         setValue(key as any, parseData[key]);
       }
     }
+
+    return () => {
+      dispatch(clearFlightsSearchData());
+      localStorage.removeItem('flightBookingData');
+    };
   }, []);
 
   const navigate = useNavigate();
