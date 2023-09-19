@@ -53,7 +53,6 @@ const SearchFlight = () => {
 
     return () => {
       dispatch(clearFlightsSearchData());
-      localStorage.removeItem('flightBookingData');
     };
   }, []);
 
