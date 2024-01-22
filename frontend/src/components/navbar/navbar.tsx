@@ -6,26 +6,31 @@ import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import Person2OutlinedIcon from '@mui/icons-material/Person2Outlined';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import FlightIcon from '@mui/icons-material/Flight';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Axios } from '../../services/http-service';
 import React, { useEffect, useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { clearState, searchProducts } from '../../store/slices/productSlice';
 import MenuIcon from '@mui/icons-material/Menu';
 import LuggageIcon from '@mui/icons-material/Luggage';
+import useDebounce from '../../Utils/useDebounce';
 const Navbar = ({
   searchValue = '',
   isFocused = false,
+  ...rest
 }: {
   searchValue: string;
   isFocused: boolean;
 }) => {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
   const dispatch = useAppDispatch();
   const { cart } = useAppSelector((state) => state.cartSlice);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [focused, setFocus] = useState(false);
   const [isMenuVisible, showMenu] = useState(false);
+  const [inputValue, setInputValue] = useState('');
+  const debouncedInputValue = useDebounce(inputValue, 300);
   async function logOutUser() {
     const response = await Axios.post('/logout');
     if (response.status === 200) {
@@ -34,38 +39,25 @@ const Navbar = ({
     }
   }
 
-  /** TODO: will use this method for auto suggestions */
-  // function handleInputChange() {
-  // if (inputRef?.current) {
-  // const value = inputRef?.current?.value;
-  // dispatch(searchProducts(value));
-  // navigate(`/search?searchValue=${value}`);
-  // }
-  // }
-
-  function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
-    setFocus(true);
-    if (event.key === 'Enter') {
-      onSearch();
-    }
-  }
-  function onSearch() {
-    const value = inputRef?.current?.value;
-    dispatch(searchProducts(value as any));
-    navigate(`/search?searchValue=${value}`);
-  }
-
   useEffect(() => {
-    if (inputRef?.current) {
-      inputRef.current.value = searchValue;
-      if (searchValue?.length) {
-        dispatch(searchProducts(searchValue));
-      }
-    }
-    if (isFocused) {
+    if (pathname.split('/').includes('search')) {
       inputRef.current?.focus();
     }
-  }, [inputRef?.current?.value, isFocused]);
+  }, []);
+
+  useEffect(() => {
+    if (debouncedInputValue) {
+      dispatch(searchProducts(debouncedInputValue));
+    }
+  }, [debouncedInputValue]);
+
+  function handleInputChange(e: any) {
+    setInputValue(e.target.value);
+  }
+
+  function navigateToSearchPage() {
+    navigate(`/search?searchValue=${inputValue}`);
+  }
 
   return (
     <div className="navbar-container">
@@ -94,7 +86,10 @@ const Navbar = ({
             <FlightIcon />
             Bookings
           </li>
-          <li className="icon-left" onClick={() => navigate('/bookings/my-bookings')}>
+          <li
+            className="icon-left"
+            onClick={() => navigate('/bookings/my-bookings')}
+          >
             <LuggageIcon />
             My trips
           </li>
@@ -112,12 +107,12 @@ const Navbar = ({
             >
               <input
                 className="search-input-field"
+                onChange={handleInputChange}
                 ref={inputRef}
-                onKeyDown={handleKeyDown}
-                // onChange={debounce(handleInputChange, 400)}
+                onClick={navigateToSearchPage}
                 placeholder="Search products..."
               />
-              <span onClick={onSearch}>
+              <span>
                 <SearchOutlinedIcon />
               </span>
             </div>
