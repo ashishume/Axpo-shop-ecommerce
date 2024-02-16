@@ -1,10 +1,4 @@
-import {
-  BrowserRouter,
-  Navigate,
-  Route,
-  Routes,
-  useNavigate,
-} from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import Login from '../components/Auth/login';
 import App from '../App';
 import Signup from '../components/Auth/signup';
@@ -20,6 +14,9 @@ import Orders from '../pages/Orders';
 import { useEffect, useState } from 'react';
 import { Axios } from '../services/http-service';
 import BookingRoutePaths from './bookings-routes';
+import React from 'react';
+
+export const IsLoggedIn = React.createContext<boolean | null>(false);
 
 const RoutePaths = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
@@ -38,90 +35,38 @@ const RoutePaths = () => {
   }, []);
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route
-          path="/login"
-          element={<Login setIsLoggedIn={setIsLoggedIn} />}
-        />
-        <Route path="/signup" element={<Signup />} />
-        <Route
-          path="/"
-          element={
-            <PrivateRoute isLoggedIn={isLoggedIn}>
-              <App />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/products"
-          element={
-            <PrivateRoute isLoggedIn={isLoggedIn}>
-              <Products />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/search"
-          element={
-            <PrivateRoute isLoggedIn={isLoggedIn}>
-              <Search />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/cart"
-          element={
-            <PrivateRoute isLoggedIn={isLoggedIn}>
-              <Cart />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/categories"
-          element={
-            <PrivateRoute isLoggedIn={isLoggedIn}>
-              <Layout>
-                <CategoryList />
-              </Layout>
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/categories/:categoryName/:categoryId"
-          element={
-            <PrivateRoute isLoggedIn={isLoggedIn}>
-              <CategoryItems />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/product/:title/:productId"
-          element={
-            <PrivateRoute isLoggedIn={isLoggedIn}>
-              <Product />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/my-orders"
-          element={
-            <PrivateRoute isLoggedIn={isLoggedIn}>
-              <Orders />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/bookings/*"
-          element={
-            <PrivateRoute isLoggedIn={isLoggedIn}>
-              <BookingRoutePaths />
-            </PrivateRoute>
-          }
-        />
-        <Route path="*" element={<Navigate to="/" />} />
-      </Routes>
-    </BrowserRouter>
+    <IsLoggedIn.Provider value={isLoggedIn}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<PrivateRoute />}>
+            <Route
+              path="/login"
+              element={<Login setIsLoggedIn={setIsLoggedIn} />}
+            />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/" element={<App />} />
+            <Route path="/products" element={<Products />} />
+            <Route path="/search" element={<Search />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route
+              path="/categories"
+              element={
+                <Layout>
+                  <CategoryList />
+                </Layout>
+              }
+            />
+            <Route
+              path="/categories/:categoryName/:categoryId"
+              element={<CategoryItems />}
+            />
+            <Route path="/product/:title/:productId" element={<Product />} />
+            <Route path="/my-orders" element={<Orders />} />
+            <Route path="/bookings/*" element={<BookingRoutePaths />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </IsLoggedIn.Provider>
   );
 };
 
