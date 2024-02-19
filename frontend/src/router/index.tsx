@@ -38,12 +38,14 @@ const RoutePaths = () => {
     <IsLoggedIn.Provider value={isLoggedIn}>
       <BrowserRouter>
         <Routes>
+          <Route
+            path="/login"
+            element={<Login setIsLoggedIn={setIsLoggedIn} />}
+          />
+          <Route path="/signup" element={<Signup />} />
+
+          {/* private routes */}
           <Route path="/" element={<PrivateRoute />}>
-            <Route
-              path="/login"
-              element={<Login setIsLoggedIn={setIsLoggedIn} />}
-            />
-            <Route path="/signup" element={<Signup />} />
             <Route path="/" element={<App />} />
             <Route path="/products" element={<Products />} />
             <Route path="/search" element={<Search />} />
