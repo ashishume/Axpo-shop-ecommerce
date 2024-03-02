@@ -20,6 +20,10 @@ app.use(
     credentials: true,
   })
 );
+
+app.get("/", (req, res) => {
+  res.send("Welcome to Axpo shop");
+});
 //define all the routes index
 app.use(routes);
 app.use(swaggerDoc);
