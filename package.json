@@ -4,7 +4,7 @@
   "description": "Welcome to our E-Commerce Website project! This project is built using React.js for the frontend, Node.js for the backend, and MongoDB for the database.",
   "main": "index.js",
   "scripts": {
-    "start": "concurrently \"cd backend && npm start\" \"cd frontend && npm start\"",
+    "start": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm start\"",
     "backend": "",
     "frontend": ""
   },
