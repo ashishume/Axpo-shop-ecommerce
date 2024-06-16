@@ -75,3 +75,13 @@ This project is an e-commerce website that aims to provide a seamless online sho
    # In the root directory
    npm start
    ```
+
+- Screenshots  
+![image](https://github.com/ashishume/Axpo-shop-ecommerce/assets/21136600/ea88ffdd-f700-4610-8308-e36403295931)
+![image](https://github.com/ashishume/Axpo-shop-ecommerce/assets/21136600/d1234945-bcb6-4485-beb8-7b45d0344ff5)
+![image](https://github.com/ashishume/Axpo-shop-ecommerce/assets/21136600/0c3958ce-9803-46a7-89d9-b219d70cc531)
+![image](https://github.com/ashishume/Axpo-shop-ecommerce/assets/21136600/dfa32c02-5def-4eac-9f0f-1db40991a37f)
+![image](https://github.com/ashishume/Axpo-shop-ecommerce/assets/21136600/fb17698d-f489-451f-90c4-9eb18ecd731a)
+![image](https://github.com/ashishume/Axpo-shop-ecommerce/assets/21136600/9f3fe87d-f228-4a8b-bbba-8172c5921e37)
+![image](https://github.com/ashishume/Axpo-shop-ecommerce/assets/21136600/9813db47-adf2-4f32-83ff-cffb31608fa1)
+
